@@ -1,0 +1,55 @@
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: #fffbe6;
+    color: #333;
+    padding: 2rem;
+    max-width: 600px;
+    margin: auto;
+}
+
+h1 {
+    color: #f4b400;
+    text-align: center;
+}
+
+label, input {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+input {
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Highlight user-input fields */
+input:not([readonly]) {
+    background-color: #fff;
+    border: 2px solid #f4b400;
+    box-shadow: 0 0 4px rgba(244, 180, 0, 0.3);
+}
+
+/* Improve label readability */
+label {
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+button {
+    background-color: #f4b400;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    width: 100%;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.results {
+    margin-top: 2rem;
+    background-color: #fff9c4;
+    padding: 1rem;
+    border-radius: 8px;
+}

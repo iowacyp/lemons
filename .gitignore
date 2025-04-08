@@ -1,0 +1,7 @@
+.DS_Store
+.nvm/
+.python_history
+Library/
+.Trash/
+node_modules/
+*.log

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loan Agreement</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Loan Agreement</h1>
+    <p class="subtitle">Plan your startup loan and repayment</p>
+
+    <input type="text" placeholder="Your Name" id="borrower" />
+    <input type="text" placeholder="Lender's Name" id="lender" />
+    <input type="number" placeholder="Loan Amount $" id="amount" />
+    <textarea placeholder="What will you use the loan for?" id="purpose" rows="2"></textarea>
+    <input type="text" placeholder="Repayment Plan (e.g., $1 per day)" id="plan" />
+    <input type="number" placeholder="Interest Rate (%)" id="interest" />
+    <input type="date" placeholder="Repayment Deadline" id="deadline" />
+
+    <button onclick="generateAgreement()">📄 Generate Agreement</button>
+
+    <div id="agreement" class="devotional-text" style="margin-top: 2rem;"></div>
+
+    <div class="nav-bar">
+      <button onclick="window.location.href='calculator.html'">←</button>
+      <button onclick="window.location.href='marketing.html'">→</button>
+    </div>
+  </div>
+
+  <script>
+    function generateAgreement() {
+      const borrower = document.getElementById("borrower").value;
+      const lender = document.getElementById("lender").value;
+      const amount = document.getElementById("amount").value;
+      const purpose = document.getElementById("purpose").value;
+      const plan = document.getElementById("plan").value;
+      const interest = document.getElementById("interest").value;
+      const deadline = document.getElementById("deadline").value;
+
+      const html = `
+        <h2>Loan Agreement</h2>
+        <p><strong>Borrower:</strong> ${borrower}</p>
+        <p><strong>Lender:</strong> ${lender}</p>
+        <p><strong>Loan Amount:</strong> $${amount}</p>
+        <p><strong>Purpose:</strong> ${purpose}</p>
+        <p><strong>Repayment Plan:</strong> ${plan}</p>
+        <p><strong>Interest Rate:</strong> ${interest}%</p>
+        <p><strong>Repayment Deadline:</strong> ${deadline}</p>
+        <p><em>I agree to borrow and repay this loan honestly and on time.</em></p>
+      `;
+
+      document.getElementById("agreement").innerHTML = html;
+    }
+  </script>
+</body>
+</html>

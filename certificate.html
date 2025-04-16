@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lemonade Boss Certificate</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .certificate {
+      border: 5px solid var(--accent, #f4b400);
+      padding: 2rem;
+      background: #fff;
+      color: #000;
+      font-family: 'Georgia', serif;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .certificate h1 {
+      font-size: 2rem;
+      color: var(--accent, #f4b400);
+    }
+    .certificate p {
+      font-size: 1.2rem;
+    }
+    .certificate strong {
+      font-size: 1.5rem;
+      display: block;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  
+<div id="menuButtonContainer">
+  <a href="dashboard.html" id="menuButton" aria-label="Go to Menu">☰</a>
+</div>
+
+  <div class="container">
+    <h1 class="title">🎓 Certificate Generator</h1>
+    <p class="subtitle">Celebrate your hard work!</p>
+
+    <input type="text" id="nameInput" placeholder="Enter your name" />
+    <button onclick="generateCertificate()">🎉 Create Certificate</button>
+
+    <div id="certificateOutput" class="certificate" style="display: none;"></div>
+<div class="nav-bar">
+  <button onclick="window.location.href='report.html'">←</button>
+  <button onclick="window.location.href='index.html'">🏁</button>
+</div>
+</body>
+</html>

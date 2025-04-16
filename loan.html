@@ -4,28 +4,36 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Loan Agreement</title>
+  <!-- Font Awesome must come first for icons to render correctly -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-papuvh1i5p91lU6pRf6QUw3bF7MCZX0V8L6gRO9hvFBIvSkaXgK3mvM9H5QyEBkQglHJe7GfNzOa3HtYkmdv6g==" crossorigin="anonymous" referrerpolicy="no-referrer" rel="preload" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="container">
-    <h1 class="title">Loan Agreement</h1>
-    <p class="subtitle">Plan your startup loan and repayment</p>
+    <div class="app-container">
+      <div id="menuButtonContainer">
+        <a href="dashboard.html" id="menuButton" aria-label="Back to Menu">☰</a>
+      </div>
+      <h1 class="title">Loan Agreement</h1>
+      <p class="subtitle">Plan your startup loan and repayment</p>
 
-    <input type="text" placeholder="Your Name" id="borrower" />
-    <input type="text" placeholder="Lender's Name" id="lender" />
-    <input type="number" placeholder="Loan Amount $" id="amount" />
-    <textarea placeholder="What will you use the loan for?" id="purpose" rows="2"></textarea>
-    <input type="text" placeholder="Repayment Plan (e.g., $1 per day)" id="plan" />
-    <input type="number" placeholder="Interest Rate (%)" id="interest" />
-    <input type="date" placeholder="Repayment Deadline" id="deadline" />
+      <input type="text" placeholder="Your Name" id="borrower" />
+      <input type="text" placeholder="Lender's Name" id="lender" />
+      <input type="number" placeholder="Loan Amount $" id="amount" />
+      <textarea placeholder="What will you use the loan for?" id="purpose" rows="2"></textarea>
+      <input type="text" placeholder="Repayment Plan (e.g., $1 per day)" id="plan" />
+      <input type="number" placeholder="Interest Rate (%)" id="interest" />
+      <input type="date" placeholder="Repayment Deadline" id="deadline" />
 
-    <button onclick="generateAgreement()">📄 Generate Agreement</button>
+        <div id="agreement" class="devotional-text" style="margin-top: 2rem;"></div>
 
-    <div id="agreement" class="devotional-text" style="margin-top: 2rem;"></div>
-
-    <div class="nav-bar">
-      <button onclick="window.location.href='calculator.html'">←</button>
-      <button onclick="window.location.href='marketing.html'">→</button>
+      <div class="nav-bar">
+        <button onclick="window.location.href='calculator.html'">←</button>
+        <button id="downloadReport" type="button">
+          <img src="download.png" alt="Download" width="24" height="24" />
+        </button>
+        <button onclick="window.location.href='marketing.html'">→</button>
+      </div>
     </div>
   </div>
 

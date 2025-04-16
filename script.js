@@ -176,6 +176,14 @@ function generateFinalReportPDF() {
   doc.save('lemonade-boss-certificate.pdf');
 }
 
+/**
+ * Alias for certificate creation button
+ */
+function generateCertificate() {
+  // Call the existing PDF generation logic
+  generateFinalReportPDF();
+}
+
 function attachListeners(row) {
   row.querySelector('.quantity').addEventListener('change', updateTotals);
   row.querySelector('.cost-each').addEventListener('input', updateTotals);

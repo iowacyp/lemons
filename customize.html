@@ -8,6 +8,10 @@
 </head>
 <body>
   <div class="container">
+    <div class="app-container">
+    <div id="menuButtonContainer">
+      <a href="dashboard.html" id="menuButton" aria-label="Back to Menu">☰</a>
+    </div>
     <h1 class="title">Create Your Stand</h1>
     <p class="subtitle">Dream it. Name it. Launch it.</p>
 
@@ -26,8 +30,12 @@
 
     <div class="nav-bar">
       <button onclick="window.location.href='entrepreneur.html'">←</button>
-      <button onclick="window.location.href='calculator.html'">Next →</button>
+      <button id="downloadReport" type="button">
+        <img src="download.png" alt="Download" width="24" height="24" />
+      </button>
+      <button onclick="window.location.href='calculator.html'">→</button>
     </div>
+  </div>
   </div>
 </body>
 </html>

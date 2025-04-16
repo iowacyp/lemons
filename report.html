@@ -8,33 +8,35 @@
 </head>
 <body>
   <div class="container">
-    <div id="menuButtonContainer">
-        <a href="index.html" id="menuButton" aria-label="Back to Menu">☰</a>
+    <div class="app-container">
+      <div id="menuButtonContainer">
+        <a href="dashboard.html" id="menuButton" aria-label="Back to Menu">☰</a>
       </div>
-    <h1>📊 Final Report</h1>
-    <p>Let’s look back at how awesome your lemonade stand was!</p>
+      <h1>📊 Final Report</h1>
+      <p>Let’s look back at how awesome your lemonade stand was!</p>
 
-    <h2>💰 Sales & Profit Summary</h2>
-    <label>Total Sales: $<input type="number" placeholder="0.00" /></label><br><br>
-    <label>Total Expenses: $<input type="number" placeholder="0.00" /></label><br><br>
-    <label>Total Profit: $<input type="number" placeholder="0.00" /></label>
+      <h2>💰 Sales & Profit Summary</h2>
+      <label>Total Sales: $<input type="number" placeholder="0.00" /></label><br><br>
+      <label>Total Expenses: $<input type="number" placeholder="0.00" /></label><br><br>
+      <label>Total Profit: $<input type="number" placeholder="0.00" /></label>
 
-    <h2>🌟 Favorite Moment</h2>
-    <textarea rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;" placeholder="What was the best part of the day?"></textarea>
+      <h2>🌟 Favorite Moment</h2>
+      <textarea rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;" placeholder="What was the best part of the day?"></textarea>
 
-    <h2>🏆 What I’m Most Proud Of</h2>
-    <textarea rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;" placeholder="Something amazing you did or learned..."></textarea>
-    
-    <button style="margin-top: 2rem;" onclick="generateFinalReportPDF()">📜 Download Certificate</button>
+      <h2>🏆 What I’m Most Proud Of</h2>
+      <textarea rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;" placeholder="Something amazing you did or learned..."></textarea>
+      
+      <div class="nav-bar">
+        <button onclick="window.location.href='journal.html'">←</button>
+        <button id="downloadReport" type="button">
+          <img src="download.png" alt="Download" width="24" height="24" />
+        </button>
+        <button onclick="window.location.href='certificate.html'">→</button>
+      </div>
+    </div>
   </div>
-  
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="script.js"></script>
-</body>
-</html>
-<div class="nav-bar">
-  <button onclick="window.location.href='journal.html'">←</button>
-  <button onclick="window.location.href='certificate.html'">→</button>
-</div>
 </body>
 </html>

@@ -30,22 +30,48 @@
   </style>
 </head>
 <body>
-  
-<div id="menuButtonContainer">
-  <a href="dashboard.html" id="menuButton" aria-label="Go to Menu">☰</a>
-</div>
-
   <div class="container">
-    <h1 class="title">🎓 Certificate Generator</h1>
-    <p class="subtitle">Celebrate your hard work!</p>
+    <div class="app-container">
+    <div id="menuButtonContainer">
+      <a href="dashboard.html" id="menuButton" aria-label="Go to Menu">☰</a>
+    </div>
+      <h1 class="title">🎓 Certificate Generator</h1>
+      <p class="subtitle">Celebrate your hard work!</p>
 
-    <input type="text" id="nameInput" placeholder="Enter your name" />
-    <button onclick="generateCertificate()">🎉 Create Certificate</button>
+      <input type="text" id="nameInput" placeholder="Enter your name" />
+      <button onclick="generateCertificate()">🎉 Create Certificate</button>
 
-    <div id="certificateOutput" class="certificate" style="display: none;"></div>
-<div class="nav-bar">
-  <button onclick="window.location.href='report.html'">←</button>
-  <button onclick="window.location.href='index.html'">🏁</button>
-</div>
+      <div id="certificateOutput" class="certificate" style="display: none;"></div>
+      <div class="nav-bar">
+        <button onclick="window.location.href='report.html'">←</button>
+        <button onclick="window.location.href='index.html'">🏁</button>
+      </div>
+    </div>
+  </div> <!-- close .app-container -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    async function generateCertificate() {
+      const { jsPDF } = window.jspdf;
+      const name = document.getElementById('nameInput').value.trim() || "Your Name";
+
+      const doc = new jsPDF({
+        orientation: 'landscape',
+        unit: 'px',
+        format: [792, 612]
+      });
+
+      const img = new Image();
+      img.src = 'LemonsCert.jpg';
+
+      img.onload = () => {
+        doc.addImage(img, 'JPEG', 0, 0, 792, 612);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(42);
+        doc.setTextColor('#242754');
+        doc.text(name, 410, 325, { align: 'center' });
+        doc.save(`Lemonade_Boss_Certificate_${name}.pdf`);
+      };
+    }
+  </script>
 </body>
 </html>

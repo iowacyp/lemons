@@ -1,53 +1,48 @@
-/* Ensure consistent box sizing across all elements */
-*, *::before, *::after {
-  box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
+
+/* =====================
+   Global Settings for Buttons and Inputs
+====================== */
+
+/* Utility Class for Hidden Elements */
+.hidden {
+  display: none;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
-
-body {
-  font-family: 'Fredoka', sans-serif;
-  background-color: #fffbe6;
-  color: #333;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.container {
-  width: 100%;
-  max-width: 480px;
-  padding: 2rem;
-  background-color: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-/* Dashboard */
+/* =====================
+   Header and Layout Adjustments
+====================== */
 h1 {
   color: #f4b400;
-  font-size: 2.2rem;
-  margin-bottom: 0.5rem;
+  font-size: 2.4rem;
+  margin-top: 1.5rem;  /* Add space at the top */
+  margin-bottom: 0.5rem;  /* Reduce space below the title */
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #555;
+  margin-top: 0.5rem;  /* Add space above subtitle */
+  margin-bottom: 1rem;  /* Add space below subtitle */
+  line-height: 1.6;  /* Ensure consistent line spacing */
 }
 
 p {
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: #555;
+  line-height: 1.6;
+  margin-bottom: 1.5rem; /* Increase space below paragraphs */
 }
 
-.dashboard-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 2rem;
+ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;  /* Add space between list and other content */
+  line-height: 1.6;
 }
 
-.btn {
+/* Universal Button Styles */
+button, .btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,21 +55,169 @@ p {
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.2s, transform 0.2s;
+  border: none;
+  width: 100%; /* Ensure buttons take full width of their container */
+  margin-bottom: 1rem; /* Add space between buttons */
+  box-sizing: border-box; /* Ensure padding does not affect width */
 }
 
-.btn:hover {
+button:hover, .btn:hover {
   background-color: #d89e00;
-  transform: scale(1.02);
+  transform: scale(1.05);
 }
 
-.quote {
-  margin-top: 2rem;
-  font-style: italic;
-  color: #4d7c8a;
+button i, .btn i {
+  font-size: 1.5rem;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+/* =====================
+   Universal Input Field Styles
+====================== */
+input,
+select,
+textarea {
+  display: block;
+  width: 100%;
+  margin-top: 0.4rem;  /* Consistent margin at the top */
+  margin-bottom: 1.2rem;  /* Consistent margin at the bottom */
+  padding: 0.75rem;
   font-size: 1rem;
+  border: 2px solid #f4b400;  /* Use consistent border color */
+  border-radius: 8px;  /* Rounded corners for all inputs */
+  box-shadow: 0 1px 4px rgba(244, 180, 0, 0.2);  /* Light shadow for depth */
+  box-sizing: border-box; /* Ensure padding does not affect width */
+  font-family: 'Baloo 2', cursive, sans-serif; /* Ensure inputs inherit the font */
 }
 
-/* Fixed Menu Button */
+input::placeholder,
+textarea::placeholder {
+  font-family: inherit;
+  color: #bbb;  /* Lighter gray for placeholder text */
+  font-size: 0.9rem;  /* Smaller font size for placeholders */
+  opacity: 1;  /* Full opacity for placeholder text */
+}
+
+/* =====================
+   Checkbox Styling
+====================== */
+input[type="checkbox"] {
+  accent-color: #f4b400;  /* Set the color of the checkbox when selected */
+  outline: none;  /* Remove default outline */
+  box-shadow: none;  /* Remove any existing shadow */
+  max-width: 25px;  /* Adjust the size of the checkbox */
+  width: 25px;  /* Ensure consistent width for the checkbox */
+  height: 25px;  /* Set a fixed height for the checkbox */
+  cursor: pointer;  /* Make it clear that it's clickable */
+}
+
+/* Add a custom style on hover or focus for accessibility */
+input[type="checkbox"]:hover,
+input[type="checkbox"]:focus {
+  transform: scale(1.1);  /* Slightly enlarge when focused/hovered */
+  transition: transform 0.2s ease-in-out;  /* Smooth transition */
+}
+
+/* Label and Checkbox Alignment */
+label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;  /* Space between checkbox and label text */
+  margin-bottom: 1rem;  /* Space between each checkbox option */
+  font-size: 1.1rem;
+  text-align: left;
+}
+
+.checkbox-container {
+  display: flex;
+  flex-direction: column;  /* Stack items vertically */
+  gap: 1rem;  /* Adds space between checkbox options */
+  width: 100%;
+}
+
+/* Input field (Other) styling */
+input[type="text"] {
+  display: block;
+  width: 100%;  /* Ensure it takes full width */
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #f4b400;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(244, 180, 0, 0.2);
+  margin-top: 0.5rem;  /* Adds space between checkbox and input */
+  margin-bottom: 1.5rem;  /* Adds space below the input field */
+}
+
+/* =====================
+   Focus State for Inputs
+====================== */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #d89e00;  /* Change border color on focus */
+  box-shadow: 0 0 6px rgba(244, 180, 0, 0.5);  /* Add glow effect on focus */
+}
+
+/* =====================
+   Centering and Layout
+====================== */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;  /* Adds space between form elements */
+  width: 100%;
+  max-width: 100%;  /* Adjust container width to prevent crowding */
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+body {
+  font-family: 'Baloo 2', cursive, sans-serif; /* or whatever you're using */
+  background: linear-gradient(135deg, #fffbe6, #fff3c0);  /* Restore gradient */
+  color: #333;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;  /* Center horizontally */
+  align-items: center;      /* Center vertically */
+  text-align: center;       /* Center text */
+}
+
+/* =====================
+   Navigation Bar (Circular Buttons)
+====================== */
+.nav-bar {
+  display: flex;
+  justify-content: space-around;  /* Space out buttons evenly */
+  gap: 2rem;  /* Space between the buttons */
+}
+
+.nav-bar button {
+  background-color: white;
+  color: #f4b400;
+  border-radius: 10%;
+  font-size: 1.4rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 0.4rem 0.4rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8rem;  /* Ensure width and height are the same for circle */
+  height: 2.4rem;   /* Equal height and width for perfect circle */
+}
+
+.nav-bar button:hover {
+  background-color: #d89e00;
+  transform: scale(1.05);
+}
+
+/* =====================
+   Fixed Menu Button (Reappears)
+====================== */
 #menuButtonContainer {
   position: fixed;
   top: 1rem;
@@ -85,130 +228,118 @@ p {
 #menuButton {
   background-color: white;
   color: #f4b400;
-  border-radius: 50%;
-  font-size: 1.6rem;
+  border-radius: 10%;
+  font-size: 1.4rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  padding: 0.4rem 0.6rem;
+  padding: 0.4rem 0.4rem;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;  /* Ensure width and height are the same for circle */
+  height: 1.4rem;  /* Equal height and width for perfect circle */
 }
 
-/* Checklist */
-.container label {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: start;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
-  font-weight: normal;
-  text-align: left;
-  line-height: 1.4;
+/* =====================
+   Marketing Plan Layout Adjustments
+====================== */
+
+/* Checkbox and Input Field Alignment */
+/* =====================
+   Upload Page Styles
+====================== */
+.upload-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.container label input[type="checkbox"] {
-  margin-top: 0.2rem;
-  transform: scale(1.2);
-  flex-shrink: 0;
-}
-
-/* Calculator and Forms */
-.item-row {
+.upload-section {
   margin-bottom: 2rem;
-  background-color: #fefae0;
-  padding: 2rem 1.5rem;
-  border-radius: 10px;
-  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.05);
 }
 
-input,
-select,
-textarea {
+.upload-section h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 0.75rem;
+}
+
+.custom-file-input {
   display: block;
   width: 100%;
-  margin-top: 0.4rem;
-  margin-bottom: 1.4rem;
-  padding: 0.75rem;
-  font-size: 1rem;
-  border: 2px solid #f4b400;
+  padding: 1rem;
+  text-align: center;
+  border: 2px dashed #f4b400;
   border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(244, 180, 0, 0.2);
+  cursor: pointer;
+  transition: border-color 0.2s ease-in-out;
+  background-color: #fafafa;
+  margin-bottom: 1rem;
 }
 
-.results {
-  margin: 2.5rem 0;
-  background-color: #fff9c4;
-  padding: 2rem 1.5rem;
-  border-radius: 8px;
+.custom-file-input:hover {
+  border-color: #d89e00;
 }
 
-h2 {
-  color: #4d7c8a;
-  margin: 2.5rem 0 1rem;
-  font-size: 1.4rem;
-}
-
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 0.3rem;
-}
-
-.subtitle {
+.file-preview {
   font-size: 1.1rem;
-  color: #777;
-  margin-top: 0.5rem;
-  margin-bottom: 2rem;
+  color: #555;
+  margin-top: 1rem;
 }
 
+.upload-button {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  background-color: #f4b400;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  margin-bottom: 1rem;
+}
+
+.upload-button:hover {
+  background-color: #d89e00;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .upload-container {
+    margin: 1rem;
+    padding: 0.5rem;
+  }
+  .upload-section h2 {
+    font-size: 1.3rem;
+  }
+  .upload-button {
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+}
+
+/* =====================
+   App Container
+====================== */
+.app-container {
+  background-color: #ffffff;
+  max-width: 480px;
+  width: 100%;
+  margin: 2rem auto;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
 .devotional-text {
   text-align: left;
-  font-size: 1rem;
-  color: #444;
-  margin-bottom: 2rem;
-  line-height: 1.6;
-}
-
-.nav-bar {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 2.5rem;
-}
-
-.nav-bar button {
-  flex: 1;
-  background-color: #f4b400;
-  border: none;
-  color: white;
-  padding: 1rem;
-  font-size: 1.1rem;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.2s, transform 0.2s;
-}
-
-.nav-bar button:hover {
-  background-color: #d89e00;
-  transform: scale(1.02);
-}
-
-.certificate {
-  border: 5px solid #f4b400;
-  padding: 2rem;
-  background: #fff;
-  color: #000;
-  font-family: 'Georgia', serif;
-  text-align: center;
-  margin-top: 2rem;
-  border-radius: 12px;
-}
-
-#flavors, #logo {
-  height: auto;
-}
-
-#date, #time {
-  width: calc(50% - 0.5rem);
-  display: inline-block;
-  margin-right: 1rem;
+  margin-left: 3rem; /* adjust spacing as needed */
 }

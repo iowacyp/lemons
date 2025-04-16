@@ -8,46 +8,45 @@
 </head>
 <body>
   <div class="container">
-    <div id="menuButtonContainer">
-        <a href="index.html" id="menuButton" aria-label="Back to Menu">☰</a>
-      </div>
-    <h1>📔 Journal & Reflections</h1>
-    <p>Take a few minutes to think about your lemonade stand journey!</p>
+    <div class="app-container">
+      <div id="menuButtonContainer">
+          <a href="dashboard.html" id="menuButton" aria-label="Back to Menu">☰</a>
+        </div>
+      <h1>📔 Journal & Reflections</h1>
+      <p>Take a few minutes to think about your lemonade stand journey!</p>
 
-    <div id="journalContainer">
-      <h2>📝 Free-Form Journal Section</h2>
-      <textarea rows="6" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
+      <div id="journalContainer">
+        <h2>📝 Free-Form Journal Section</h2>
+        <textarea rows="6" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
 
-      <h2>😊 How are you feeling today?</h2>
-      <p>
-        <button>😄</button>
-        <button>🙂</button>
-        <button>😐</button>
-        <button>😕</button>
-        <button>😢</button>
-      </p>
+        <h2>😊 How are you feeling today?</h2>
+        <p>
+          <button>😄</button>
+          <button>🙂</button>
+          <button>😐</button>
+          <button>😕</button>
+          <button>😢</button>
+        </p>
 
-      <h2>📝 Reflection Prompts</h2>
-      <p><strong>1.</strong> What went really well today?</p>
-      <textarea rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
+        <h2>📝 Reflection Prompts</h2>
+        <p><strong>1.</strong> What went really well today?</p>
+        <textarea rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
 
-      <p><strong>2.</strong> What would I do differently next time?</p>
-      <textarea rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
+        <p><strong>2.</strong> What would I do differently next time?</p>
+        <textarea rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
 
-      <p><strong>3.</strong> How did I make someone smile today?</p>
-      <textarea rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
-    </div>
-
-    <button style="margin-top: 2rem;" onclick="generatePDFSummary('journalContainer', 'journal-reflections.pdf')">📥 Download Journal</button>
+        <p><strong>3.</strong> How did I make someone smile today?</p>
+        <textarea rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
+        <div class="nav-bar">
+          <button onclick="window.location.href='photo.html'">←</button>
+          <button id="downloadReport" type="button">
+            <img src="download.png" alt="Download" width="24" height="24" />
+          </button>
+          <button onclick="window.location.href='report.html'">→</button>
+        </div>
+    </div> 
   </div>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="script.js"></script>
-</body>
-</html>
-<div class="nav-bar">
-  <button onclick="window.location.href='photos.html'">←</button>
-  <button onclick="window.location.href='report.html'">→</button>
-</div>
 </body>
 </html>

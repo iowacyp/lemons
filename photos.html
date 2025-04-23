@@ -74,9 +74,29 @@
     </script>
     <div class="nav-bar">
       <button onclick="window.location.href='checklist.html'">←</button>
-      <button onclick="window.location.href='journal.html'">→</button>
+      <button id="nextButton" type="button">→</button>
     </div>
   </div>
   </div>
 </body>
 </html>
+    <script>
+      document.getElementById('nextButton').addEventListener('click', () => {
+        const flyer = document.getElementById('flyerPreview')?.src;
+        const stand = document.getElementById('standPreview')?.src;
+
+        if (flyer) sessionStorage.setItem('flyerImage', flyer);
+        if (stand) sessionStorage.setItem('standImage', stand);
+
+        let updatedNote = sessionStorage.getItem('photoNote') || '';
+        if (flyer && !updatedNote.includes('Flyer')) {
+          updatedNote += (updatedNote ? '; ' : '') + 'Flyer uploaded';
+        }
+        if (stand && !updatedNote.includes('Stand')) {
+          updatedNote += (updatedNote ? '; ' : '') + 'Stand photo uploaded';
+        }
+        sessionStorage.setItem('photoNote', updatedNote);
+
+        window.location.href = 'journal.html';
+      });
+    </script>

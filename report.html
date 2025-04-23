@@ -5,17 +5,17 @@
   <meta charset="UTF-8" />
   <title>Final Report</title>
   <link rel="stylesheet" href="styles.css" />
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js').then(registration => {
-        console.log('ServiceWorker registered: ', registration.scope);
-      }).catch(error => {
-        console.log('ServiceWorker registration failed:', error);
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then(registration => {
+          console.log('ServiceWorker registered: ', registration.scope);
+        }).catch(error => {
+          console.log('ServiceWorker registration failed:', error);
+        });
       });
-    });
-  }
-</script>
+    }
+  </script>
 </head>
 <body>
   <div class="container">
@@ -39,7 +39,6 @@
       <h2>🏆 What I’m Most Proud Of</h2>
       <p id="proudMoment"></p>
 
-      <!-- Additional Lemonade Stand Sections -->
       <h2>📢 Marketing Plan</h2>
       <p id="marketingPlan"></p>
 
@@ -53,6 +52,8 @@
       <h2>📷 Photo Summary</h2>
       <p><span id="photoNote"></span></p>
       <div id="photoGallery" style="margin-top: 1rem;"></div>
+
+      <button id="clearCacheBtn" type="button">Clear Cache & Session Data</button>
 
       <div class="nav-bar">
         <button onclick="window.location.href='journal.html'">←</button>
@@ -68,7 +69,6 @@
     </div>
   </div>
 
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="script.js"></script>
   <script>
@@ -76,32 +76,49 @@
       const fields = ['totalExpenses', 'pricePerCup', 'totalIncome', 'finalSuppliesCost', 'finalProfit'];
       fields.forEach(id => {
         const el = document.getElementById(id);
-        const val = sessionStorage.getItem(id);
-        if (el && val !== null) {
-          el.textContent = val;
-        }
-      });
-      const extraFields = ['favoriteMoment', 'proudMoment'];
-      extraFields.forEach(id => {
-        const el = document.getElementById(id);
-        const val = sessionStorage.getItem(id);
-        if (el && val !== null) {
-          el.textContent = val;
-        }
-      });
-      // Add the remaining Lemonade Stand fields
-      const moreFields = ['marketingPlan', 'loanAmount', 'repaymentPlan', 'studentName', 'photoNote'];
-      moreFields.forEach(id => {
-        const el = document.getElementById(id);
-        const val = sessionStorage.getItem(id);
+        const val = localStorage.getItem(id);
         if (el && val !== null) {
           el.textContent = val;
         }
       });
 
+      const extraFields = ['favoriteMoment', 'proudMoment'];
+      extraFields.forEach(id => {
+        const el = document.getElementById(id);
+        const val = localStorage.getItem(id);
+        if (el && val !== null) {
+          el.textContent = val;
+        }
+      });
+
+      const moreFields = ['marketingPlan', 'loanAmount', 'repaymentPlan', 'studentName', 'photoNote'];
+      moreFields.forEach(id => {
+        const el = document.getElementById(id);
+        const val = localStorage.getItem(id);
+        if (el && val !== null) {
+          el.textContent = val;
+        }
+      });
+
+      const journalFields = ['freeFormJournal', 'reflection1', 'reflection2', 'reflection3'];
+      journalFields.forEach(id => {
+        const val = localStorage.getItem(id);
+        if (val) {
+          const el = document.createElement('p');
+          const labelMap = {
+            freeFormJournal: 'Free-Form Reflection',
+            reflection1: 'What went really well today?',
+            reflection2: 'What would I do differently next time?',
+            reflection3: 'How did I make someone smile today?'
+          };
+          el.innerHTML = `<strong>${labelMap[id]}:</strong> ${val}`;
+          document.querySelector('.app-container').appendChild(el);
+        }
+      });
+
       const gallery = document.getElementById('photoGallery');
-      const flyerImage = sessionStorage.getItem('flyerImage');
-      const standImage = sessionStorage.getItem('standImage');
+      const flyerImage = localStorage.getItem('flyerImage');
+      const standImage = localStorage.getItem('standImage');
 
       if (flyerImage) {
         const flyer = document.createElement('img');
@@ -119,17 +136,16 @@
         gallery.appendChild(stand);
       }
     });
-    <button id="clearCacheBtn" style="margin-top: 1rem; background-color: #e74c3c; color: white; padding: 0.5rem 1rem; border: none; border-radius: 8px;">
-      🧹 Clear Cached Data
-    </button>
+
     document.getElementById('clearCacheBtn').addEventListener('click', () => {
-      sessionStorage.clear();
+      localStorage.clear();
       caches.keys().then(keys => {
         keys.forEach(key => caches.delete(key));
       });
       alert('Cache and session data cleared. Please refresh the page.');
-      });
+    });
   </script>
+
   <link rel="stylesheet" href="styles.css" />
 </body>
 </html>

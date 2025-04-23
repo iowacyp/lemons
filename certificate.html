@@ -44,7 +44,7 @@
       <div id="certificateOutput" class="certificate" style="display: none;"></div>
       <div class="nav-bar">
         <button onclick="window.location.href='journal.html'">←</button>
-        <button onclick="window.location.href='report.html'">🏁</button>
+        <button id="nextButton" type="button">🏁</button>
       </div>
     </div>
   </div> <!-- close .app-container -->
@@ -74,6 +74,12 @@
         doc.save(`Lemonade_Boss_Certificate_${name}.pdf`);
       };
     }
+
+    document.getElementById('nextButton').addEventListener('click', () => {
+      const name = document.getElementById('nameInput')?.value.trim() || "Your Name";
+      sessionStorage.setItem('studentName', name);
+      window.location.href = 'report.html';
+    });
   </script>
 </body>
 </html>

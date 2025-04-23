@@ -42,7 +42,7 @@
           <button id="downloadReport" type="button">
             <img src="download.png" alt="Download" width="24" height="24" />
           </button>
-          <button onclick="window.location.href='certificate.html'">→</button>
+          <button id="nextButton" type="button">→</button>
         </div>
     </div> 
   </div>
@@ -63,6 +63,23 @@
           });
         }
       });
+    });
+
+    document.getElementById('nextButton').addEventListener('click', () => {
+      const fields = ['freeFormJournal', 'reflection1', 'reflection2', 'reflection3'];
+      fields.forEach(id => {
+        const val = document.getElementById(id)?.value;
+        if (val !== undefined) {
+          sessionStorage.setItem(id, val);
+        }
+      });
+
+      const flyer = document.getElementById('flyerPreview')?.src;
+      const stand = document.getElementById('standPreview')?.src;
+      if (flyer) sessionStorage.setItem('flyerImage', flyer);
+      if (stand) sessionStorage.setItem('standImage', stand);
+
+      window.location.href = 'certificate.html';
     });
   </script>
 </body>

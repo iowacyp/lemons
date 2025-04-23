@@ -29,64 +29,67 @@ function updateTotals() {
   const profitField = document.getElementById('finalProfit');
   profitField.value = `$${(totalIncome - totalExpenses).toFixed(2)}`;
 
-  // Store calculated values in sessionStorage for cross-page use
-  sessionStorage.setItem('totalExpenses', totalExpensesField.value);
-  sessionStorage.setItem('pricePerCup', pricePerCupField.value);
-  sessionStorage.setItem('totalIncome', totalIncomeField.value);
-  sessionStorage.setItem('finalSuppliesCost', finalSuppliesCost.value);
-  sessionStorage.setItem('finalProfit', profitField.value);
+  // Store calculated values in localStorage for cross-page use
+  localStorage.setItem('totalExpenses', totalExpensesField.value);
+  localStorage.setItem('pricePerCup', pricePerCupField.value);
+  localStorage.setItem('totalIncome', totalIncomeField.value);
+  localStorage.setItem('finalSuppliesCost', finalSuppliesCost.value);
+  localStorage.setItem('finalProfit', profitField.value);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   const supplyContainer = document.getElementById('supplyContainer');
 
-  document.getElementById('addItem').addEventListener('click', () => {
-    const container = document.createElement('div');
-    container.className = 'item-row';
-    container.innerHTML = `
-      <label>
-        Item
-        <select class="item-select">
-          <option value="Lemons">Lemons (each)</option>
-          <option value="Lemonade Mix">Lemonade Mix (powdered)</option>
-          <option value="Sugar">Sugar (5 lb bag)</option>
-          <option value="Cups">Cups (pk)</option>
-          <option value="Pitcher">Pitcher</option>
-          <option value="Poster/Signs">Poster/Signs</option>
-          <option value="Napkins">Napkins</option>
-          <option value="Ice">Ice (bag)</option>
-          <option value="Stirrer/Spoon">Stirrer/Spoon</option>
-          <option value="Powdered Mix">Powdered Mix</option>
-          <option value="Labeled Packaging">Labeled Packaging</option>
-          <option value="Other">Other (type below)</option>
-        </select>
-      </label>
-  
-      <label>
-        Custom Item
-        <input type="text" class="custom-item" placeholder="Custom Item" style="display:none">
-      </label>
-  
-      <label>
-        Quantity
-        <select class="quantity">
-          ${[...Array(21).keys()].slice(1).map(n => `<option value="${n}">${n}</option>`).join('')}
-        </select>
-      </label>
-  
-      <label>
-        Cost Each ($)
-        <input type="text" class="cost-each" placeholder="0.00">
-      </label>
-  
-      <label>
-        Total Cost
-        <input type="text" class="total-cost" placeholder="$0.00" readonly>
-      </label>
-    `;
-    document.getElementById('supplyContainer').appendChild(container);
-    attachListeners(container);
-  });
+  const addItemBtn = document.getElementById('addItem');
+  if (addItemBtn) {
+    addItemBtn.addEventListener('click', () => {
+      const container = document.createElement('div');
+      container.className = 'item-row';
+      container.innerHTML = `
+        <label>
+          Item
+          <select class="item-select">
+            <option value="Lemons">Lemons (each)</option>
+            <option value="Lemonade Mix">Lemonade Mix (powdered)</option>
+            <option value="Sugar">Sugar (5 lb bag)</option>
+            <option value="Cups">Cups (pk)</option>
+            <option value="Pitcher">Pitcher</option>
+            <option value="Poster/Signs">Poster/Signs</option>
+            <option value="Napkins">Napkins</option>
+            <option value="Ice">Ice (bag)</option>
+            <option value="Stirrer/Spoon">Stirrer/Spoon</option>
+            <option value="Powdered Mix">Powdered Mix</option>
+            <option value="Labeled Packaging">Labeled Packaging</option>
+            <option value="Other">Other (type below)</option>
+          </select>
+        </label>
+
+        <label>
+          Custom Item
+          <input type="text" class="custom-item" placeholder="Custom Item" style="display:none">
+        </label>
+
+        <label>
+          Quantity
+          <select class="quantity">
+            ${[...Array(21).keys()].slice(1).map(n => `<option value="${n}">${n}</option>`).join('')}
+          </select>
+        </label>
+
+        <label>
+          Cost Each ($)
+          <input type="text" class="cost-each" placeholder="0.00">
+        </label>
+
+        <label>
+          Total Cost
+          <input type="text" class="total-cost" placeholder="$0.00" readonly>
+        </label>
+      `;
+      document.getElementById('supplyContainer').appendChild(container);
+      attachListeners(container);
+    });
+  }
 
   document.getElementById('cupsSold').addEventListener('change', updateTotals);
 
@@ -102,6 +105,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (downloadButton) {
     downloadButton.addEventListener('click', downloadReport);
   }
+
+  updateTotals();
 });
 
 // 1. Generate PDF from visible content (requires html2pdf library)

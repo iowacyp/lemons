@@ -152,7 +152,7 @@
         <button id="downloadReport" type="button" class="solid-icon-button">
           <img src="download.png" alt="Download" width="24" height="24" />
         </button>
-        <button onclick="window.location.href='loan.html'">→</button>
+        <button id="nextButton" type="button">→</button>
       </div>
     </div>
   </div>
@@ -194,6 +194,23 @@
         }
       });
     };
+
+    // Save values and go to loan.html on next button click
+    document.getElementById('nextButton').addEventListener('click', () => {
+      const totalExpenses = document.getElementById('totalExpenses')?.value;
+      const pricePerCup = document.getElementById('pricePerCup')?.value;
+      const totalIncome = document.getElementById('totalIncome')?.value;
+      const finalSuppliesCost = document.getElementById('finalSuppliesCost')?.value;
+      const finalProfit = document.getElementById('finalProfit')?.value;
+
+      if (totalExpenses) localStorage.setItem('totalExpenses', totalExpenses);
+      if (pricePerCup) localStorage.setItem('pricePerCup', pricePerCup);
+      if (totalIncome) localStorage.setItem('totalIncome', totalIncome);
+      if (finalSuppliesCost) localStorage.setItem('finalSuppliesCost', finalSuppliesCost);
+      if (finalProfit) localStorage.setItem('finalProfit', finalProfit);
+
+      window.location.href = 'loan.html';
+    });
   </script>
 </body>
 </html>

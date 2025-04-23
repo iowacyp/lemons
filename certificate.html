@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lemonade Boss Certificate</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="all.min.css" />
   <style>
     .certificate {
       border: 5px solid var(--accent, #f4b400);
@@ -36,16 +36,26 @@
     <div id="menuButtonContainer">
       <a href="dashboard.html" id="menuButton" aria-label="Go to Menu">☰</a>
     </div>
-      <h1 class="title">🎓 Certificate Generator</h1>
+      <div style="text-align: center;">
+        <i class="fa-solid fa-certificate" style="color: #f4b400; font-size: 2rem;"></i>
+      </div>
+      <h1 class="title">Certificate Generator</h1>
       <p class="subtitle">Celebrate your hard work!</p>
 
+      <label for="nameInput">
+        <i class="fa-solid fa-user" style="color: #f4b400;"></i> Your Name
+      </label>
       <input type="text" id="nameInput" placeholder="Enter your name" />
-      <button onclick="generateCertificate()">🎉 Create Certificate</button>
+      <button onclick="generateCertificate()">
+        <i class="fa-solid fa-award" style="color: #f4b400;"></i> Create Certificate
+      </button>
 
       <div id="certificateOutput" class="certificate" style="display: none;"></div>
       <div class="nav-bar">
         <button onclick="window.location.href='journal.html'">←</button>
-        <button id="nextButton" type="button">🏁</button>
+        <a href="report.html" id="nextButton" class="nav-btn">
+          <i class="fa-solid fa-flag-checkered" style="color: #f4b400;"></i>
+        </a>
       </div>
     </div>
   </div> <!-- close .app-container -->
@@ -80,11 +90,6 @@
         };
       });
     }
-
-    document.getElementById('nextButton').addEventListener('click', async () => {
-      await generateCertificate(); // Generate and download certificate first
-      window.location.href = 'report.html'; // Then go to report
-    });
   </script>
 </body>
 </html>

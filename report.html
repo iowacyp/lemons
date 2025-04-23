@@ -4,8 +4,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta charset="UTF-8" />
   <title>Final Report</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="all.min.css" />
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -24,34 +24,77 @@
       <div id="menuButtonContainer">
         <a href="dashboard.html" id="menuButton" aria-label="Back to Menu">☰</a>
       </div>
-      <h1>📊 Final Report</h1>
+      <div style="text-align: center;">
+        <i class="fa-solid fa-chart-line" style="color: #f4b400; font-size: 2rem;"></i>
+      </div>
+      <h1>Final Report</h1>
       <p>Let’s look back at how awesome your lemonade stand was!</p>
 
-      <h2>💰 Sales & Profit Summary</h2>
+      <div style="text-align: center;">
+        <i class="fa-solid fa-award" style="color: #f4b400; font-size: 2rem;"></i>
+      </div>
+      <h2>Certificate Preview</h2>
+      <p>This is your official Lemonade Boss certificate!</p>
+      <div style="position: relative; display: inline-block; max-width: 100%;">
+        <img src="LemonsCert.jpg" alt="Lemonade Boss Certificate" style="width: 100%; border: 2px solid #f4b400; border-radius: 10px;" />
+        <span id="certificateName" style="
+          position: absolute;
+          top: 49%;
+          left: 52%;
+          transform: translate(-50%, -50%);
+          font-size: 1.8rem;
+          font-weight: bold;
+          color: #242754;
+          font-family: Georgia, serif;
+          white-space: nowrap;
+        "></span>
+      </div>
+
+      <div style="text-align: center;">
+        <i class="fa-solid fa-file-invoice-dollar" style="color: #f4b400; font-size: 2rem;"></i>
+      </div>
+      <h2>Sales & Profit Summary</h2>
+      <p style="font-weight: bold; font-size: 1.3rem;"><strong>Total Profit:</strong> <span id="finalProfit"></span></p>
       <p><strong>Total Sales:</strong> <span id="totalIncome"></span></p>
       <p><strong>Total Expenses:</strong> <span id="totalExpenses"></span></p>
-      <p><strong>Total Profit:</strong> <span id="finalProfit"></span></p>
       <p><strong>Price Per Cup:</strong> <span id="pricePerCup"></span></p>
       <p><strong>Supplies Cost:</strong> <span id="finalSuppliesCost"></span></p>
 
-      <h2>🌟 Favorite Moment</h2>
+      <div style="text-align: center;">
+        <i class="fa-solid fa-star" style="color: #f4b400; font-size: 2rem;"></i>
+      </div>
+      <h2>Favorite Moment</h2>
       <p id="favoriteMoment"></p>
 
-      <h2>🏆 What I’m Most Proud Of</h2>
+      <div style="text-align: center;">
+        <i class="fa-solid fa-trophy" style="color: #f4b400; font-size: 2rem;"></i>
+      </div>
+      <h2>What I’m Most Proud Of</h2>
       <p id="proudMoment"></p>
 
-      <h2>📢 Marketing Plan</h2>
-      <p id="marketingPlan"></p>
+      <div style="text-align: center;">
+        <i class="fa-solid fa-bullhorn" style="color: #f4b400; font-size: 2rem;"></i>
+      </div>
+      <h2>Marketing Plan</h2>
+      <p><strong>Ways to spread the word:</strong> <span id="waysToSpread"></span></p>
+      <p><strong>What makes our lemonade special:</strong> <span id="specialHighlight"></span></p>
+      <p><strong>Our pitch:</strong> <span id="pitchLine"></span></p>
+      <p><strong>Flyer caption:</strong> <span id="flyerCaption"></span></p>
 
-      <h2>💵 Loan Details</h2>
+      <div style="text-align: center;">
+        <i class="fa-solid fa-hand-holding-usd" style="color: #f4b400; font-size: 2rem;"></i>
+      </div>
+      <h2>Loan Details</h2>
       <p><strong>Loan Amount:</strong> <span id="loanAmount"></span></p>
       <p><strong>Repayment Plan:</strong> <span id="repaymentPlan"></span></p>
       <p><strong>Repayment Deadline:</strong> <span id="deadline"></span></p>
 
-      <h2>📛 Lemonade Boss Name</h2>
-      <p><strong>Certified Boss:</strong> <span id="studentName"></span></p>
+      <p style="font-size: 1.5rem; font-weight: bold; text-align: center;">Certified Boss: <span id="studentName"></span></p>
 
-      <h2>📷 Photo Summary</h2>
+      <div style="text-align: center;">
+        <i class="fa-solid fa-camera-retro" style="color: #f4b400; font-size: 2rem;"></i>
+      </div>
+      <h2>Photo Summary</h2>
       <p><span id="photoNote"></span></p>
       <div id="photoGallery" style="margin-top: 1rem;"></div>
 
@@ -64,10 +107,6 @@
         </button>
         <button onclick="window.location.href='certificate.html'">→</button>
       </div>
-
-      <h2>🏅 Certificate Preview</h2>
-      <p>This is your official Lemonade Boss certificate!</p>
-      <img src="LemonsCert.jpg" alt="Lemonade Boss Certificate" style="max-width: 100%; border: 2px solid #f4b400; border-radius: 10px; margin-top: 1rem;" />
     </div>
   </div>
 
@@ -75,7 +114,7 @@
   <script src="script.js"></script>
   <script>
     window.addEventListener('DOMContentLoaded', () => {
-      const fields = ['totalExpenses', 'pricePerCup', 'totalIncome', 'finalSuppliesCost', 'finalProfit'];
+      const fields = ['totalExpenses', 'pricePerCup', 'totalIncome', 'finalSuppliesCost'];
       fields.forEach(id => {
         const el = document.getElementById(id);
         const val = localStorage.getItem(id);
@@ -83,6 +122,13 @@
           el.textContent = val;
         }
       });
+
+      // finalProfit handled separately for styling, so set here:
+      const finalProfitEl = document.getElementById('finalProfit');
+      const finalProfitVal = localStorage.getItem('finalProfit');
+      if (finalProfitEl && finalProfitVal !== null) {
+        finalProfitEl.textContent = finalProfitVal;
+      }
 
       const extraFields = ['favoriteMoment', 'proudMoment'];
       extraFields.forEach(id => {
@@ -93,19 +139,60 @@
         }
       });
 
-      const moreFields = ['marketingPlan', 'loanAmount', 'repaymentPlan', 'studentName', 'photoNote', 'deadline'];
+      // Marketing plan parsing
+      const marketingPlanRaw = localStorage.getItem('marketingPlan');
+      if (marketingPlanRaw) {
+        let marketingData = {};
+        try {
+          marketingData = JSON.parse(marketingPlanRaw);
+        } catch {
+          // fallback: split by lines
+          const lines = marketingPlanRaw.split('\n').map(l => l.trim()).filter(l => l !== '');
+          marketingData.waysToSpread = lines[0] || '';
+          marketingData.specialHighlight = lines[1] || '';
+          marketingData.pitchLine = lines[2] || '';
+          marketingData.flyerCaption = lines[3] || '';
+        }
+        // Remove duplicate labels from stored values if present
+        document.getElementById('waysToSpread').textContent =
+          (marketingData.waysToSpread || '').replace(/^Ways to spread the word:\s*/i, '') || '';
+        document.getElementById('specialHighlight').textContent =
+          (marketingData.specialHighlight || '').replace(/^What makes our lemonade special:\s*/i, '') || '';
+        document.getElementById('pitchLine').textContent =
+          (marketingData.pitchLine || '').replace(/^Our pitch:\s*/i, '') || '';
+        document.getElementById('flyerCaption').textContent =
+          (marketingData.flyerCaption || '').replace(/^Flyer caption:\s*/i, '') || '';
+      }
+
+      const moreFields = ['loanAmount', 'repaymentPlan', 'studentName', 'photoNote'];
       moreFields.forEach(id => {
         const el = document.getElementById(id);
         const val = localStorage.getItem(id);
         // For studentName, also try to show placeholder if missing
         if (el) {
           if (val !== null && val !== "") {
-            el.textContent = val;
+            el.textContent = id === "loanAmount" ? `$${val}` : val;
           } else if (id === "studentName") {
             el.textContent = "(Your Name Here)";
           }
         }
       });
+
+      // Format deadline date
+      const deadlineEl = document.getElementById('deadline');
+      const deadline = localStorage.getItem('deadline');
+      if (deadlineEl) {
+        if (deadline) {
+          const dateObj = new Date(deadline);
+          if (!isNaN(dateObj)) {
+            deadlineEl.textContent = dateObj.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
+          } else {
+            deadlineEl.textContent = deadline;
+          }
+        } else {
+          deadlineEl.textContent = "";
+        }
+      }
 
       const journalFields = ['freeFormJournal', 'reflection1', 'reflection2', 'reflection3'];
       journalFields.forEach(id => {
@@ -142,6 +229,12 @@
         stand.style = "max-width: 100%; margin: 0.5rem 0; border: 1px solid #ccc; border-radius: 6px;";
         gallery.appendChild(stand);
       }
+
+      // Overlay student name on certificate preview
+      const certName = document.getElementById('certificateName');
+      if (certName && localStorage.getItem('studentName')) {
+        certName.textContent = localStorage.getItem('studentName');
+      }
     });
 
     document.getElementById('clearCacheBtn').addEventListener('click', () => {
@@ -156,4 +249,3 @@
   <link rel="stylesheet" href="styles.css" />
 </body>
 </html>
-      

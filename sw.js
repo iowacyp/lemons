@@ -20,6 +20,7 @@ const assetsToCache = [
 
 // Install: Cache all core files
 self.addEventListener('install', event => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(cacheName).then(cache => cache.addAll(assetsToCache))
   );
@@ -27,6 +28,7 @@ self.addEventListener('install', event => {
 
 // Activate: Clean up old caches
 self.addEventListener('activate', event => {
+  clients.claim();
   event.waitUntil(
     caches.keys().then(keys => {
       return Promise.all(
@@ -37,8 +39,11 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Fetch: Serve from cache if available
+// Fetch: Serve from cache if available, except Font Awesome CSS
 self.addEventListener('fetch', event => {
+  if (event.request.url.includes('font-awesome') || event.request.url.includes('all.min.css')) {
+    return fetch(event.request);
+  }
   event.respondWith(
     caches.match(event.request).then(cached => cached || fetch(event.request))
   );

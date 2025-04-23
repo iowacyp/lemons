@@ -15,26 +15,34 @@ function updateTotals() {
   const finalSuppliesCost = document.getElementById('finalSuppliesCost');
   const cupsSold = parseFloat(document.getElementById('cupsSold')?.value) || 0;
 
-  totalExpensesField.value = `$${totalExpenses.toFixed(2)}`;
-  finalSuppliesCost.value = `$${totalExpenses.toFixed(2)}`;
+  if (totalExpensesField) totalExpensesField.value = `$${totalExpenses.toFixed(2)}`;
+  if (finalSuppliesCost) finalSuppliesCost.value = `$${totalExpenses.toFixed(2)}`;
 
-  let pricePerCup = parseFloat(pricePerCupField.value.replace(/[^0-9.]/g, '')) || 0;
-
-  pricePerCupField.value = `$${pricePerCup.toFixed(2)}`;
+  let pricePerCup = parseFloat((pricePerCupField?.value || '').replace(/[^0-9.]/g, '')) || 0;
 
   const totalIncome = pricePerCup * cupsSold;
   const totalIncomeField = document.getElementById('totalIncome');
-  totalIncomeField.value = `$${totalIncome.toFixed(2)}`;
+  if (totalIncomeField) totalIncomeField.value = `$${totalIncome.toFixed(2)}`;
 
   const profitField = document.getElementById('finalProfit');
-  profitField.value = `$${(totalIncome - totalExpenses).toFixed(2)}`;
+  if (profitField) profitField.value = `$${(totalIncome - totalExpenses).toFixed(2)}`;
 
   // Store calculated values in localStorage for cross-page use
-  localStorage.setItem('totalExpenses', totalExpensesField.value);
-  localStorage.setItem('pricePerCup', pricePerCupField.value);
-  localStorage.setItem('totalIncome', totalIncomeField.value);
-  localStorage.setItem('finalSuppliesCost', finalSuppliesCost.value);
-  localStorage.setItem('finalProfit', profitField.value);
+  if (totalExpensesField) {
+    localStorage.setItem('totalExpenses', totalExpensesField.value);
+  }
+  if (finalSuppliesCost) {
+    localStorage.setItem('finalSuppliesCost', finalSuppliesCost.value);
+  }
+  if (pricePerCupField) {
+    localStorage.setItem('pricePerCup', pricePerCupField.value);
+  }
+  if (totalIncomeField) {
+    localStorage.setItem('totalIncome', totalIncomeField.value);
+  }
+  if (profitField) {
+    localStorage.setItem('finalProfit', profitField.value);
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -91,7 +99,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  document.getElementById('cupsSold').addEventListener('change', updateTotals);
+  const cupsSold = document.getElementById('cupsSold');
+  if (cupsSold) {
+    cupsSold.addEventListener('change', updateTotals);
+  }
+
+  // Reattach listener after populating or any potential changes to cupsSold dropdown
+  const cupsSoldDropdown = document.getElementById('cupsSold');
+  if (cupsSoldDropdown) {
+    cupsSoldDropdown.addEventListener('change', updateTotals);
+  }
+
+  // Listen for changes to price per cup field
+  const pricePerCupField = document.getElementById('pricePerCup');
+  if (pricePerCupField) {
+    pricePerCupField.addEventListener('input', updateTotals);
+    pricePerCupField.addEventListener('change', updateTotals);
+    pricePerCupField.addEventListener('blur', () => {
+      const value = parseFloat(pricePerCupField.value.replace(/[^0-9.]/g, '')) || 0;
+      pricePerCupField.value = `$${value.toFixed(2)}`;
+      updateTotals();
+    });
+  }
 
   // Attach listeners to initial rows
   document.querySelectorAll('.item-row').forEach(attachListeners);

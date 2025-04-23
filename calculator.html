@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta charset="UTF-8">
   <title>Lemons Inc. Profit Calculator</title>
-  <link rel="stylesheet" href="all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="styles.css">
   <!-- Added an inline style for demonstration; this would ideally be in your external stylesheet -->
   <style>
@@ -49,11 +49,17 @@
   <div class="container">
     <div class="app-container">
       <div id="menuButtonContainer">
-        <a href="index.html" id="menuButton" aria-label="Back to Menu">☰</a>
+        <a href="dashboard.html" id="menuButton" aria-label="Back to Menu">☰</a>
+      </div>
+      <div style="text-align: center;">
+        <i class="fa-solid fa-calculator" style="color: #f4b400; font-size: 2rem;"></i>
       </div>
       <h1>Lemons Profit Calculator</h1>
 
-      <h2>🧂 Supply Costs</h2>
+      <div style="text-align: center;">
+        <i class="fa-solid fa-box-open" style="color: #f4b400; font-size: 1.5rem;"></i>
+      </div>
+      <h2>Supply Costs</h2>
       <div id="supplyContainer">
         <div class="item-row">
           <label>
@@ -128,7 +134,10 @@
       <input type="text" id="pricePerCup" placeholder="$0.00">
       <div id="summary-pricePerCup" class="print-summary"></div>
 
-      <h2>🍋 Sales & Profit (Set Your Cup Price)</h2>
+      <div style="text-align: center;">
+        <i class="fa-solid fa-dollar-sign" style="color: #f4b400; font-size: 1.5rem;"></i>
+      </div>
+      <h2>Sales & Profit (Set Your Cup Price)</h2>
 
       <label>Cups to Sell</label>
       <!-- This select element will be populated dynamically -->
@@ -142,16 +151,16 @@
       <input type="text" id="finalSuppliesCost" placeholder="$0.00" readonly>
       <div id="summary-finalSuppliesCost" class="print-summary"></div>
 
-      <label><strong>💰 Profit (Income - Cost)</strong></label>
+      <label><strong><i class="fa-solid fa-coins" style="color: #f4b400;"></i> Profit (Income - Cost)</strong></label>
       <input type="text" id="finalProfit" placeholder="$0.00" readonly>
       <div id="summary-finalProfit" class="print-summary"></div>
 
       <div class="nav-bar">
-        <button onclick="window.location.href='customize.html'">←</button>
+        <a href="customize.html" class="nav-btn">←</a>
         <button id="downloadReport" type="button" class="solid-icon-button">
           <img src="download.png" alt="Download" width="24" height="24" />
         </button>
-        <button id="nextButton" type="button">→</button>
+        <button id="nextButton" class="nav-btn">→</button>
       </div>
     </div>
   </div>
@@ -196,19 +205,34 @@
 
     // Save values and go to loan.html on next button click
     document.getElementById('nextButton').addEventListener('click', () => {
-      const totalExpenses = document.getElementById('totalExpenses')?.value;
-      const pricePerCup = document.getElementById('pricePerCup')?.value;
-      const totalIncome = document.getElementById('totalIncome')?.value;
-      const finalSuppliesCost = document.getElementById('finalSuppliesCost')?.value;
-      const finalProfit = document.getElementById('finalProfit')?.value;
+      updateTotals(); // ensure latest values are calculated
 
-      if (totalExpenses) localStorage.setItem('totalExpenses', totalExpenses);
-      if (pricePerCup) localStorage.setItem('pricePerCup', pricePerCup);
-      if (totalIncome) localStorage.setItem('totalIncome', totalIncome);
-      if (finalSuppliesCost) localStorage.setItem('finalSuppliesCost', finalSuppliesCost);
-      if (finalProfit) localStorage.setItem('finalProfit', finalProfit);
+      const totalExpenses = document.getElementById('totalExpenses')?.value ?? '';
+      const pricePerCup = document.getElementById('pricePerCup')?.value ?? '';
+      const totalIncome = document.getElementById('totalIncome')?.value ?? '';
+      const finalSuppliesCost = document.getElementById('finalSuppliesCost')?.value ?? '';
+      const finalProfit = document.getElementById('finalProfit')?.value ?? '';
 
+      localStorage.setItem('totalExpenses', totalExpenses);
+      localStorage.setItem('pricePerCup', pricePerCup);
+      localStorage.setItem('totalIncome', totalIncome);
+      localStorage.setItem('finalSuppliesCost', finalSuppliesCost);
+      localStorage.setItem('finalProfit', finalProfit);
+
+      // Navigate after saving
       window.location.href = 'loan.html';
+    });
+  </script>
+  <script>
+    // Auto-save key calculator fields to localStorage on input/change (input-based listener)
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('#pricePerCup, #cupsSold').forEach(input => {
+        const key = input.id;
+        input.addEventListener('input', () => {
+          localStorage.setItem(key, input.value);
+          updateTotals();
+        });
+      });
     });
   </script>
 </body>

@@ -4,8 +4,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta charset="UTF-8" />
   <title>Journal & Reflections</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="all.min.css" />
 </head>
 <body>
   <div class="container">
@@ -13,17 +13,29 @@
       <div id="menuButtonContainer">
           <a href="dashboard.html" id="menuButton" aria-label="Back to Menu">☰</a>
         </div>
-      <h1>📔 Journal & Reflections</h1>
+      <div style="text-align: center;">
+        <i class="fa-solid fa-book-open" style="color: #f4b400; font-size: 2rem;"></i>
+      </div>
+      <h1>Journal & Reflections</h1>
       <p>Take a few minutes to think about your lemonade stand journey!</p>
 
       <div id="journalContainer">
-        <h2>🌟 Favorite Moment</h2>
+        <div style="text-align: center;">
+          <i class="fa-solid fa-star" style="color: #f4b400;"></i>
+        </div>
+        <h2>Favorite Moment</h2>
         <textarea id="favoriteMoment" rows="6" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
 
-        <h2>🏆 What I’m Most Proud Of</h2>
+        <div style="text-align: center;">
+          <i class="fa-solid fa-trophy" style="color: #f4b400;"></i>
+        </div>
+        <h2>What I’m Most Proud Of</h2>
         <textarea id="proudMoment" rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
 
-        <h2>😊 How are you feeling today?</h2>
+        <div style="text-align: center;">
+          <i class="fa-solid fa-face-smile" style="color: #f4b400;"></i>
+        </div>
+        <h2>How are you feeling today?</h2>
         <p>
           <button>😄</button>
           <button>🙂</button>
@@ -32,7 +44,10 @@
           <button>😢</button>
         </p>
 
-        <h2>📝 Reflection Prompts</h2>
+        <div style="text-align: center;">
+          <i class="fa-solid fa-pen-to-square" style="color: #f4b400;"></i>
+        </div>
+        <h2>Reflection Prompts</h2>
         <p><strong>1.</strong> What went really well today?</p>
         <textarea id="reflection1" rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
 

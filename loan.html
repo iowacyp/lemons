@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Loan Agreement</title>
   <!-- Font Awesome must come first for icons to render correctly -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-papuvh1i5p91lU6pRf6QUw3bF7MCZX0V8L6gRO9hvFBIvSkaXgK3mvM9H5QyEBkQglHJe7GfNzOa3HtYkmdv6g==" crossorigin="anonymous" referrerpolicy="no-referrer" rel="preload" />
+  <link rel="stylesheet" href="all.min.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -62,10 +62,10 @@
       document.getElementById("agreement").innerHTML = html;
     }
 
-    // Save values to sessionStorage on input
+    // Save values to localStorage on input
     document.querySelectorAll('#borrower, #lender, #amount, #purpose, #plan, #interest, #deadline').forEach(input => {
       input.addEventListener('input', () => {
-        sessionStorage.setItem(input.id, input.value);
+        localStorage.setItem(input.id, input.value);
       });
     });
 
@@ -74,13 +74,13 @@
       const fields = ['borrower', 'lender', 'amount', 'purpose', 'plan', 'interest', 'deadline'];
       fields.forEach(id => {
         const el = document.getElementById(id);
-        if (el && sessionStorage.getItem(id)) {
-          el.value = sessionStorage.getItem(id);
+        if (el && localStorage.getItem(id)) {
+          el.value = localStorage.getItem(id);
         }
       });
       // Set report fields used on final report
-      sessionStorage.setItem('loanAmount', sessionStorage.getItem('amount') || '');
-      sessionStorage.setItem('repaymentPlan', sessionStorage.getItem('plan') || '');
+      localStorage.setItem('loanAmount', localStorage.getItem('amount') || '');
+      localStorage.setItem('repaymentPlan', localStorage.getItem('plan') || '');
     });
   </script>
 </body>

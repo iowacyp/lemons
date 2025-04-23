@@ -56,20 +56,20 @@
     // Restore saved values
     checkboxIds.forEach(id => {
       const el = document.getElementById(id);
-      if (el && sessionStorage.getItem(id) === 'true') {
+      if (el && localStorage.getItem(id) === 'true') {
         el.checked = true;
       }
       el.addEventListener('change', () => {
-        sessionStorage.setItem(id, el.checked.toString());
+        localStorage.setItem(id, el.checked.toString());
       });
     });
 
     textInputs.forEach(id => {
       const el = document.getElementById(id);
       if (el) {
-        el.value = sessionStorage.getItem(id) || '';
+        el.value = localStorage.getItem(id) || '';
         el.addEventListener('input', () => {
-          sessionStorage.setItem(id, el.value);
+          localStorage.setItem(id, el.value);
         });
       }
     });
@@ -89,7 +89,7 @@
         Our pitch: ${pitch}
         Flyer caption: ${caption}
       `;
-      sessionStorage.setItem('marketingPlan', summary.trim());
+      localStorage.setItem('marketingPlan', summary.trim());
     };
 
     // Watch for changes to update the summary
@@ -105,14 +105,14 @@
     checkboxIds.forEach(id => {
       const el = document.getElementById(id);
       if (el) {
-        sessionStorage.setItem(id, el.checked.toString());
+        localStorage.setItem(id, el.checked.toString());
       }
     });
 
     textInputs.forEach(id => {
       const el = document.getElementById(id);
       if (el) {
-        sessionStorage.setItem(id, el.value);
+        localStorage.setItem(id, el.value);
       }
     });
 
@@ -129,7 +129,7 @@
       Our pitch: ${pitch}
       Flyer caption: ${caption}
     `;
-    sessionStorage.setItem('marketingPlan', summary.trim());
+    localStorage.setItem('marketingPlan', summary.trim());
 
     window.location.href = 'checklist.html';
   });

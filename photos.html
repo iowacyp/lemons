@@ -39,22 +39,22 @@
             preview.src = reader.result;
 
             // Track upload note
-            const photoNote = sessionStorage.getItem('photoNote') || '';
+            const photoNote = localStorage.getItem('photoNote') || '';
             let updatedNote = photoNote;
 
             if (imgId === 'flyerPreview') {
-              sessionStorage.setItem('flyerImage', reader.result);
+              localStorage.setItem('flyerImage', reader.result);
               if (!photoNote.includes('Flyer')) {
                 updatedNote += (updatedNote ? '; ' : '') + 'Flyer uploaded';
               }
             } else if (imgId === 'standPreview') {
-              sessionStorage.setItem('standImage', reader.result);
+              localStorage.setItem('standImage', reader.result);
               if (!photoNote.includes('Stand')) {
                 updatedNote += (updatedNote ? '; ' : '') + 'Stand photo uploaded';
               }
             }
 
-            sessionStorage.setItem('photoNote', updatedNote);
+            localStorage.setItem('photoNote', updatedNote);
           };
           reader.readAsDataURL(file);
         }
@@ -65,7 +65,7 @@
         const flyer = document.getElementById('flyerPreview');
         const stand = document.getElementById('standPreview');
 
-        const photoNote = sessionStorage.getItem('photoNote');
+        const photoNote = localStorage.getItem('photoNote');
         if (photoNote) {
           if (photoNote.includes('Flyer')) flyer.alt = "Flyer uploaded";
           if (photoNote.includes('Stand')) stand.alt = "Stand uploaded";
@@ -85,17 +85,17 @@
         const flyer = document.getElementById('flyerPreview')?.src;
         const stand = document.getElementById('standPreview')?.src;
 
-        if (flyer) sessionStorage.setItem('flyerImage', flyer);
-        if (stand) sessionStorage.setItem('standImage', stand);
+        if (flyer) localStorage.setItem('flyerImage', flyer);
+        if (stand) localStorage.setItem('standImage', stand);
 
-        let updatedNote = sessionStorage.getItem('photoNote') || '';
+        let updatedNote = localStorage.getItem('photoNote') || '';
         if (flyer && !updatedNote.includes('Flyer')) {
           updatedNote += (updatedNote ? '; ' : '') + 'Flyer uploaded';
         }
         if (stand && !updatedNote.includes('Stand')) {
           updatedNote += (updatedNote ? '; ' : '') + 'Stand photo uploaded';
         }
-        sessionStorage.setItem('photoNote', updatedNote);
+        localStorage.setItem('photoNote', updatedNote);
 
         window.location.href = 'journal.html';
       });

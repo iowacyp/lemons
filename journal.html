@@ -56,10 +56,10 @@
         const el = document.getElementById(id);
         if (el) {
           // Restore saved value
-          el.value = sessionStorage.getItem(id) || '';
+          el.value = localStorage.getItem(id) || '';
           // Save changes
           el.addEventListener('input', () => {
-            sessionStorage.setItem(id, el.value);
+            localStorage.setItem(id, el.value);
           });
         }
       });
@@ -70,14 +70,14 @@
       fields.forEach(id => {
         const val = document.getElementById(id)?.value;
         if (val !== undefined) {
-          sessionStorage.setItem(id, val);
+          localStorage.setItem(id, val);
         }
       });
 
       const flyer = document.getElementById('flyerPreview')?.src;
       const stand = document.getElementById('standPreview')?.src;
-      if (flyer) sessionStorage.setItem('flyerImage', flyer);
-      if (stand) sessionStorage.setItem('standImage', stand);
+      if (flyer) localStorage.setItem('flyerImage', flyer);
+      if (stand) localStorage.setItem('standImage', stand);
 
       window.location.href = 'certificate.html';
     });

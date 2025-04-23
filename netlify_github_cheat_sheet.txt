@@ -1,0 +1,35 @@
+=== NETLIFY LOGIN / LOGOUT CHEAT SHEET ===
+
+✅ Log in to Netlify:
+netlify login
+
+🚪 Log out of Netlify:
+netlify logout
+
+👤 Check current Netlify account:
+netlify status
+
+
+=== GITHUB LOGIN / LOGOUT CHEAT SHEET ===
+
+✅ Log in to GitHub (VS Code):
+1. Press Cmd + Shift + P
+2. Type and select: GitHub: Sign in
+3. Authorize in your browser
+
+🚪 Log out of GitHub (VS Code):
+1. Press Cmd + Shift + P
+2. Type and select: GitHub: Sign out
+
+🗝️ Remove GitHub credentials from macOS Keychain (optional):
+git credential-osxkeychain erase
+host=github.com
+protocol=https
+
+👤 Set GitHub identity:
+git config --global user.name "Your Name"
+git config --global user.email "you@iowacyp.com"
+
+📋 Check current GitHub identity:
+git config --global user.name
+git config --global user.email

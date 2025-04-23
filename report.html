@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <title>Final Report</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="all.min.css" />
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -45,6 +46,7 @@
       <h2>💵 Loan Details</h2>
       <p><strong>Loan Amount:</strong> <span id="loanAmount"></span></p>
       <p><strong>Repayment Plan:</strong> <span id="repaymentPlan"></span></p>
+      <p><strong>Repayment Deadline:</strong> <span id="deadline"></span></p>
 
       <h2>📛 Lemonade Boss Name</h2>
       <p><strong>Certified Boss:</strong> <span id="studentName"></span></p>
@@ -91,12 +93,17 @@
         }
       });
 
-      const moreFields = ['marketingPlan', 'loanAmount', 'repaymentPlan', 'studentName', 'photoNote'];
+      const moreFields = ['marketingPlan', 'loanAmount', 'repaymentPlan', 'studentName', 'photoNote', 'deadline'];
       moreFields.forEach(id => {
         const el = document.getElementById(id);
         const val = localStorage.getItem(id);
-        if (el && val !== null) {
-          el.textContent = val;
+        // For studentName, also try to show placeholder if missing
+        if (el) {
+          if (val !== null && val !== "") {
+            el.textContent = val;
+          } else if (id === "studentName") {
+            el.textContent = "(Your Name Here)";
+          }
         }
       });
 
@@ -144,16 +151,9 @@
       });
       alert('Cache and session data cleared. Please refresh the page.');
     });
-
-    // Ensure loan data is saved just before navigating to the marketing page
-    document.querySelector('button[onclick*="marketing.html"]')?.addEventListener('click', () => {
-      const amount = document.getElementById('amount')?.value;
-      const plan = document.getElementById('plan')?.value;
-      localStorage.setItem('loanAmount', amount || '');
-      localStorage.setItem('repaymentPlan', plan || '');
-    });
   </script>
 
   <link rel="stylesheet" href="styles.css" />
 </body>
 </html>
+      

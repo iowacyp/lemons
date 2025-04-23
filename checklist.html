@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <title>Opening Day Checklist</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="all.min.css" />
 </head>
 <body>
   <div class="container">
@@ -74,23 +75,23 @@
       const addonsInput = document.getElementById('addons');
 
       // Restore checked state
-      const saved = JSON.parse(sessionStorage.getItem('checklistItems') || '[]');
+      const saved = JSON.parse(localStorage.getItem('checklistItems') || '[]');
       checkboxes.forEach(cb => {
         if (saved.includes(cb.id)) cb.checked = true;
         cb.addEventListener('change', () => {
           const checked = Array.from(checkboxes)
             .filter(c => c.checked)
             .map(c => c.id);
-          sessionStorage.setItem('checklistItems', JSON.stringify(checked));
+          localStorage.setItem('checklistItems', JSON.stringify(checked));
         });
       });
 
       // Restore and save addons
       if (addonsInput) {
-        const savedAddons = sessionStorage.getItem('checklistAddons') || '';
+        const savedAddons = localStorage.getItem('checklistAddons') || '';
         addonsInput.value = savedAddons;
         addonsInput.addEventListener('input', () => {
-          sessionStorage.setItem('checklistAddons', addonsInput.value);
+          localStorage.setItem('checklistAddons', addonsInput.value);
         });
       }
     });

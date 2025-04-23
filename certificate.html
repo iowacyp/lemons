@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lemonade Boss Certificate</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="all.min.css" />
   <style>
     .certificate {
       border: 5px solid var(--accent, #f4b400);
@@ -53,8 +54,7 @@
     async function generateCertificate() {
       const { jsPDF } = window.jspdf;
       const name = document.getElementById('nameInput').value.trim() || "Your Name";
-      // Store the student's name in sessionStorage for use on the final report page
-      sessionStorage.setItem('studentName', name);
+      localStorage.setItem('studentName', name);
 
       const doc = new jsPDF({
         orientation: 'landscape',
@@ -62,23 +62,28 @@
         format: [792, 612]
       });
 
-      const img = new Image();
-      img.src = 'LemonsCert.jpg';
-
-      img.onload = () => {
-        doc.addImage(img, 'JPEG', 0, 0, 792, 612);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(42);
-        doc.setTextColor('#242754');
-        doc.text(name, 410, 325, { align: 'center' });
-        doc.save(`Lemonade_Boss_Certificate_${name}.pdf`);
-      };
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = 'LemonsCert.jpg';
+        img.onload = () => {
+          doc.addImage(img, 'JPEG', 0, 0, 792, 612);
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(42);
+          doc.setTextColor('#242754');
+          doc.text(name, 410, 325, { align: 'center' });
+          doc.save(`Lemonade_Boss_Certificate_${name}.pdf`);
+          resolve();
+        };
+        img.onerror = () => {
+          // If image fails to load, still resolve so the flow continues
+          resolve();
+        };
+      });
     }
 
-    document.getElementById('nextButton').addEventListener('click', () => {
-      const name = document.getElementById('nameInput')?.value.trim() || "Your Name";
-      sessionStorage.setItem('studentName', name);
-      window.location.href = 'report.html';
+    document.getElementById('nextButton').addEventListener('click', async () => {
+      await generateCertificate(); // Generate and download certificate first
+      window.location.href = 'report.html'; // Then go to report
     });
   </script>
 </body>

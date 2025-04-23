@@ -10,6 +10,9 @@ git push
 ----------------------------------------------------------------------------------------
 netlify deploy --prod
 
+rm -rf .netlify
+netlify deploy --prod
+
 # 🧪 Run Local Netlify Dev Server
 # Use to preview your site locally in a Netlify-like environment before deploying.
 ----------------------------------------------------------------------------------------

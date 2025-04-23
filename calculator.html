@@ -57,7 +57,7 @@
       <h1>Lemons Profit Calculator</h1>
 
       <div style="text-align: center;">
-        <i class="fa-solid fa-box-open" style="color: #f4b400; font-size: 1.5rem;"></i>
+        <i class="fa-solid fa-box-open" style="color: #f4b400; font-size: 1.8rem;"></i>
       </div>
       <h2>Supply Costs</h2>
       <div id="supplyContainer">
@@ -151,8 +151,10 @@
       <input type="text" id="finalSuppliesCost" placeholder="$0.00" readonly>
       <div id="summary-finalSuppliesCost" class="print-summary"></div>
 
-      <label><strong><i class="fa-solid fa-coins" style="color: #f4b400;"></i> Profit (Income - Cost)</strong></label>
-      <input type="text" id="finalProfit" placeholder="$0.00" readonly>
+      <div style="background-color: #f4b400; padding: 0.5rem; border-radius: 8px; text-align: center; margin-top: 1rem;">
+        <label style="color: white;"><strong><i class="fa-solid fa-coins" style="color: white;"></i> Profit (Income - Cost)</strong></label>
+        <input type="text" id="finalProfit" placeholder="$0.00" readonly style="color: white; background: transparent; border: none; font-weight: bold; text-align: center;" />
+      </div>
       <div id="summary-finalProfit" class="print-summary"></div>
 
       <div class="nav-bar">
@@ -226,6 +228,16 @@
   <script>
     // Auto-save key calculator fields to localStorage on input/change (input-based listener)
     document.addEventListener('DOMContentLoaded', () => {
+      // Restore key calculator fields from localStorage
+      ['pricePerCup', 'totalExpenses', 'totalIncome', 'finalProfit', 'finalSuppliesCost'].forEach(id => {
+        const field = document.getElementById(id);
+        const saved = localStorage.getItem(id);
+        if (field && saved !== null) {
+          field.value = saved;
+        }
+      });
+      updateTotals();
+
       document.querySelectorAll('#pricePerCup, #cupsSold').forEach(input => {
         const key = input.id;
         input.addEventListener('input', () => {

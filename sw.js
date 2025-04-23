@@ -15,7 +15,10 @@ const assetsToCache = [
   'photos.html',
   'journal.html',
   'report.html',
-  'certificate.html'
+  'certificate.html',
+  'manifest.json',
+  'icon-192.png',
+  'icon-512.png'
 ];
 
 // Install: Cache all core files

@@ -54,7 +54,11 @@
         <i class="fa-solid fa-file-invoice-dollar" style="color: #f4b400; font-size: 2rem;"></i>
       </div>
       <h2>Sales & Profit Summary</h2>
-      <p style="font-weight: bold; font-size: 1.3rem;"><strong>Total Profit:</strong> <span id="finalProfit"></span></p>
+      <div style="background-color: #f4b400; padding: 0.5rem; border-radius: 8px; text-align: center;">
+        <p style="margin: 0; font-weight: bold; font-size: 1.5rem; color: white;">
+          <strong>Total Profit:</strong> <span id="finalProfit"></span>
+        </p>
+      </div>
       <p><strong>Total Sales:</strong> <span id="totalIncome"></span></p>
       <p><strong>Total Expenses:</strong> <span id="totalExpenses"></span></p>
       <p><strong>Price Per Cup:</strong> <span id="pricePerCup"></span></p>
@@ -164,7 +168,15 @@
           (marketingData.flyerCaption || '').replace(/^Flyer caption:\s*/i, '') || '';
       }
 
-      const moreFields = ['loanAmount', 'repaymentPlan', 'studentName', 'photoNote'];
+      const moreFields = [
+        'loanAmount',
+        'repaymentPlan',
+        'studentName',
+        'photoNote',
+        'totalExpenses',
+        'finalSuppliesCost',
+        'totalIncome'
+      ];
       moreFields.forEach(id => {
         const el = document.getElementById(id);
         const val = localStorage.getItem(id);
@@ -206,7 +218,10 @@
             reflection3: 'How did I make someone smile today?'
           };
           el.innerHTML = `<strong>${labelMap[id]}:</strong> ${val}`;
-          document.querySelector('.app-container').appendChild(el);
+          const container = document.querySelector('.app-container');
+          if (container) {
+            container.appendChild(el);
+          }
         }
       });
 

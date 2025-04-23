@@ -18,6 +18,10 @@ function updateTotals() {
   if (totalExpensesField) totalExpensesField.value = `$${totalExpenses.toFixed(2)}`;
   if (finalSuppliesCost) finalSuppliesCost.value = `$${totalExpenses.toFixed(2)}`;
 
+  // Store calculated values in localStorage for cross-page use (always save, even if $0.00)
+  if (totalExpensesField) localStorage.setItem('totalExpenses', totalExpensesField.value);
+  if (finalSuppliesCost) localStorage.setItem('finalSuppliesCost', finalSuppliesCost.value);
+
   let pricePerCup = parseFloat((pricePerCupField?.value || '').replace(/[^0-9.]/g, '')) || 0;
 
   const totalIncome = pricePerCup * cupsSold;
@@ -27,13 +31,6 @@ function updateTotals() {
   const profitField = document.getElementById('finalProfit');
   if (profitField) profitField.value = `$${(totalIncome - totalExpenses).toFixed(2)}`;
 
-  // Store calculated values in localStorage for cross-page use
-  if (totalExpensesField) {
-    localStorage.setItem('totalExpenses', totalExpensesField.value);
-  }
-  if (finalSuppliesCost) {
-    localStorage.setItem('finalSuppliesCost', finalSuppliesCost.value);
-  }
   if (pricePerCupField) {
     localStorage.setItem('pricePerCup', pricePerCupField.value);
   }
@@ -43,6 +40,18 @@ function updateTotals() {
   if (profitField) {
     localStorage.setItem('finalProfit', profitField.value);
   }
+
+  const supplyData = [];
+  itemRows.forEach(row => {
+    supplyData.push({
+      item: row.querySelector('.item-select')?.value || '',
+      customItem: row.querySelector('.custom-item')?.value || '',
+      quantity: row.querySelector('.quantity')?.value || '',
+      costEach: row.querySelector('.cost-each')?.value || '',
+      totalCost: row.querySelector('.total-cost')?.value || ''
+    });
+  });
+  localStorage.setItem('supplyRows', JSON.stringify(supplyData));
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -135,7 +144,64 @@ document.addEventListener("DOMContentLoaded", () => {
     downloadButton.addEventListener('click', downloadReport);
   }
 
-  updateTotals();
+  let restored = false;
+  ['pricePerCup', 'totalExpenses', 'totalIncome', 'finalProfit', 'finalSuppliesCost', 'cupsSold'].forEach(id => {
+    const field = document.getElementById(id);
+    const saved = localStorage.getItem(id);
+    if (field && saved !== null) {
+      field.value = saved;
+      restored = true;
+    }
+  });
+
+  const savedRows = JSON.parse(localStorage.getItem('supplyRows') || '[]');
+  savedRows.forEach(data => {
+    const container = document.createElement('div');
+    container.className = 'item-row';
+    container.innerHTML = `
+      <label>Item<select class="item-select">
+        <option value="Lemons">Lemons (each)</option>
+        <option value="Lemonade Mix">Lemonade Mix (powdered)</option>
+        <option value="Sugar">Sugar (5 lb bag)</option>
+        <option value="Cups">Cups (pk)</option>
+        <option value="Pitcher">Pitcher</option>
+        <option value="Poster/Signs">Poster/Signs</option>
+        <option value="Napkins">Napkins</option>
+        <option value="Ice">Ice (bag)</option>
+        <option value="Stirrer/Spoon">Stirrer/Spoon</option>
+        <option value="Powdered Mix">Powdered Mix</option>
+        <option value="Labeled Packaging">Labeled Packaging</option>
+        <option value="Other">Other (type below)</option>
+      </select></label>
+
+      <label>Custom Item<input type="text" class="custom-item" placeholder="Custom Item" style="display:none"></label>
+
+      <label>Quantity<select class="quantity">
+        ${[...Array(21).keys()].slice(1).map(n => `<option value="${n}">${n}</option>`).join('')}
+      </select></label>
+
+      <label>Cost Each ($)<input type="text" class="cost-each" placeholder="0.00"></label>
+
+      <label>Total Cost<input type="text" class="total-cost" placeholder="$0.00" readonly></label>
+    `;
+    supplyContainer.appendChild(container);
+    attachListeners(container);
+    container.querySelector('.item-select').value = data.item;
+    container.querySelector('.custom-item').value = data.customItem;
+    container.querySelector('.quantity').value = data.quantity;
+    container.querySelector('.cost-each').value = data.costEach;
+    container.querySelector('.total-cost').value = data.totalCost;
+  });
+
+  if (restored) updateTotals();
+
+  // Debug logging: log all key calculator fields right after updateTotals()
+  console.log('Debug – Final values being saved:');
+  console.log('totalExpenses:', localStorage.getItem('totalExpenses'));
+  console.log('finalSuppliesCost:', localStorage.getItem('finalSuppliesCost'));
+  console.log('pricePerCup:', localStorage.getItem('pricePerCup'));
+  console.log('totalIncome:', localStorage.getItem('totalIncome'));
+  console.log('finalProfit:', localStorage.getItem('finalProfit'));
 });
 
 // 1. Generate PDF from visible content (requires html2pdf library)

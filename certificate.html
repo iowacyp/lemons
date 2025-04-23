@@ -43,8 +43,8 @@
 
       <div id="certificateOutput" class="certificate" style="display: none;"></div>
       <div class="nav-bar">
-        <button onclick="window.location.href='report.html'">←</button>
-        <button onclick="window.location.href='index.html'">🏁</button>
+        <button onclick="window.location.href='journal.html'">←</button>
+        <button onclick="window.location.href='report.html'">🏁</button>
       </div>
     </div>
   </div> <!-- close .app-container -->
@@ -53,6 +53,8 @@
     async function generateCertificate() {
       const { jsPDF } = window.jspdf;
       const name = document.getElementById('nameInput').value.trim() || "Your Name";
+      // Store the student's name in sessionStorage for use on the final report page
+      sessionStorage.setItem('studentName', name);
 
       const doc = new jsPDF({
         orientation: 'landscape',

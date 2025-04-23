@@ -65,7 +65,35 @@
     </div>
   </div>
   </div>
+</script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const checkboxes = document.querySelectorAll('#checklistContainer input[type="checkbox"]');
+      const addonsInput = document.getElementById('addons');
+
+      // Restore checked state
+      const saved = JSON.parse(sessionStorage.getItem('checklistItems') || '[]');
+      checkboxes.forEach(cb => {
+        if (saved.includes(cb.id)) cb.checked = true;
+        cb.addEventListener('change', () => {
+          const checked = Array.from(checkboxes)
+            .filter(c => c.checked)
+            .map(c => c.id);
+          sessionStorage.setItem('checklistItems', JSON.stringify(checked));
+        });
+      });
+
+      // Restore and save addons
+      if (addonsInput) {
+        const savedAddons = sessionStorage.getItem('checklistAddons') || '';
+        addonsInput.value = savedAddons;
+        addonsInput.addEventListener('input', () => {
+          sessionStorage.setItem('checklistAddons', addonsInput.value);
+        });
+      }
+    });
+  </script>
 </body>
 </html>

@@ -14,7 +14,7 @@
 ====================== */
 h1 {
   color: #f4b400;
-  font-size: 2.4rem;
+  font-size: 1.5rem;
   margin-top: 1.5rem;  /* Add space at the top */
   margin-bottom: 0.5rem;  /* Reduce space below the title */
 }
@@ -50,8 +50,8 @@ button, .btn {
   background-color: #f4b400;
   color: white;
   text-decoration: none;
-  padding: 1rem;
-  font-size: 1.2rem;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.2s, transform 0.2s;
@@ -121,6 +121,8 @@ input[type="checkbox"]:focus {
 
 /* Label and Checkbox Alignment */
 label {
+  display: block;
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 1rem;  /* Space between checkbox and label text */
@@ -182,16 +184,18 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;  /* Center horizontally */
-  align-items: center;      /* Center vertically */
+  align-items: flex-start; /* Align items to the start vertically */
   text-align: center;       /* Center text */
+  overflow-x: hidden;
 }
 
 /* =====================
    Navigation Bar (Circular Buttons)
 ====================== */
 .nav-bar {
+  flex-direction: row;
+  justify-content: space-between;
   display: flex;
-  justify-content: space-around;  /* Space out buttons evenly */
   gap: 2rem;  /* Space between the buttons */
 }
 
@@ -219,25 +223,24 @@ body {
    Fixed Menu Button (Reappears)
 ====================== */
 #menuButtonContainer {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
 }
 
 #menuButton {
-  background-color: white;
-  color: #f4b400;
+  background-color: #f4b400;
+  color: white;
   border-radius: 10%;
   font-size: 1.4rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  padding: 0.4rem 0.4rem;
+  padding: 0.4rem;
   text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 1.4rem;  /* Ensure width and height are the same for circle */
-  height: 1.4rem;  /* Equal height and width for perfect circle */
+  width: 2rem;
+  height: 2rem;
 }
 
 /* =====================
@@ -280,6 +283,12 @@ body {
   background-color: #fafafa;
   margin-bottom: 1rem;
 }
+.item-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
 
 .custom-file-input:hover {
   border-color: #d89e00;
@@ -310,10 +319,10 @@ body {
   transform: scale(1.05);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .upload-container {
     margin: 1rem;
-    padding: 0.5rem;
+    padding: 1rem;
   }
   .upload-section h2 {
     font-size: 1.3rem;
@@ -342,4 +351,79 @@ body {
 .devotional-text {
   text-align: left;
   margin-left: 3rem; /* adjust spacing as needed */
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .app-container {
+    width: 100%;
+    margin: 1rem auto;
+    padding: 1rem;
+    border-radius: 16px;
+    box-shadow: none;
+  }
+
+  h1, h2 {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  p, li {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .nav-bar {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .nav-bar a, .nav-bar button {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+    width: auto;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+  }
+
+  input, textarea, select {
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .app-container {
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  .container,
+  .checkbox-container,
+  input[type="text"],
+  input,
+  textarea,
+  select {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  label {
+    flex-wrap: wrap;
+    word-break: break-word;
+  }
 }

@@ -17,7 +17,7 @@
 
       <div id="journalContainer">
         <h2>📝 Free-Form Journal Section</h2>
-        <textarea rows="6" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
+        <textarea id="freeFormJournal" rows="6" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
 
         <h2>😊 How are you feeling today?</h2>
         <p>
@@ -30,23 +30,40 @@
 
         <h2>📝 Reflection Prompts</h2>
         <p><strong>1.</strong> What went really well today?</p>
-        <textarea rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
+        <textarea id="reflection1" rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
 
         <p><strong>2.</strong> What would I do differently next time?</p>
-        <textarea rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
+        <textarea id="reflection2" rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
 
         <p><strong>3.</strong> How did I make someone smile today?</p>
-        <textarea rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
+        <textarea id="reflection3" rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
         <div class="nav-bar">
-          <button onclick="window.location.href='photo.html'">←</button>
+          <button onclick="window.location.href='photos.html'">←</button>
           <button id="downloadReport" type="button">
             <img src="download.png" alt="Download" width="24" height="24" />
           </button>
-          <button onclick="window.location.href='report.html'">→</button>
+          <button onclick="window.location.href='certificate.html'">→</button>
         </div>
     </div> 
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const journalFields = ['freeFormJournal', 'reflection1', 'reflection2', 'reflection3'];
+
+      journalFields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          // Restore saved value
+          el.value = sessionStorage.getItem(id) || '';
+          // Save changes
+          el.addEventListener('input', () => {
+            sessionStorage.setItem(id, el.value);
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>

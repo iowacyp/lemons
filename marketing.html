@@ -48,4 +48,54 @@
     </div>
   </div>
 </body>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const checkboxIds = ['family', 'posters', 'online', 'neighbors'];
+    const textInputs = ['otherInput', 'special', 'pitch', 'caption'];
+
+    // Restore saved values
+    checkboxIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && sessionStorage.getItem(id) === 'true') {
+        el.checked = true;
+      }
+      el.addEventListener('change', () => {
+        sessionStorage.setItem(id, el.checked.toString());
+      });
+    });
+
+    textInputs.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.value = sessionStorage.getItem(id) || '';
+        el.addEventListener('input', () => {
+          sessionStorage.setItem(id, el.value);
+        });
+      }
+    });
+
+    // Create a full marketing summary for the report page
+    const generateMarketingSummary = () => {
+      const checked = checkboxIds.filter(id => document.getElementById(id)?.checked)
+        .map(id => document.querySelector(`label[for="${id}"]`)?.textContent || id)
+        .concat(document.getElementById('otherInput')?.value ? ['Other: ' + document.getElementById('otherInput').value] : []);
+      const highlight = document.getElementById('special')?.value || '';
+      const pitch = document.getElementById('pitch')?.value || '';
+      const caption = document.getElementById('caption')?.value || '';
+
+      const summary = `
+        Ways to spread the word: ${checked.join(', ')}.
+        What makes our lemonade special: ${highlight}
+        Our pitch: ${pitch}
+        Flyer caption: ${caption}
+      `;
+      sessionStorage.setItem('marketingPlan', summary.trim());
+    };
+
+    // Watch for changes to update the summary
+    document.querySelectorAll('input, textarea').forEach(el =>
+      el.addEventListener('input', generateMarketingSummary)
+    );
+  });
+</script>
 </html>

@@ -28,6 +28,13 @@ function updateTotals() {
 
   const profitField = document.getElementById('finalProfit');
   profitField.value = `$${(totalIncome - totalExpenses).toFixed(2)}`;
+
+  // Store calculated values in sessionStorage for cross-page use
+  sessionStorage.setItem('totalExpenses', totalExpensesField.value);
+  sessionStorage.setItem('pricePerCup', pricePerCupField.value);
+  sessionStorage.setItem('totalIncome', totalIncomeField.value);
+  sessionStorage.setItem('finalSuppliesCost', finalSuppliesCost.value);
+  sessionStorage.setItem('finalProfit', profitField.value);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -85,6 +92,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Attach listeners to initial rows
   document.querySelectorAll('.item-row').forEach(attachListeners);
+  
+  document.querySelectorAll('.quantity, .cost-each').forEach(el => {
+    el.addEventListener('input', updateTotals);
+    el.addEventListener('change', updateTotals);
+  });
 
   const downloadButton = document.getElementById('downloadReport');
   if (downloadButton) {

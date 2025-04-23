@@ -61,6 +61,27 @@
 
       document.getElementById("agreement").innerHTML = html;
     }
+
+    // Save values to sessionStorage on input
+    document.querySelectorAll('#borrower, #lender, #amount, #purpose, #plan, #interest, #deadline').forEach(input => {
+      input.addEventListener('input', () => {
+        sessionStorage.setItem(input.id, input.value);
+      });
+    });
+
+    // Optional: restore saved values on reload
+    window.addEventListener('DOMContentLoaded', () => {
+      const fields = ['borrower', 'lender', 'amount', 'purpose', 'plan', 'interest', 'deadline'];
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && sessionStorage.getItem(id)) {
+          el.value = sessionStorage.getItem(id);
+        }
+      });
+      // Set report fields used on final report
+      sessionStorage.setItem('loanAmount', sessionStorage.getItem('amount') || '');
+      sessionStorage.setItem('repaymentPlan', sessionStorage.getItem('plan') || '');
+    });
   </script>
 </body>
 </html>

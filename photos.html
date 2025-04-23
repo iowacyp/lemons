@@ -37,10 +37,40 @@
           const reader = new FileReader();
           reader.onload = () => {
             preview.src = reader.result;
+
+            // Track upload note
+            const photoNote = sessionStorage.getItem('photoNote') || '';
+            let updatedNote = photoNote;
+
+            if (imgId === 'flyerPreview') {
+              sessionStorage.setItem('flyerImage', reader.result);
+              if (!photoNote.includes('Flyer')) {
+                updatedNote += (updatedNote ? '; ' : '') + 'Flyer uploaded';
+              }
+            } else if (imgId === 'standPreview') {
+              sessionStorage.setItem('standImage', reader.result);
+              if (!photoNote.includes('Stand')) {
+                updatedNote += (updatedNote ? '; ' : '') + 'Stand photo uploaded';
+              }
+            }
+
+            sessionStorage.setItem('photoNote', updatedNote);
           };
           reader.readAsDataURL(file);
         }
       }
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const flyer = document.getElementById('flyerPreview');
+        const stand = document.getElementById('standPreview');
+
+        const photoNote = sessionStorage.getItem('photoNote');
+        if (photoNote) {
+          if (photoNote.includes('Flyer')) flyer.alt = "Flyer uploaded";
+          if (photoNote.includes('Stand')) stand.alt = "Stand uploaded";
+        }
+      });
     </script>
     <div class="nav-bar">
       <button onclick="window.location.href='checklist.html'">←</button>

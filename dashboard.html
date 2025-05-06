@@ -11,6 +11,11 @@
 <body>
   <div class="container">
     <div class="app-container">
+      <div style="text-align: right; margin: -1rem -0.5rem 0 0;">
+        <button id="toggleDarkMode" aria-label="Toggle Dark Mode" style="background: none; border: none; font-size: 1.2rem; color: #fdd835; cursor: pointer;">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
       <div id="menuButtonContainer">
         <a href="dashboard.html" id="menuButton" aria-label="Go to Menu">☰</a>
       </div>
@@ -37,4 +42,16 @@
     </div>
   </div>
 </body>
+<script>
+  const toggleBtn = document.getElementById('toggleDarkMode');
+  const root = document.documentElement;
+
+  // Set default to dark mode
+  root.classList.add('dark-mode');
+
+  // Toggle dark mode on click
+  toggleBtn.addEventListener('click', () => {
+    root.classList.toggle('dark-mode');
+  });
+</script>
 </html>

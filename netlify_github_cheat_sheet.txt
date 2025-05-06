@@ -33,3 +33,17 @@ git config --global user.email "you@iowacyp.com"
 📋 Check current GitHub identity:
 git config --global user.name
 git config --global user.email
+
+🔓 Sign Out from GitHub in Visual Studio
+	1.	Open Visual Studio.
+	2.	Click on your profile icon in the top-right corner of the window.
+	3.	In the dropdown, you’ll see your GitHub account listed.
+	4.	Click “Manage Accounts”.
+	5.	In the All Accounts tab, locate your GitHub account.
+	6.	Click the “Sign out” link next to the GitHub entry.
+
+    git credential-manager clear
+    
+    git credential reject
+        protocol=https
+        host=github.com

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-mode">
 <head>
   <link rel="manifest" href="manifest.json">
   <meta charset="UTF-8" />
@@ -11,16 +11,16 @@
 <body>
   <div class="container">
     <div class="app-container">
-      <div style="text-align: right; margin: -1rem -0.5rem 0 0;">
-        <button id="toggleDarkMode" aria-label="Toggle Dark Mode" style="background: none; border: none; font-size: 1.2rem; color: #fdd835; cursor: pointer;">
+      <div id="darkModeButtonContainer">
+        <a href="#" id="toggleDarkMode" aria-label="Toggle Dark Mode">
           <i class="fa-solid fa-moon"></i>
-        </button>
+        </a>
       </div>
       <div id="menuButtonContainer">
         <a href="dashboard.html" id="menuButton" aria-label="Go to Menu">☰</a>
       </div>
-      <div style="text-align: center;">
-        <i class="fa-solid fa-clipboard icon-visible" style="color: #f4b400; font-size: 2rem;"></i>
+      <div style="text-align: center; font-size: 2rem;">
+        <i class="fa-solid fa-clipboard icon-visible icon-lg"></i>
       </div>
       <h1>Lemonade Boss Menu</h1>
       <p class="subtitle">Pick any section you'd like to work on today!</p>
@@ -34,8 +34,8 @@
         <a href="checklist.html" class="btn"><i class="fa-solid fa-list-check icon-visible" style="color: #333;"></i> Opening Day Checklist</a>
         <a href="photos.html" class="btn"><i class="fa-solid fa-camera-retro icon-visible" style="color: #333;"></i> My Stand Photos</a>
         <a href="journal.html" class="btn"><i class="fa-solid fa-book icon-visible" style="color: #333;"></i> Journal & Reflections</a>
-        <a href="report.html" class="btn"><i class="fa-solid fa-award icon-visible" style="color: #333;"></i> Final Report</a>
         <a href="certificate.html" class="btn"><i class="fa-solid fa-certificate icon-visible" style="color: #333;"></i> Get My Certificate</a>
+        <a href="report.html" class="btn"><i class="fa-solid fa-award icon-visible" style="color: #333;"></i> Final Report</a>
       </div>
 
       <p class="quote">“When life gives you lemons, start a business!”</p>

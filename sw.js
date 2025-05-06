@@ -25,7 +25,20 @@ const assetsToCache = [
 self.addEventListener('install', event => {
   self.skipWaiting();
   event.waitUntil(
-    caches.open(cacheName).then(cache => cache.addAll(assetsToCache))
+    (async () => {
+      const cache = await caches.open(cacheName);
+      await Promise.allSettled(
+        assetsToCache.map(async asset => {
+          try {
+            const response = await fetch(asset);
+            if (!response.ok) throw new Error(`${asset} failed with ${response.status}`);
+            await cache.put(asset, response);
+          } catch (err) {
+            console.warn('Cache failed for:', asset, err);
+          }
+        })
+      );
+    })()
   );
 });
 

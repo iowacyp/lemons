@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-mode">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -13,12 +13,13 @@
       <div id="menuButtonContainer">
         <a href="dashboard.html" id="menuButton" aria-label="Back to Menu">☰</a>
       </div>
-      <div style="text-align: center;">
-        <i class="fa-solid fa-bullhorn" style="color: #f4b400; font-size: 2rem;"></i>
+      <div style="text-align: center; font-size: 2rem;">
+        <i class="fa-solid fa-bullhorn icon-lg"></i>
       </div>
       <h1 class="title">Marketing Plan</h1>
-      <p class="subtitle">Let people know about your awesome stand!</p>
+      <p class="subtitle">Let the world know about your amazing lemonade stand!</p>
       <form id="marketing-form">
+        <p>Choose all the ways you plan to tell people about your stand:</p>
         <fieldset>
           <legend>How will you spread the word?</legend>
           <label><input type="checkbox" id="family" /> Tell my family and friends</label><br>
@@ -28,20 +29,21 @@
           <label><input type="checkbox" id="other" /> Other: <input type="text" id="otherInput" /></label>
         </fieldset>
 
-        <h2 style="margin-top: 2rem;">What's special about your lemonade?</h2>
-        <textarea id="special" placeholder="Flavor, fun extras, or awesome service?" rows="3"></textarea>
+        <h2 style="margin-top: 2rem;">What makes your lemonade stand out?</h2>
+        <textarea id="special" placeholder="Think flavor, fun extras, decorations, or amazing service!" rows="3"></textarea>
 
         <h2>Your Pitch</h2>
-        <textarea id="pitch" placeholder="Hi! I’m running a lemonade stand today..." rows="3"></textarea>
+        <textarea id="pitch" placeholder="Hi there! I’m running a lemonade stand today and I’d love for you to stop by!" rows="3"></textarea>
 
+        <p>Write a short message to put on your flyers or posters:</p>
         <h2>Flyer Caption</h2>
-        <textarea id="caption" placeholder="Lemonade lovers—come visit my stand this Saturday! 🍋" rows="2"></textarea>
-        <div class="reference-sheet" style="margin-bottom: 2rem; text-align: left;">
-          <h2><i class="fa-solid fa-palette" style="color: #f4b400;"></i> Canva Tutorial</h2>
-          <p>If you'd like help designing your flyer but aren't sure how to get started, here's a helpful guide using a free design tool called Canva. It's like digital paper and crayons!</p>
-          <p><a href="https://drive.google.com/file/d/1jgTJEsdwF7nHDwjF8XJ8OVrqPPoW3sSa/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-            <i class="fa-solid fa-file" style="color: #f4b400;"></i> Open Canva Reference Sheet
-          </a></p>
+        <textarea id="caption" placeholder="Come grab a glass this Saturday—it's fresh, fun, and delicious! 🍋" rows="2"></textarea>
+        <div class="reference-sheet" style="margin-bottom: 2rem; text-align: center;">
+          <h2><i class="fa-solid fa-palette icon-lg"></i> Canva Tutorial</h2>
+          <p>Canva is a free tool that makes it easy to design posters. It’s like digital paper and crayons!</p>
+          <p><button type="button" onclick="window.open('https://drive.google.com/file/d/1jgTJEsdwF7nHDwjF8XJ8OVrqPPoW3sSa/view?usp=sharing', '_blank')" class="btn">
+            <i class="fa-solid fa-file"></i> Open Canva Reference Sheet
+          </button></p>
         </div>
       </form>
       <div class="nav-bar">

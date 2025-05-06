@@ -1,49 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-mode">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta charset="UTF-8">
   <title>Lemons Inc. Profit Calculator</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="styles.css">
-  <!-- Added an inline style for demonstration; this would ideally be in your external stylesheet -->
-  <style>
-    /* Moved inline style to CSS */
-    .hidden {
-      display: none;
-    }
-
-    @media print {
-      .nav-bar,
-      #menuButtonContainer,
-      button,
-      select,
-      input[type="text"],
-      input[type="number"],
-      input[type="submit"],
-      input[type="button"],
-      input[type="file"] {
-        display: none !important;
-      }
-
-      .print-summary {
-        display: block;
-        margin: 0.25rem 0 1rem 0;
-        font-size: 1.1rem;
-        color: #000;
-      }
-
-      h1, h2, label, strong {
-        color: #000;
-      }
-    }
-
-    @media screen {
-      .print-summary {
-        display: none;
-      }
-    }
-  </style>
 </head>
 <body>
   <div class="container">
@@ -51,15 +13,18 @@
       <div id="menuButtonContainer">
         <a href="dashboard.html" id="menuButton" aria-label="Back to Menu">☰</a>
       </div>
-      <div style="text-align: center;">
-        <i class="fa-solid fa-calculator" style="color: #f4b400; font-size: 2rem;"></i>
+      <div style="text-align: center; font-size: 2rem;">
+        <i class="fa-solid fa-calculator icon-accent icon-lg"></i>
       </div>
-      <h1>Lemons Profit Calculator</h1>
+      <div style="margin-bottom: 1rem;">
+        <h1 style="margin-bottom: 0.2rem;">How Much Will You Make?</h1>
+      </div>
 
       <div style="text-align: center;">
-        <i class="fa-solid fa-box-open" style="color: #f4b400; font-size: 1.8rem;"></i>
+        <i class="fa-solid fa-box-open icon-accent icon-md"></i>
       </div>
-      <h2>Supply Costs</h2>
+      <h2>What Will You Buy?</h2>
+      <p>List supplies and their costs.</p>
       <div id="supplyContainer">
         <div class="item-row">
           <label>
@@ -124,7 +89,7 @@
           </label>
         </div>
       </div>
-      <button id="addItem" type="button">➕ Add Another Item</button>
+      <button id="addItem" type="button">➕ Add Another Supply</button>
 
       <label><strong>Total Expenses (Sum of All Total Costs)</strong></label>
       <input type="text" id="totalExpenses" placeholder="$0.00" readonly>
@@ -135,9 +100,10 @@
       <div id="summary-pricePerCup" class="print-summary"></div>
 
       <div style="text-align: center;">
-        <i class="fa-solid fa-dollar-sign" style="color: #f4b400; font-size: 1.5rem;"></i>
+        <i class="fa-solid fa-dollar-sign icon-accent icon-sm"></i>
       </div>
-      <h2>Sales & Profit (Set Your Cup Price)</h2>
+      <h2>How Much Will You Charge?</h2>
+      <p>Set a price and number of cups.</p>
 
       <label>Cups to Sell</label>
       <!-- This select element will be populated dynamically -->
@@ -151,14 +117,16 @@
       <input type="text" id="finalSuppliesCost" placeholder="$0.00" readonly>
       <div id="summary-finalSuppliesCost" class="print-summary"></div>
 
-      <div style="background-color: #f4b400; padding: 0.5rem; border-radius: 8px; text-align: center; margin-top: 1rem;">
-        <label style="color: white;"><strong><i class="fa-solid fa-coins" style="color: white;"></i> Profit (Income - Cost)</strong></label>
-        <input type="text" id="finalProfit" placeholder="$0.00" readonly style="color: white; background: transparent; border: none; font-weight: bold; text-align: center;" />
+      <div class="profit-summary">
+        <label class="profit-label"><strong><i class="fa-solid fa-coins icon-accent"></i> Your Profit: Earnings minus costs</strong></label>
+        <input type="text" id="finalProfit" placeholder="$0.00" readonly class="profit-amount" />
       </div>
       <div id="summary-finalProfit" class="print-summary"></div>
 
       <div class="nav-bar">
-        <a href="customize.html" class="nav-btn" style="text-decoration: none; display: inline-block; line-height: 1; font-size: 1.5rem;">←</a>
+        <button onclick="location.href='customize.html'" class="solid-icon-button" aria-label="Back">
+          ←
+        </button>
         <button id="downloadReport" type="button" class="solid-icon-button">
           <img src="download.png" alt="Download" width="24" height="24" />
         </button>

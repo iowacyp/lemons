@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-mode">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta charset="UTF-8" />
@@ -13,14 +13,14 @@
     <div id="menuButtonContainer">
         <a href="dashboard.html" id="menuButton" aria-label="Back to Menu">☰</a>
       </div>
-    <div style="text-align: center;">
-      <i class="fa-solid fa-camera" style="color: #f4b400; font-size: 2rem;"></i>
+    <div style="text-align: center; font-size: 2rem;">
+      <i class="fa-solid fa-camera icon-lg"></i>
     </div>
     <h1>My Stand Photos</h1>
     <p>Show off your awesome lemonade stand and your creative flyer!</p>
 
     <div style="text-align: center;">
-      <i class="fa-solid fa-image" style="color: #f4b400;"></i>
+      <i class="fa-solid fa-image"></i>
     </div>
     <h2>Upload Your Flyer</h2>
     <label for="flyerUpload">Choose a flyer photo:</label>
@@ -28,7 +28,7 @@
     <img id="flyerPreview" style="max-width: 100%; margin-top: 1rem;" />
 
     <div style="text-align: center;">
-      <i class="fa-solid fa-store" style="color: #f4b400;"></i>
+      <i class="fa-solid fa-store"></i>
     </div>
     <h2>Upload Your Stand</h2>
     <label for="standUpload">Choose a stand photo:</label>
@@ -36,12 +36,12 @@
     <img id="standPreview" style="max-width: 100%; margin-top: 1rem;" />
 
     <div style="text-align: center;">
-      <i class="fa-solid fa-share-nodes" style="color: #f4b400;"></i>
+      <i class="fa-solid fa-share-nodes"></i>
     </div>
     <h2>Share to Google Drive</h2>
     <p>You can also upload your flyer or stand photos to our shared folder.</p>
     <button onclick="goToDriveFolder()">
-      <i class="fa-solid fa-upload" style="color: #f4b400;"></i> Open Drive Folder
+      <i class="fa-solid fa-upload"></i> Open Drive Folder
     </button>
 
     <script>
@@ -93,6 +93,11 @@
     </div>
   </div>
   </div>
+  <script>
+    function goToDriveFolder() {
+      window.open('https://drive.google.com/drive/u/0/folders/1kFxkIXOyD0U3c0BEAb4ED7eOpujh92zk', '_blank');
+    }
+  </script>
 </body>
 </html>
     <script>

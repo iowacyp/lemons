@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-mode">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles.css" />
   <style>
     .certificate {
-      border: 5px solid var(--accent, #f4b400);
+      border: 5px solid #f4c300;
       padding: 2rem;
       background: #fff;
       color: #000;
@@ -18,7 +18,7 @@
     }
     .certificate h1 {
       font-size: 2rem;
-      color: var(--accent, #f4b400);
+      color: #f4c300;
     }
     .certificate p {
       font-size: 1.2rem;
@@ -37,25 +37,25 @@
       <a href="dashboard.html" id="menuButton" aria-label="Go to Menu">☰</a>
     </div>
       <div style="text-align: center;">
-        <i class="fa-solid fa-certificate" style="color: #f4b400; font-size: 2rem;"></i>
+        <i class="fa-solid fa-certificate" style="font-size: 2rem;"></i>
       </div>
-      <h1 class="title">Certificate Generator</h1>
-      <p class="subtitle">Celebrate your hard work!</p>
+      <h1 class="title">Earn Your Certificate!</h1>
+      <p class="subtitle">You’ve worked hard—now make it official.</p>
 
       <label for="nameInput">
-        <i class="fa-solid fa-user" style="color: #f4b400;"></i> Your Name
+        <i class="fa-solid fa-user"></i> Enter your name:
       </label>
       <input type="text" id="nameInput" placeholder="Enter your name" />
       <button onclick="generateCertificate()">
-        <i class="fa-solid fa-award" style="color: #f4b400;"></i> Create Certificate
+        <i class="fa-solid fa-award"></i> Get My Certificate
       </button>
 
       <div id="certificateOutput" class="certificate" style="display: none;"></div>
       <div class="nav-bar">
         <button onclick="window.location.href='journal.html'">←</button>
-        <a href="report.html" id="nextButton" class="nav-btn">
-          <i class="fa-solid fa-flag-checkered" style="color: #f4b400;"></i>
-        </a>
+        <button onclick="window.location.href='report.html'" class="nav-btn" id="nextButton">
+          <i class="fa-solid fa-flag-checkered"></i>
+        </button>
       </div>
     </div>
   </div> <!-- close .app-container -->
@@ -82,7 +82,10 @@
           doc.setTextColor('#242754');
           doc.text(name, 410, 325, { align: 'center' });
           doc.save(`Lemonade_Boss_Certificate_${name}.pdf`);
+          document.getElementById('certificateOutput').innerHTML = `<p><strong>${name}</strong><br>Congratulations on completing your lemonade stand journey!</p>`;
+          document.getElementById('certificateOutput').style.display = 'block';
           resolve();
+          window.location.href = 'report.html';
         };
         img.onerror = () => {
           // If image fails to load, still resolve so the flow continues
@@ -91,5 +94,20 @@
       });
     }
   </script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const nextButton = document.getElementById('nextButton');
+    if (nextButton) {
+      nextButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('nameInput')?.value.trim();
+        if (name) {
+          localStorage.setItem('studentName', name);
+        }
+        window.location.href = 'report.html';
+      });
+    }
+  });
+</script>
 </body>
 </html>

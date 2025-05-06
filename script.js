@@ -52,6 +52,14 @@ function updateTotals() {
     });
   });
   localStorage.setItem('supplyRows', JSON.stringify(supplyData));
+
+  document.querySelectorAll('.item-row').forEach(row => {
+    const qty = parseFloat(row.querySelector('.quantity')?.value) || 0;
+    const costEach = parseFloat(row.querySelector('.cost-each')?.value.replace(/[^0-9.]/g, '')) || 0;
+    if (qty === 0 && costEach === 0) {
+      row.remove();
+    }
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -144,6 +152,15 @@ document.addEventListener("DOMContentLoaded", () => {
     downloadButton.addEventListener('click', downloadReport);
   }
 
+  const clearCacheBtn = document.getElementById('clearCache');
+  if (clearCacheBtn) {
+    clearCacheBtn.addEventListener('click', () => {
+      localStorage.clear();
+      document.querySelectorAll('.item-row').forEach(row => row.remove());
+      updateTotals();
+    });
+  }
+
   let restored = false;
   ['pricePerCup', 'totalExpenses', 'totalIncome', 'finalProfit', 'finalSuppliesCost', 'cupsSold'].forEach(id => {
     const field = document.getElementById(id);
@@ -155,7 +172,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const savedRows = JSON.parse(localStorage.getItem('supplyRows') || '[]');
-  savedRows.forEach(data => {
+  savedRows.filter(data =>
+    data.item || data.customItem || data.quantity || data.costEach
+  ).forEach(data => {
     const container = document.createElement('div');
     container.className = 'item-row';
     container.innerHTML = `
@@ -194,6 +213,14 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   if (restored) updateTotals();
+
+  // Remove any restored rows where cost is 0 or blank
+  document.querySelectorAll('.item-row').forEach(row => {
+    const costEach = parseFloat(row.querySelector('.cost-each')?.value.replace(/[^0-9.]/g, '')) || 0;
+    if (costEach === 0) {
+      row.remove();
+    }
+  });
 
   // Debug logging: log all key calculator fields right after updateTotals()
   console.log('Debug – Final values being saved:');
@@ -257,6 +284,9 @@ function goToDriveFolder() {
 function generateFinalReportPDF() {
   const doc = new jsPDF();
   const studentName = prompt("Enter your name for the certificate:");
+  if (studentName && studentName.trim() !== "") {
+    localStorage.setItem('studentName', studentName.trim());
+  }
 
   doc.setFillColor(255, 249, 215);
   doc.rect(0, 0, 210, 297, 'F');

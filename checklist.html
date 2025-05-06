@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-mode">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta charset="UTF-8" />
@@ -13,15 +13,15 @@
     <div id="menuButtonContainer">
         <a href="index.html" id="menuButton" aria-label="Back to Menu">☰</a>
     </div>
-    <div style="text-align: center;">
-      <i class="fa-solid fa-clipboard-check" style="color: #f4b400; font-size: 2rem;"></i>
+    <div style="text-align: center; font-size: 2rem;">
+      <i class="fa-solid fa-clipboard-check icon-lg"></i>
     </div>
     <h1>Opening Day Checklist</h1>
     <p>Get ready to run your stand like a Lemonade Boss!</p>
 
     <div id="checklistContainer">
       <div style="text-align: center;">
-        <i class="fa-solid fa-lemon" style="color: #f4b400;"></i>
+        <i class="fa-solid fa-lemon icon-lg"></i>
       </div>
       <h2>Lemonade Supplies</h2>
       <label for="lemonade"><input type="checkbox" id="lemonade" /> Lemonade (prepped & chilled)</label>
@@ -33,7 +33,7 @@
       <label for="trash"><input type="checkbox" id="trash" /> Trash bag</label>
 
       <div style="text-align: center;">
-        <i class="fa-solid fa-money-bill-wave" style="color: #f4b400;"></i>
+        <i class="fa-solid fa-money-bill-wave icon-lg"></i>
       </div>
       <h2>Money Stuff</h2>
       <label for="cashbox"><input type="checkbox" id="cashbox" /> Cash box or zip pouch</label>
@@ -42,7 +42,7 @@
       <label for="profittracker"><input type="checkbox" id="profittracker" /> Profit Tracker sheet & pencil</label>
 
       <div style="text-align: center;">
-        <i class="fa-solid fa-store" style="color: #f4b400;"></i>
+        <i class="fa-solid fa-store icon-lg"></i>
       </div>
       <h2>Stand Setup</h2>
       <label for="table"><input type="checkbox" id="table" /> Table</label>
@@ -53,7 +53,7 @@
       <label for="shade"><input type="checkbox" id="shade" /> Shade (umbrella or canopy)</label>
 
       <div style="text-align: center;">
-        <i class="fa-solid fa-shield-heart" style="color: #f4b400;"></i>
+        <i class="fa-solid fa-shield-heart icon-lg"></i>
       </div>
       <h2>Health & Safety</h2>
       <label for="handSanitizer"><input type="checkbox" id="handSanitizer" /> Hand sanitizer</label>
@@ -63,7 +63,7 @@
       <label for="water"><input type="checkbox" id="water" /> Water for you to drink</label>
 
       <div style="text-align: center;">
-        <i class="fa-solid fa-box-open" style="color: #f4b400;"></i>
+        <i class="fa-solid fa-box-open icon-lg"></i>
       </div>
       <h2>Extras</h2>
       <label for="journal"><input type="checkbox" id="journal" /> Journal & pen (to reflect afterward!)</label>
@@ -71,8 +71,9 @@
       <label for="music"><input type="checkbox" id="music" /> Music playlist or speaker (if allowed)</label>
       <label for="smile"><input type="checkbox" id="smile" /> Big smile 😄</label>
 
-      <h3><i class="fa-solid fa-pen-nib" style="color: #f4b400;"></i> My Add-Ons:</h3>
-      <textarea id="addons" rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
+      <div id="supplyContainer"></div>
+      <h2><i class="fa-solid fa-pen-nib icon-lg"></i> My Add-Ons:</h2>
+      <textarea id="addons" rows="4" class="addons-input"></textarea>
     </div>
 
     <div class="nav-bar">

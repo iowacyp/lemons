@@ -1,132 +1,130 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Loan Agreement</title>
-  <!-- Font Awesome must come first for icons to render correctly -->
+  <title>Startup Funding</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
-<body>
+<body data-page="loan">
   <div class="container">
     <div class="app-container">
-      <div id="menuButtonContainer">
-        <a href="dashboard.html" id="menuButton" aria-label="Back to Menu">☰</a>
-      </div>
-      <div style="text-align: center; font-size: 2rem;">
-        <i class="fa-solid fa-handshake"></i>
-      </div>
-      <h1 class="title">Loan Agreement</h1>
-      <p class="subtitle">Figure out how much money you'll borrow and how you'll pay it back.</p>
+      <section class="page-hero glass-panel" data-shell-page-hero></section>
 
-      <label for="borrower">
-        <i class="fa-solid fa-user" style="color: #f4b400;"></i> Your Name
-        <span style="font-weight: normal; font-style: italic;"> – Who is asking for the loan?</span>
-      </label>
-      <input type="text" id="borrower" />
+      <section class="dashboard-section">
+        <article class="glass-card agreement-preview-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Agreement preview</p>
+              <h2>Ready to sign</h2>
+            </div>
+            <span class="badge-chip accent" id="loanStatusChip">Not filled in yet</span>
+          </div>
 
-      <label for="lender">
-        <i class="fa-solid fa-handshake" style="color: #f4b400;"></i> Lender's Name
-        <span style="font-weight: normal; font-style: italic;"> – Who's giving you the loan?</span>
-      </label>
-      <input type="text" id="lender" />
+          <div class="agreement-paper">
+            <div class="agreement-header">
+              <strong>Loan Agreement</strong>
+              <span>Lemonade Boss startup funding</span>
+            </div>
 
-      <label for="amount">
-        <i class="fa-solid fa-dollar-sign" style="color: #f4b400;"></i> Loan Amount
-        <span style="font-weight: normal; font-style: italic;"> – How much do you need?</span>
-      </label>
-      <input type="number" id="amount" />
+            <p class="agreement-lead">
+              This agreement is between <strong id="borrowerPreview">your name</strong> and <strong id="lenderPreview">a parent or helper</strong> to support the lemonade business.
+            </p>
 
-      <label for="purpose">
-        <i class="fa-solid fa-clipboard-list" style="color: #f4b400;"></i> Purpose
-        <span style="font-weight: normal; font-style: italic;"> – What will you spend it on?</span>
-      </label>
-      <textarea id="purpose" rows="2"></textarea>
+            <dl class="agreement-list">
+              <div>
+                <dt>Loan amount</dt>
+                <dd id="amountPreview">$0.00</dd>
+              </div>
+              <div>
+                <dt>Purpose</dt>
+                <dd id="purposePreview">What the money will be used for</dd>
+              </div>
+              <div>
+                <dt>Repayment plan</dt>
+                <dd id="planPreview">How the loan will be paid back</dd>
+              </div>
+              <div>
+                <dt>Interest rate</dt>
+                <dd id="interestPreview">0%</dd>
+              </div>
+              <div>
+                <dt>Repayment deadline</dt>
+                <dd id="deadlinePreview">Not set yet</dd>
+              </div>
+            </dl>
 
-      <label for="plan">
-        <i class="fa-solid fa-calendar-check" style="color: #f4b400;"></i> Repayment Plan
-        <span style="font-weight: normal; font-style: italic;"> – How will you pay it back?</span>
-      </label>
-      <input type="text" id="plan" />
+            <div class="agreement-note">
+              <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+              <p>Read the terms, agree on them together, and sign below before the money is used for the stand.</p>
+            </div>
 
-      <label for="interest">
-        <i class="fa-solid fa-percent" style="color: #f4b400;"></i> Interest Rate (%)
-        <span style="font-weight: normal; font-style: italic;"> – Any fee or interest? (Enter 0 if none)</span>
-      </label>
-      <input type="number" id="interest" />
+            <div class="signature-grid">
+              <div class="signature-line">
+                <span>Borrower signature</span>
+              </div>
+              <div class="signature-line">
+                <span>Lender signature</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
 
-      <label for="deadline">
-        <i class="fa-solid fa-calendar-day" style="color: #f4b400;"></i> Repayment Deadline
-        <span style="font-weight: normal; font-style: italic;"> – When is it due?</span>
-      </label>
-      <input type="date" id="deadline" />
+      <section class="dashboard-section">
+        <article class="glass-card form-card loan-form-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Fill in the terms</p>
+              <h2>Loan details</h2>
+            </div>
+          </div>
+          <p class="card-copy">Borrow only what you need for the first business supplies, then make a clear plan to pay it back from sales.</p>
 
-        <div id="agreement" class="devotional-text" style="margin-top: 2rem;"></div>
+          <label for="borrower">
+            <i class="fa-solid fa-user"></i> Your name
+          </label>
+          <input type="text" id="borrower" placeholder="Who is asking for the loan?" />
 
-      <div class="nav-bar">
-        <button onclick="window.location.href='calculator.html'">←</button>
-        <button id="downloadReport" type="button">
-          <img src="download.png" alt="Download" width="24" height="24" />
-        </button>
-        <button onclick="window.location.href='marketing.html'">→</button>
-      </div>
+          <label for="lender">
+            <i class="fa-solid fa-user-group"></i> Lender's name
+          </label>
+          <input type="text" id="lender" placeholder="Who is giving the loan?" />
+
+          <label for="amount">
+            <i class="fa-solid fa-dollar-sign"></i> Loan amount
+          </label>
+          <input type="number" id="amount" min="0" step="0.01" placeholder="How much do you need?" />
+
+          <label for="purpose">
+            <i class="fa-solid fa-clipboard-list"></i> Purpose
+          </label>
+          <textarea id="purpose" rows="2" placeholder="What will you spend it on?"></textarea>
+
+          <label for="plan">
+            <i class="fa-solid fa-calendar-check"></i> Repayment plan
+          </label>
+          <input type="text" id="plan" placeholder="How will you pay it back?" />
+
+          <label for="interest">
+            <i class="fa-solid fa-percent"></i> Interest rate (%)
+          </label>
+          <input type="number" id="interest" min="0" step="0.1" placeholder="Enter 0 if there is no interest" />
+
+          <label for="deadline">
+            <i class="fa-solid fa-calendar-day"></i> Repayment deadline
+          </label>
+          <input type="date" id="deadline" />
+        </article>
+      </section>
+
+      <div class="nav-bar" data-shell-nav data-download data-download-label="Print Agreement"></div>
     </div>
   </div>
 
-  <script>
-    function generateAgreement() {
-      const borrower = document.getElementById("borrower").value;
-      const lender = document.getElementById("lender").value;
-      const amount = document.getElementById("amount").value;
-      const purpose = document.getElementById("purpose").value;
-      const plan = document.getElementById("plan").value;
-      const interest = document.getElementById("interest").value;
-      const deadline = document.getElementById("deadline").value;
-
-      const html = `
-        <h2>Loan Agreement</h2>
-        <p><strong>Borrower:</strong> ${borrower}</p>
-        <p><strong>Lender:</strong> ${lender}</p>
-        <p><strong>Loan Amount:</strong> $${amount}</p>
-        <p><strong>Purpose:</strong> ${purpose}</p>
-        <p><strong>Repayment Plan:</strong> ${plan}</p>
-        <p><strong>Interest Rate:</strong> ${interest}%</p>
-        <p><strong>Repayment Deadline:</strong> ${deadline}</p>
-        <p><em>I agree to use the money for my stand and pay it back on time.</em></p>
-      `;
-
-      document.getElementById("agreement").innerHTML = html;
-    }
-
-    // Save values to localStorage on input
-    document.querySelectorAll('#borrower, #lender, #amount, #purpose, #plan, #interest, #deadline').forEach(input => {
-      input.addEventListener('input', () => {
-        localStorage.setItem(input.id, input.value);
-
-        // Duplicate key mapping for report
-        if (input.id === 'amount') {
-          localStorage.setItem('loanAmount', input.value);
-        }
-        if (input.id === 'plan') {
-          localStorage.setItem('repaymentPlan', input.value);
-        }
-      });
-    });
-
-    // Optional: restore saved values on reload
-    window.addEventListener('DOMContentLoaded', () => {
-      const fields = ['borrower', 'lender', 'amount', 'purpose', 'plan', 'interest', 'deadline'];
-      fields.forEach(id => {
-        const el = document.getElementById(id);
-        if (el && localStorage.getItem(id)) {
-          el.value = localStorage.getItem(id);
-        }
-      });
-      // Set report fields used on final report
-      localStorage.setItem('loanAmount', localStorage.getItem('amount') || '');
-      localStorage.setItem('repaymentPlan', localStorage.getItem('plan') || '');
-    });
-  </script>
+  <script src="assets/js/site-data.js"></script>
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/pages/loan.js"></script>
 </body>
 </html>

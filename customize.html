@@ -1,62 +1,117 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Customize Your Stand</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
-<body>
+<body data-page="customize">
   <div class="container">
     <div class="app-container">
-    <div id="menuButtonContainer">
-      <a href="dashboard.html" id="menuButton" aria-label="Back to Menu">☰</a>
-    </div>
-    <div style="text-align: center;">
-      <i class="fa-solid fa-pencil" style="color: #f4b400; font-size: 2rem;"></i>
-    </div>
-    <h1 class="title">Create Your Stand</h1>
-    <p class="subtitle">Dream it. Name it. Launch it.</p>
+      <section class="page-hero glass-panel" data-shell-page-hero></section>
 
-    <label for="stand-name">
-      <i class="fa-solid fa-sign-hanging" style="color: #f4b400;"></i> Stand Name
-    </label>
-    <input type="text" id="stand-name" placeholder="Stand Name (e.g. Sunny Sips)" />
+      <section class="dashboard-section">
+        <article class="glass-card preview-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Live preview</p>
+              <h2>How your stand will read</h2>
+            </div>
+            <span class="badge-chip accent">Updates as you type</span>
+          </div>
+          <p id="standPreviewName" class="preview-name">Sunny Sips</p>
+          <p id="standPreviewSlogan" class="preview-slogan">Cold drinks, warm smiles.</p>
+          <div class="preview-grid">
+            <div>
+              <span>Date</span>
+              <strong id="standPreviewDate">Not set yet</strong>
+            </div>
+            <div>
+              <span>Time</span>
+              <strong id="standPreviewTime">Not set yet</strong>
+            </div>
+          </div>
+        </article>
+      </section>
 
-    <label for="slogan">
-      <i class="fa-solid fa-comment-dots" style="color: #f4b400;"></i> Slogan
-    </label>
-    <input type="text" id="slogan" placeholder="Slogan (e.g. Cold Drinks, Warm Smiles)" />
+      <section class="page-stack">
+        <article class="glass-card form-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Brand basics</p>
+              <h2>Name and slogan</h2>
+            </div>
+          </div>
+          <p class="card-copy">Pick something clear and easy to remember. Short names work best on signs and flyers.</p>
 
-    <h2>Flavors</h2>
-    <label for="flavors">
-      <i class="fa-solid fa-lemon" style="color: #f4b400;"></i> Flavors
-    </label>
-    <textarea id="flavors" placeholder="Classic Lemon, Strawberry, Mint..." rows="2"></textarea>
+          <label for="stand-name">
+            <i class="fa-solid fa-sign-hanging"></i> Stand name
+          </label>
+          <input type="text" id="stand-name" placeholder="Example: Sunny Sips" />
 
-    <h2>Opening Day</h2>
-    <label for="date">
-      <i class="fa-solid fa-calendar-day" style="color: #f4b400;"></i> Choose a Date
-    </label>
-    <input type="date" id="date" />
+          <label for="slogan">
+            <i class="fa-solid fa-comment-dots"></i> Slogan
+          </label>
+          <input type="text" id="slogan" placeholder="Example: Cold drinks, warm smiles" />
+        </article>
 
-    <label for="time">
-      <i class="fa-solid fa-clock" style="color: #f4b400;"></i> Choose a Time
-    </label>
-    <input type="time" id="time" />
+        <article class="glass-card form-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Menu ideas</p>
+              <h2>Flavors to offer</h2>
+            </div>
+          </div>
+          <p class="card-copy">Write the drinks or add-ins you want to offer. Keep it simple if this is your first stand.</p>
 
-    <h2>Logo Sketch</h2>
-    <p class="note">Grab a piece of paper and a pencil — sketch your logo idea for your lemonade stand!</p>
+          <label for="flavors">
+            <i class="fa-solid fa-lemon"></i> Flavor ideas
+          </label>
+          <textarea id="flavors" placeholder="Classic lemon, strawberry, mint..." rows="3"></textarea>
+        </article>
 
-    <div class="nav-bar">
-      <button onclick="window.location.href='entrepreneur.html'">←</button>
-      <button id="downloadReport" type="button">
-        <img src="download.png" alt="Download" width="24" height="24" />
-      </button>
-      <button onclick="window.location.href='calculator.html'">→</button>
+        <article class="glass-card form-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Launch day</p>
+              <h2>Opening day details</h2>
+            </div>
+          </div>
+          <p class="card-copy">Choose a date and time that gives you enough setup time before customers arrive.</p>
+
+          <label for="date">
+            <i class="fa-solid fa-calendar-day"></i> Date
+          </label>
+          <input type="date" id="date" />
+
+          <label for="time">
+            <i class="fa-solid fa-clock"></i> Time
+          </label>
+          <input type="time" id="time" />
+        </article>
+
+        <article class="glass-card form-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Identity</p>
+              <h2>Logo sketch</h2>
+            </div>
+          </div>
+          <p class="card-copy">Sketch a simple logo on paper. Circles, lemons, cups, and initials all work well.</p>
+          <div class="note-box">
+            <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
+            <p>Keep it bold and easy to read when it is on a sign, sticker, or flyer.</p>
+          </div>
+        </article>
+      </section>
+
+      <div class="nav-bar" data-shell-nav data-download></div>
     </div>
   </div>
-  </div>
+  <script src="assets/js/site-data.js"></script>
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/pages/customize.js"></script>
 </body>
 </html>

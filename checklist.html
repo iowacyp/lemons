@@ -1,119 +1,162 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta charset="UTF-8" />
-  <title>Opening Day Checklist</title>
+  <title>Ready to Open</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
-<body>
+<body data-page="checklist">
   <div class="container">
     <div class="app-container">
-    <div id="menuButtonContainer">
-        <a href="index.html" id="menuButton" aria-label="Back to Menu">☰</a>
-    </div>
-    <div style="text-align: center; font-size: 2rem;">
-      <i class="fa-solid fa-clipboard-check icon-lg"></i>
-    </div>
-    <h1>Opening Day Checklist</h1>
-    <p>Get ready to run your stand like a Lemonade Boss!</p>
+      <section class="page-hero glass-panel" data-shell-page-hero></section>
 
-    <div id="checklistContainer">
-      <div style="text-align: center;">
-        <i class="fa-solid fa-lemon icon-lg"></i>
-      </div>
-      <h2>Lemonade Supplies</h2>
-      <label for="lemonade"><input type="checkbox" id="lemonade" /> Lemonade (prepped & chilled)</label>
-      <label for="pitcher"><input type="checkbox" id="pitcher" /> Extra pitcher or jug</label>
-      <label for="cups"><input type="checkbox" id="cups" /> Cups (at least 20–30)</label>
-      <label for="ice"><input type="checkbox" id="ice" /> Ice (in a cooler or bucket)</label>
-      <label for="spoon"><input type="checkbox" id="spoon" /> Spoon or stirrer</label>
-      <label for="napkins"><input type="checkbox" id="napkins" /> Napkins or paper towels</label>
-      <label for="trash"><input type="checkbox" id="trash" /> Trash bag</label>
+      <section class="dashboard-section">
+        <article class="glass-card checklist-summary-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Progress</p>
+              <h2>Checklist status</h2>
+            </div>
+            <span class="badge-chip accent" id="checklistStatusChip">Not started</span>
+          </div>
 
-      <div style="text-align: center;">
-        <i class="fa-solid fa-money-bill-wave icon-lg"></i>
-      </div>
-      <h2>Money Stuff</h2>
-      <label for="cashbox"><input type="checkbox" id="cashbox" /> Cash box or zip pouch</label>
-      <label for="starterchange"><input type="checkbox" id="starterchange" /> Starter change ($1s, quarters)</label>
-      <label for="pricesign"><input type="checkbox" id="pricesign" /> Price sign</label>
-      <label for="profittracker"><input type="checkbox" id="profittracker" /> Profit Tracker sheet & pencil</label>
+          <div class="checklist-meter">
+            <div class="checklist-meter-top">
+              <strong id="checklistProgressLabel">0 of 0 complete</strong>
+              <span id="checklistRemainingLabel">0 left to go</span>
+            </div>
+            <div class="checklist-progress-bar" aria-hidden="true">
+              <div id="checklistProgressFill" class="checklist-progress-fill"></div>
+            </div>
+            <p id="checklistSummaryCopy" class="card-copy">Check off each task so the stand opens ready to serve customers and handle money well.</p>
+          </div>
+        </article>
+      </section>
 
-      <div style="text-align: center;">
-        <i class="fa-solid fa-store icon-lg"></i>
-      </div>
-      <h2>Stand Setup</h2>
-      <label for="table"><input type="checkbox" id="table" /> Table</label>
-      <label for="chairs"><input type="checkbox" id="chairs" /> Chairs or stools</label>
-      <label for="standsign"><input type="checkbox" id="standsign" /> Stand sign or banner</label>
-      <label for="decorations"><input type="checkbox" id="decorations" /> Decorations (bunting, balloons, etc.)</label>
-      <label for="weights"><input type="checkbox" id="weights" /> Weights or tape (if windy!)</label>
-      <label for="shade"><input type="checkbox" id="shade" /> Shade (umbrella or canopy)</label>
+      <section class="dashboard-section" id="checklistContainer">
+        <article class="glass-card checklist-board-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">To-do list</p>
+              <h2>Opening day tasks</h2>
+            </div>
+          </div>
 
-      <div style="text-align: center;">
-        <i class="fa-solid fa-shield-heart icon-lg"></i>
-      </div>
-      <h2>Health & Safety</h2>
-      <label for="handSanitizer"><input type="checkbox" id="handSanitizer" /> Hand sanitizer</label>
-      <label for="wetWipes"><input type="checkbox" id="wetWipes" /> Wet wipes or cloth towel</label>
-      <label for="firstAid"><input type="checkbox" id="firstAid" /> First-aid bandage (just in case)</label>
-      <label for="sunscreen"><input type="checkbox" id="sunscreen" /> Sunscreen</label>
-      <label for="water"><input type="checkbox" id="water" /> Water for you to drink</label>
+          <div class="checklist-group">
+            <div class="checklist-group-header">
+              <i class="fa-solid fa-lemon" aria-hidden="true"></i>
+              <div>
+                <strong>Lemonade supplies</strong>
+                <span>Bring the basics you need to serve customers</span>
+              </div>
+            </div>
+            <div class="checklist-task-list">
+              <label class="checklist-task" for="lemonade"><input type="checkbox" id="lemonade" /><span>Lemonade prepped and chilled</span></label>
+              <label class="checklist-task" for="pitcher"><input type="checkbox" id="pitcher" /><span>Extra pitcher or jug</span></label>
+              <label class="checklist-task" for="cups"><input type="checkbox" id="cups" /><span>Cups, at least 20 to 30</span></label>
+              <label class="checklist-task" for="ice"><input type="checkbox" id="ice" /><span>Ice in a cooler or bucket</span></label>
+              <label class="checklist-task" for="spoon"><input type="checkbox" id="spoon" /><span>Spoon or stirrer</span></label>
+              <label class="checklist-task" for="napkins"><input type="checkbox" id="napkins" /><span>Napkins or paper towels</span></label>
+              <label class="checklist-task" for="trash"><input type="checkbox" id="trash" /><span>Trash bag</span></label>
+            </div>
+          </div>
 
-      <div style="text-align: center;">
-        <i class="fa-solid fa-box-open icon-lg"></i>
-      </div>
-      <h2>Extras</h2>
-      <label for="journal"><input type="checkbox" id="journal" /> Journal & pen (to reflect afterward!)</label>
-      <label for="phone"><input type="checkbox" id="phone" /> Phone/camera (with parent)</label>
-      <label for="music"><input type="checkbox" id="music" /> Music playlist or speaker (if allowed)</label>
-      <label for="smile"><input type="checkbox" id="smile" /> Big smile 😄</label>
+          <div class="checklist-group">
+            <div class="checklist-group-header">
+              <i class="fa-solid fa-sack-dollar" aria-hidden="true"></i>
+              <div>
+                <strong>Money setup</strong>
+                <span>Make payment and pricing easy to manage</span>
+              </div>
+            </div>
+            <div class="checklist-task-list">
+              <label class="checklist-task" for="cashbox"><input type="checkbox" id="cashbox" /><span>Cash box or zip pouch</span></label>
+              <label class="checklist-task" for="starterchange"><input type="checkbox" id="starterchange" /><span>Starter change with small bills and coins</span></label>
+              <label class="checklist-task" for="pricesign"><input type="checkbox" id="pricesign" /><span>Price sign</span></label>
+              <label class="checklist-task" for="profittracker"><input type="checkbox" id="profittracker" /><span>Profit tracker sheet and pencil</span></label>
+            </div>
+          </div>
 
-      <div id="supplyContainer"></div>
-      <h2><i class="fa-solid fa-pen-nib icon-lg"></i> My Add-Ons:</h2>
-      <textarea id="addons" rows="4" class="addons-input"></textarea>
-    </div>
+          <div class="checklist-group">
+            <div class="checklist-group-header">
+              <i class="fa-solid fa-store" aria-hidden="true"></i>
+              <div>
+                <strong>Stand setup</strong>
+                <span>Build the space where customers will visit</span>
+              </div>
+            </div>
+            <div class="checklist-task-list">
+              <label class="checklist-task" for="table"><input type="checkbox" id="table" /><span>Table</span></label>
+              <label class="checklist-task" for="chairs"><input type="checkbox" id="chairs" /><span>Chairs or stools</span></label>
+              <label class="checklist-task" for="standsign"><input type="checkbox" id="standsign" /><span>Stand sign or banner</span></label>
+              <label class="checklist-task" for="decorations"><input type="checkbox" id="decorations" /><span>Decorations like bunting or balloons</span></label>
+              <label class="checklist-task" for="weights"><input type="checkbox" id="weights" /><span>Weights or tape for windy weather</span></label>
+              <label class="checklist-task" for="shade"><input type="checkbox" id="shade" /><span>Shade, umbrella, or canopy</span></label>
+            </div>
+          </div>
 
-    <div class="nav-bar">
-      <button onclick="window.location.href='marketing.html'">←</button>
-      <button id="downloadReport" type="button">
-        <img src="download.png" alt="Download" width="24" height="24" />
-      </button>
-      <button onclick="window.location.href='photos.html'">→</button>
+          <div class="checklist-group">
+            <div class="checklist-group-header">
+              <i class="fa-solid fa-shield-heart" aria-hidden="true"></i>
+              <div>
+                <strong>Health and safety</strong>
+                <span>Stay clean, safe, and comfortable outside</span>
+              </div>
+            </div>
+            <div class="checklist-task-list">
+              <label class="checklist-task" for="handSanitizer"><input type="checkbox" id="handSanitizer" /><span>Hand sanitizer</span></label>
+              <label class="checklist-task" for="wetWipes"><input type="checkbox" id="wetWipes" /><span>Wet wipes or cloth towel</span></label>
+              <label class="checklist-task" for="firstAid"><input type="checkbox" id="firstAid" /><span>First-aid bandage, just in case</span></label>
+              <label class="checklist-task" for="sunscreen"><input type="checkbox" id="sunscreen" /><span>Sunscreen</span></label>
+              <label class="checklist-task" for="water"><input type="checkbox" id="water" /><span>Water for you to drink</span></label>
+            </div>
+          </div>
+
+          <div class="checklist-group">
+            <div class="checklist-group-header">
+              <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
+              <div>
+                <strong>Extras</strong>
+                <span>Small items that help the day feel ready and fun</span>
+              </div>
+            </div>
+            <div class="checklist-task-list">
+              <label class="checklist-task" for="journal"><input type="checkbox" id="journal" /><span>Journal and pen for afterward</span></label>
+              <label class="checklist-task" for="phone"><input type="checkbox" id="phone" /><span>Phone or camera with a parent</span></label>
+              <label class="checklist-task" for="music"><input type="checkbox" id="music" /><span>Music playlist or speaker, if allowed</span></label>
+              <label class="checklist-task" for="smile"><input type="checkbox" id="smile" /><span>Big smile</span></label>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="dashboard-section">
+        <article class="glass-card checklist-notes-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Custom items</p>
+              <h2>My add-ons</h2>
+            </div>
+            <span class="badge-chip" id="addonsChip">Optional</span>
+          </div>
+          <p class="card-copy">Add anything unique to your stand that helps the business run smoothly on opening day.</p>
+          <label for="addons" class="checklist-notes-label">
+            <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
+            <span>Notes and extra items</span>
+          </label>
+          <textarea id="addons" rows="4" class="addons-input" placeholder="Write any extra items here..."></textarea>
+        </article>
+      </section>
+
+      <div class="nav-bar" data-shell-nav data-download data-download-id="printChecklist" data-download-label="Print Checklist" data-download-action="print"></div>
     </div>
   </div>
-  </div>
-</script>
+  <script src="assets/js/site-data.js"></script>
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/script.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <script src="script.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const checkboxes = document.querySelectorAll('#checklistContainer input[type="checkbox"]');
-      const addonsInput = document.getElementById('addons');
-
-      // Restore checked state
-      const saved = JSON.parse(localStorage.getItem('checklistItems') || '[]');
-      checkboxes.forEach(cb => {
-        if (saved.includes(cb.id)) cb.checked = true;
-        cb.addEventListener('change', () => {
-          const checked = Array.from(checkboxes)
-            .filter(c => c.checked)
-            .map(c => c.id);
-          localStorage.setItem('checklistItems', JSON.stringify(checked));
-        });
-      });
-
-      // Restore and save addons
-      if (addonsInput) {
-        const savedAddons = localStorage.getItem('checklistAddons') || '';
-        addonsInput.value = savedAddons;
-        addonsInput.addEventListener('input', () => {
-          localStorage.setItem('checklistAddons', addonsInput.value);
-        });
-      }
-    });
-  </script>
+  <script src="assets/js/pages/checklist.js"></script>
 </body>
 </html>

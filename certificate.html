@@ -1,113 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lemonade Boss Certificate</title>
+  <title>Finish Strong</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    .certificate {
-      border: 5px solid #f4c300;
-      padding: 2rem;
-      background: #fff;
-      color: #000;
-      font-family: 'Georgia', serif;
-      text-align: center;
-      margin-top: 2rem;
-    }
-    .certificate h1 {
-      font-size: 2rem;
-      color: #f4c300;
-    }
-    .certificate p {
-      font-size: 1.2rem;
-    }
-    .certificate strong {
-      font-size: 1.5rem;
-      display: block;
-      margin: 1rem 0;
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
-<body>
+<body data-page="certificate">
   <div class="container">
     <div class="app-container">
-    <div id="menuButtonContainer">
-      <a href="dashboard.html" id="menuButton" aria-label="Go to Menu">☰</a>
-    </div>
-      <div style="text-align: center;">
-        <i class="fa-solid fa-certificate" style="font-size: 2rem;"></i>
-      </div>
-      <h1 class="title">Earn Your Certificate!</h1>
-      <p class="subtitle">You’ve worked hard—now make it official.</p>
+      <section class="page-hero glass-panel" data-shell-page-hero></section>
 
       <label for="nameInput">
         <i class="fa-solid fa-user"></i> Enter your name:
       </label>
       <input type="text" id="nameInput" placeholder="Enter your name" />
       <button onclick="generateCertificate()">
-        <i class="fa-solid fa-award"></i> Get My Certificate
+        <i class="fa-solid fa-award"></i> Finish Strong
       </button>
 
-      <div id="certificateOutput" class="certificate" style="display: none;"></div>
-      <div class="nav-bar">
-        <button onclick="window.location.href='journal.html'">←</button>
-        <button onclick="window.location.href='report.html'" class="nav-btn" id="nextButton">
-          <i class="fa-solid fa-flag-checkered"></i>
-        </button>
-      </div>
+      <div id="certificateOutput" class="certificate glass-card" style="display: none;"></div>
+      <div class="nav-bar" data-shell-nav data-next-id="nextButton"></div>
     </div>
   </div> <!-- close .app-container -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script>
-    async function generateCertificate() {
-      const { jsPDF } = window.jspdf;
-      const name = document.getElementById('nameInput').value.trim() || "Your Name";
-      localStorage.setItem('studentName', name);
-
-      const doc = new jsPDF({
-        orientation: 'landscape',
-        unit: 'px',
-        format: [792, 612]
-      });
-
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.src = 'LemonsCert.jpg';
-        img.onload = () => {
-          doc.addImage(img, 'JPEG', 0, 0, 792, 612);
-          doc.setFont('helvetica', 'bold');
-          doc.setFontSize(42);
-          doc.setTextColor('#242754');
-          doc.text(name, 410, 325, { align: 'center' });
-          doc.save(`Lemonade_Boss_Certificate_${name}.pdf`);
-          document.getElementById('certificateOutput').innerHTML = `<p><strong>${name}</strong><br>Congratulations on completing your lemonade stand journey!</p>`;
-          document.getElementById('certificateOutput').style.display = 'block';
-          resolve();
-          window.location.href = 'report.html';
-        };
-        img.onerror = () => {
-          // If image fails to load, still resolve so the flow continues
-          resolve();
-        };
-      });
-    }
-  </script>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const nextButton = document.getElementById('nextButton');
-    if (nextButton) {
-      nextButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        const name = document.getElementById('nameInput')?.value.trim();
-        if (name) {
-          localStorage.setItem('studentName', name);
-        }
-        window.location.href = 'report.html';
-      });
-    }
-  });
-</script>
+  <script src="assets/js/site-data.js"></script>
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/pages/certificate.js"></script>
 </body>
 </html>

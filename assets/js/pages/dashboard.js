@@ -44,6 +44,23 @@ function buildJourneyState(steps) {
   };
 }
 
+function renderCompletionFrame(state) {
+  const percentEl = document.getElementById('dashboardCompletionPercent');
+  const barEl = document.getElementById('dashboardCompletionBar');
+  const copyEl = document.getElementById('dashboardCompletionCopy');
+  if (!percentEl || !barEl || !copyEl) return;
+
+  const total = state.evaluated.length || 1;
+  const percent = Math.round((state.completedCount / total) * 100);
+  const remaining = Math.max(0, total - state.completedCount);
+
+  percentEl.textContent = `${percent}%`;
+  barEl.style.setProperty('--completion', `${percent}%`);
+  copyEl.textContent = remaining > 0
+    ? `Keep going to unlock ${remaining} more update${remaining === 1 ? '' : 's'} on this dashboard.`
+    : 'You’ve finished the main journey. Check back here for the full dashboard story.';
+}
+
 function renderJourney(steps) {
   const list = document.getElementById('journeySteps');
   const action = document.getElementById('journeyAction');
@@ -224,6 +241,9 @@ function renderChart(data) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  const site = window.LEMONS_SITE || {};
+  const journeySteps = Array.isArray(site.journeySteps) ? site.journeySteps : [];
+  const journeyState = buildJourneyState(journeySteps);
   const standName = localStorage.getItem('stand-name') || localStorage.getItem('standName') || 'My Lemonade Stand';
   const slogan = localStorage.getItem('slogan') || 'Fresh lemonade, bright ideas, and simple money skills.';
   const studentName = localStorage.getItem('studentName') || 'Ready to start';
@@ -260,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const checklistItems = parseMaybeJSON('checklistItems', []);
   const supplyRows = parseMaybeJSON('supplyRows', []);
-  const journeySteps = (window.LEMONS_SITE && window.LEMONS_SITE.journeySteps) || [];
+  renderCompletionFrame(journeyState);
   renderJourney(journeySteps);
   renderInventory(supplyRows);
   renderReviews();

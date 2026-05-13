@@ -1,10 +1,25 @@
-const cacheName = 'lemons-cache-v1';
+const cacheName = 'lemons-cache-v2';
 const assetsToCache = [
   '/',
   'index.html',
   'styles.css',
   'script.js',
+  'assets/css/styles.css',
+  'assets/js/site-data.js',
+  'assets/js/shell.js',
+  'assets/js/script.js',
+  'assets/js/pages/calculator.js',
+  'assets/js/pages/certificate.js',
+  'assets/js/pages/checklist.js',
+  'assets/js/pages/customize.js',
+  'assets/js/pages/dashboard.js',
+  'assets/js/pages/journal.js',
+  'assets/js/pages/loan.js',
+  'assets/js/pages/marketing.js',
+  'assets/js/pages/report.js',
+  'assets/js/components/virtual-programming-signup-form.js',
   'LemonsCert.jpg',
+  'assets/images/lemonade-dashboard-bg.jpg',
   'download.png',
   'entrepreneur.html',
   'customize.html',
@@ -15,9 +30,15 @@ const assetsToCache = [
   'journal.html',
   'report.html',
   'certificate.html',
+  'contact.html',
+  'virtual-programming.html',
   'manifest.json',
   'icon-192.png',
-  'icon-512.png'
+  'icon-512.png',
+  'favicon.svg',
+  'favicon.ico',
+  'favicon-96x96.png',
+  'apple-touch-icon.png'
 ];
 
 // Install: Cache all core files

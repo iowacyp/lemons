@@ -12,7 +12,6 @@ const assetsToCache = [
   'loan.html',
   'marketing.html',
   'checklist.html',
-  'photos.html',
   'journal.html',
   'report.html',
   'certificate.html',

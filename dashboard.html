@@ -1,57 +1,195 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 <head>
   <link rel="manifest" href="manifest.json">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lemonade Boss Menu</title>
+  <title>Lemonade Boss Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
-<body>
-  <div class="container">
-    <div class="app-container">
-      <div id="darkModeButtonContainer">
-        <a href="#" id="toggleDarkMode" aria-label="Toggle Dark Mode">
-          <i class="fa-solid fa-moon"></i>
-        </a>
-      </div>
-      <div id="menuButtonContainer">
-        <a href="dashboard.html" id="menuButton" aria-label="Go to Menu">☰</a>
-      </div>
-      <div style="text-align: center; font-size: 2rem;">
-        <i class="fa-solid fa-clipboard icon-visible icon-lg"></i>
-      </div>
-      <h1>Lemonade Boss Menu</h1>
-      <p class="subtitle">Pick any section you'd like to work on today!</p>
+<body data-page="dashboard">
+  <div class="container dashboard-page">
+    <aside class="dashboard-rail glass-panel" data-shell-dashboard-rail aria-label="Dashboard navigation"></aside>
+    <main class="dashboard-shell">
+      <section class="dashboard-hero glass-panel">
+        <div class="dashboard-topbar">
+          <div class="dashboard-mark">
+            <span class="dashboard-mark-icon" aria-hidden="true">
+              <i class="fa-solid fa-lemon"></i>
+            </span>
+            <div>
+              <strong>Lemonade Boss</strong>
+              <span>First business simulator</span>
+            </div>
+          </div>
+        </div>
 
-      <div class="dashboard-buttons">
-        <a href="entrepreneur.html" class="btn"><i class="fa-solid fa-lightbulb icon-visible" style="color: #333;"></i> What is an Entrepreneur?</a>
-        <a href="customize.html" class="btn"><i class="fa-solid fa-pencil-alt icon-visible" style="color: #333;"></i> Create Your Stand</a>
-        <a href="calculator.html" class="btn"><i class="fa-solid fa-calculator icon-visible" style="color: #333;"></i> Profit Calculator</a>
-        <a href="loan.html" class="btn"><i class="fa-solid fa-hand-holding-usd icon-visible" style="color: #333;"></i> Loan Agreement</a>
-        <a href="marketing.html" class="btn"><i class="fa-solid fa-bullhorn icon-visible" style="color: #333;"></i> Marketing Plan</a>
-        <a href="checklist.html" class="btn"><i class="fa-solid fa-list-check icon-visible" style="color: #333;"></i> Opening Day Checklist</a>
-        <a href="photos.html" class="btn"><i class="fa-solid fa-camera-retro icon-visible" style="color: #333;"></i> My Stand Photos</a>
-        <a href="journal.html" class="btn"><i class="fa-solid fa-book icon-visible" style="color: #333;"></i> Journal & Reflections</a>
-        <a href="certificate.html" class="btn"><i class="fa-solid fa-certificate icon-visible" style="color: #333;"></i> Get My Certificate</a>
-        <a href="report.html" class="btn"><i class="fa-solid fa-award icon-visible" style="color: #333;"></i> Final Report</a>
-      </div>
+        <div class="dashboard-completion-frame" aria-live="polite">
+          <div class="completion-copy">
+            <span class="completion-label">Dashboard progress</span>
+            <strong id="dashboardCompletionPercent">0%</strong>
+          </div>
+          <div class="completion-track" aria-hidden="true">
+            <div id="dashboardCompletionBar" class="completion-fill"></div>
+          </div>
+          <p id="dashboardCompletionCopy" class="completion-note">
+            Keep going to unlock more updates on this dashboard.
+          </p>
+        </div>
 
-      <p class="quote">“When life gives you lemons, start a business!”</p>
-    </div>
+        <div class="dashboard-hero-copy">
+          <p class="eyebrow">Build. Price. Sell. Learn.</p>
+          <h1 id="dashboardStandName">My Lemonade Stand</h1>
+          <p id="dashboardSlogan" class="hero-line">Fresh lemonade, smart prices, and simple money skills for a real business.</p>
+        </div>
+
+        <div class="dashboard-hero-pills">
+          <div class="hero-pill">
+            <span>Boss</span>
+            <strong id="dashboardStudent">Ready to start</strong>
+          </div>
+          <div class="hero-pill">
+            <span>Opening Day</span>
+            <strong id="dashboardDate">Not set yet</strong>
+          </div>
+          <div class="hero-pill">
+            <span>Brand vibe</span>
+            <strong id="dashboardBrand">Sunny and smart</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard-section">
+        <article class="glass-card journey-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Guided flow</p>
+              <h2>Continue your journey</h2>
+            </div>
+            <span class="badge-chip accent" id="journeyProgress">Step 1</span>
+          </div>
+          <p id="journeyCopy" class="card-copy">Follow the next step to keep your business setup moving from idea to opening day.</p>
+          <div class="journey-action">
+            <a id="journeyAction" class="journey-cta" href="entrepreneur.html">
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              <span>Start here</span>
+            </a>
+            <span id="journeyStepCount" class="badge-chip">0 of 0 complete</span>
+          </div>
+          <div id="journeySteps" class="journey-step-list"></div>
+        </article>
+      </section>
+
+      <section class="dashboard-section">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Today</p>
+            <h2>Business snapshot</h2>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <article class="glass-card metric-card">
+            <span class="metric-label">Sales</span>
+            <strong id="metricSales">$0.00</strong>
+            <span class="metric-sub">Total income</span>
+          </article>
+          <article class="glass-card metric-card">
+            <span class="metric-label">Profit</span>
+            <strong id="metricProfit">$0.00</strong>
+            <span class="metric-sub">After expenses</span>
+          </article>
+          <article class="glass-card metric-card">
+            <span class="metric-label">Costs</span>
+            <strong id="metricExpenses">$0.00</strong>
+            <span class="metric-sub">Supplies used</span>
+          </article>
+          <article class="glass-card metric-card">
+            <span class="metric-label">Price</span>
+            <strong id="metricPrice">$0.00</strong>
+            <span class="metric-sub">Per cup</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="dashboard-section dashboard-two-col">
+        <article class="glass-card progress-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Goal</p>
+              <h2>Savings target</h2>
+            </div>
+            <span class="badge-chip" id="goalBadge">Goal set</span>
+          </div>
+          <div class="progress-ring" id="progressRing" style="--progress: 0%;">
+            <div class="progress-ring-center">
+              <strong id="progressPercent">0%</strong>
+              <span id="goalAmount">$100</span>
+            </div>
+          </div>
+          <p id="goalCopy" class="card-copy">Track how close the stand is to its next big upgrade and see how profit helps you reach it.</p>
+        </article>
+
+        <article class="glass-card chart-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Growth</p>
+              <h2>Earnings mix</h2>
+            </div>
+            <span class="badge-chip accent">Playful chart</span>
+          </div>
+          <div class="bar-chart" id="dashboardChart"></div>
+          <div class="chart-labels">
+            <span>Expense</span>
+            <span>Income</span>
+            <span>Profit</span>
+            <span>Goal</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="dashboard-section dashboard-two-col">
+        <article class="glass-card inventory-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Inventory</p>
+              <h2>Stock on hand</h2>
+            </div>
+            <span class="badge-chip" id="inventoryCount">0 items</span>
+          </div>
+          <div id="inventoryList" class="inventory-list"></div>
+        </article>
+
+        <article class="glass-card reviews-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Customers</p>
+              <h2>Reviews & repeats</h2>
+            </div>
+            <span class="badge-chip" id="repeatCount">0 repeats</span>
+          </div>
+          <div id="reviewList" class="review-list"></div>
+        </article>
+      </section>
+
+      <section class="dashboard-section">
+        <article class="glass-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Rewards</p>
+              <h2>Achievements</h2>
+            </div>
+            <span class="badge-chip accent" id="achievementCount">0 unlocked</span>
+          </div>
+          <div id="achievementList" class="achievement-list"></div>
+        </article>
+      </section>
+
+    </main>
   </div>
+
+  <script src="assets/js/site-data.js"></script>
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/pages/dashboard.js"></script>
 </body>
-<script>
-  const toggleBtn = document.getElementById('toggleDarkMode');
-  const root = document.documentElement;
-
-  // Set default to dark mode
-  root.classList.add('dark-mode');
-
-  // Toggle dark mode on click
-  toggleBtn.addEventListener('click', () => {
-    root.classList.toggle('dark-mode');
-  });
-</script>
 </html>

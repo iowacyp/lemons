@@ -1,219 +1,179 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta charset="UTF-8">
-  <title>Lemons Inc. Profit Calculator</title>
+  <title>Cup Profit Calculator</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-<body>
+<body data-page="calculator">
   <div class="container">
     <div class="app-container">
-      <div id="menuButtonContainer">
-        <a href="dashboard.html" id="menuButton" aria-label="Back to Menu">☰</a>
-      </div>
-      <div style="text-align: center; font-size: 2rem;">
-        <i class="fa-solid fa-calculator icon-accent icon-lg"></i>
-      </div>
-      <div style="margin-bottom: 1rem;">
-        <h1 style="margin-bottom: 0.2rem;">How Much Will You Make?</h1>
-      </div>
+      <section class="page-hero glass-panel" data-shell-page-hero></section>
 
-      <div style="text-align: center;">
-        <i class="fa-solid fa-box-open icon-accent icon-md"></i>
-      </div>
-      <h2>What Will You Buy?</h2>
-      <p>List supplies and their costs.</p>
-      <div id="supplyContainer">
-        <div class="item-row">
-          <label>
-            Item
-            <select class="item-select">
-              <option value="Lemons">Lemons (each)</option>
-              <option value="Lemonade Mix">Lemonade Mix (powdered)</option>
-              <option value="Sugar">Sugar (5 lb bag)</option>
-              <option value="Cups">Cups (pk)</option>
-              <option value="Pitcher">Pitcher</option>
-              <option value="Poster/Signs">Poster/Signs</option>
-              <option value="Napkins">Napkins</option>
-              <option value="Ice">Ice (bag)</option>
-              <option value="Stirrer/Spoon">Stirrer/Spoon</option>
-              <option value="Powdered Mix">Powdered Mix</option>
-              <option value="Labeled Packaging">Labeled Packaging</option>
-              <option value="Other">Other (type below)</option>
-            </select>
-          </label>
+      <section class="dashboard-section">
+        <article class="glass-card calculator-summary">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">One-cup math</p>
+              <h2>What does one cup earn?</h2>
+            </div>
+            <span class="badge-chip accent">Updates live</span>
+          </div>
 
-          <label>
-            Custom Item
-            <!-- Removed inline style and applied the hidden class -->
-            <input type="text" class="custom-item hidden" placeholder="Custom Item">
-          </label>
+          <div class="calculator-main-output">
+            <span>Profit on each cup</span>
+            <input type="text" id="profitPerCup" placeholder="$0.00" readonly class="calculator-profit-display" />
+          </div>
 
-          <label>
-            Quantity
-            <select class="quantity">
-              <!-- Hardcoded quantity options remain; can also be generated dynamically if needed -->
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-            </select>
-          </label>
+          <div class="calculator-stat-grid">
+            <div class="calculator-stat">
+              <span>Cost per cup</span>
+              <strong id="costPerCupReadout">$0.00</strong>
+            </div>
+            <div class="calculator-stat">
+              <span>Price per cup</span>
+              <strong id="pricePerCupReadout">$0.00</strong>
+            </div>
+            <div class="calculator-stat">
+              <span>Total sales</span>
+              <strong id="totalIncomeReadout">$0.00</strong>
+            </div>
+            <div class="calculator-stat">
+              <span>Total profit</span>
+              <strong id="finalProfitReadout">$0.00</strong>
+            </div>
+          </div>
 
-          <label>
-            Cost Each ($)
-            <input type="text" class="cost-each" placeholder="0.00">
-          </label>
+          <div class="calculator-formula" id="calculatorFormula">
+            Cost per cup = batch cost &divide; cups made
+          </div>
+        </article>
+      </section>
 
-          <label>
-            Total Cost
-            <input type="text" class="total-cost" placeholder="$0.00" readonly>
-          </label>
-        </div>
-      </div>
-      <button id="addItem" type="button">➕ Add Another Supply</button>
+      <section class="dashboard-section">
+        <article class="glass-card calculator-workbench">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Batch cost</p>
+              <h2>How much does one batch cost?</h2>
+            </div>
+            <span class="badge-chip">Use ingredients only</span>
+          </div>
+          <p class="card-copy">Count the ingredients and cups that go into one lemonade batch. That gives you the cost of making one cup before you decide what to charge.</p>
 
-      <label><strong>Total Expenses (Sum of All Total Costs)</strong></label>
-      <input type="text" id="totalExpenses" placeholder="$0.00" readonly>
-      <div id="summary-totalExpenses" class="print-summary"></div>
+          <div class="calculator-batch-grid">
+            <label class="calculator-readout" for="cupsMade">
+              <span>Cups made</span>
+              <input type="number" id="cupsMade" min="1" step="1" placeholder="10">
+            </label>
+            <div class="calculator-readout">
+              <span>Batch cost</span>
+              <strong id="batchCostReadout">$0.00</strong>
+            </div>
+          </div>
 
-      <label><strong>Price Per Cup</strong></label>
-      <input type="text" id="pricePerCup" placeholder="$0.00">
-      <div id="summary-pricePerCup" class="print-summary"></div>
+          <div id="supplyContainer" class="calculator-supply-list">
+            <div class="item-row">
+              <label>
+                Item
+                <select class="item-select">
+                  <option value="Lemons">Lemons (each)</option>
+                  <option value="Lemonade Mix">Lemonade Mix (powdered)</option>
+                  <option value="Sugar">Sugar (5 lb bag)</option>
+                  <option value="Cups">Cups (pk)</option>
+                  <option value="Napkins">Napkins</option>
+                  <option value="Ice">Ice (bag)</option>
+                  <option value="Water">Water</option>
+                  <option value="Mint/Fruit">Mint or Fruit</option>
+                  <option value="Stirrer/Spoon">Stirrer/Spoon</option>
+                  <option value="Other">Other (type below)</option>
+                </select>
+              </label>
 
-      <div style="text-align: center;">
-        <i class="fa-solid fa-dollar-sign icon-accent icon-sm"></i>
-      </div>
-      <h2>How Much Will You Charge?</h2>
-      <p>Set a price and number of cups.</p>
+              <label>
+                Custom Item
+                <input type="text" class="custom-item hidden" placeholder="Custom Item">
+              </label>
 
-      <label>Cups to Sell</label>
-      <!-- This select element will be populated dynamically -->
-      <select id="cupsSold"></select>
+              <label>
+                Quantity used
+                <select class="quantity">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                </select>
+              </label>
 
-      <label>Total Income (Cups × Price)</label>
-      <input type="text" id="totalIncome" placeholder="$0.00" readonly>
-      <div id="summary-totalIncome" class="print-summary"></div>
+              <label>
+                Cost each
+                <input type="text" class="cost-each" inputmode="decimal" placeholder="0.00">
+              </label>
 
-      <label>Total Supplies Cost</label>
-      <input type="text" id="finalSuppliesCost" placeholder="$0.00" readonly>
-      <div id="summary-finalSuppliesCost" class="print-summary"></div>
+              <label>
+                Total cost
+                <input type="text" class="total-cost" placeholder="$0.00" readonly>
+              </label>
+            </div>
+          </div>
 
-      <div class="profit-summary">
-        <label class="profit-label"><strong><i class="fa-solid fa-coins icon-accent"></i> Your Profit: Earnings minus costs</strong></label>
-        <input type="text" id="finalProfit" placeholder="$0.00" readonly class="profit-amount" />
-      </div>
-      <div id="summary-finalProfit" class="print-summary"></div>
+          <button id="addItem" type="button">Add another supply</button>
+        </article>
+      </section>
 
-      <div class="nav-bar">
-        <button onclick="location.href='customize.html'" class="solid-icon-button" aria-label="Back">
-          ←
-        </button>
-        <button id="downloadReport" type="button" class="solid-icon-button">
-          <img src="download.png" alt="Download" width="24" height="24" />
-        </button>
-        <button id="nextButton" class="nav-btn">→</button>
-      </div>
+      <section class="dashboard-section">
+        <article class="glass-card calculator-sales">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Selling plan</p>
+              <h2>How much will one cup sell for?</h2>
+            </div>
+          </div>
+          <p class="card-copy">Set the price for one cup and how many cups you expect to sell. The profit per cup and total profit update above as you type.</p>
+
+          <div class="calculator-sales-grid">
+            <label class="calculator-readout" for="pricePerCup">
+              <span>Price per cup</span>
+              <input type="number" id="pricePerCup" min="0" step="0.01" placeholder="1.50">
+            </label>
+            <label class="calculator-readout" for="cupsSold">
+              <span>Cups sold</span>
+              <input type="number" id="cupsSold" min="0" step="1" placeholder="10">
+            </label>
+          </div>
+
+          <div class="note-box">
+            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+            <p>Profit per cup = price per cup - cost per cup. Total profit = profit per cup × cups sold.</p>
+          </div>
+        </article>
+      </section>
+
+      <div class="nav-bar" data-shell-nav data-download data-next-id="nextButton"></div>
     </div>
   </div>
   
-  <!-- JavaScript to dynamically generate the "Cups to Sell" options -->
-  <script>
-    // Get the select element for Cups to Sell
-    const cupsSelect = document.getElementById('cupsSold');
-    // Generate options from 1 to 100
-    for (let i = 1; i <= 100; i++) {
-      const option = document.createElement('option');
-      option.value = i;
-      // Use singular "cup" when i is 1, otherwise "cups"
-      option.textContent = i + (i === 1 ? " cup" : " cups");
-      cupsSelect.appendChild(option);
-    }
-  </script>
-  
-  <!-- Existing script file for further calculations and interactions -->
-  <script src="script.js"></script>
-  <script>
-    document.getElementById('downloadReport').addEventListener('click', function () {
-      window.print();
-    });
-
-    window.onbeforeprint = () => {
-      const fields = [
-        'totalExpenses',
-        'pricePerCup',
-        'totalIncome',
-        'finalSuppliesCost',
-        'finalProfit'
-      ];
-      fields.forEach(id => {
-        const input = document.getElementById(id);
-        const summary = document.getElementById('summary-' + id);
-        if (input && summary) {
-          summary.textContent = input.value || '';
-        }
-      });
-    };
-
-    // Save values and go to loan.html on next button click
-    document.getElementById('nextButton').addEventListener('click', () => {
-      updateTotals(); // ensure latest values are calculated
-
-      const totalExpenses = document.getElementById('totalExpenses')?.value ?? '';
-      const pricePerCup = document.getElementById('pricePerCup')?.value ?? '';
-      const totalIncome = document.getElementById('totalIncome')?.value ?? '';
-      const finalSuppliesCost = document.getElementById('finalSuppliesCost')?.value ?? '';
-      const finalProfit = document.getElementById('finalProfit')?.value ?? '';
-
-      localStorage.setItem('totalExpenses', totalExpenses);
-      localStorage.setItem('pricePerCup', pricePerCup);
-      localStorage.setItem('totalIncome', totalIncome);
-      localStorage.setItem('finalSuppliesCost', finalSuppliesCost);
-      localStorage.setItem('finalProfit', finalProfit);
-
-      // Navigate after saving
-      window.location.href = 'loan.html';
-    });
-  </script>
-  <script>
-    // Auto-save key calculator fields to localStorage on input/change (input-based listener)
-    document.addEventListener('DOMContentLoaded', () => {
-      // Restore key calculator fields from localStorage
-      ['pricePerCup', 'totalExpenses', 'totalIncome', 'finalProfit', 'finalSuppliesCost'].forEach(id => {
-        const field = document.getElementById(id);
-        const saved = localStorage.getItem(id);
-        if (field && saved !== null) {
-          field.value = saved;
-        }
-      });
-      updateTotals();
-
-      document.querySelectorAll('#pricePerCup, #cupsSold').forEach(input => {
-        const key = input.id;
-        input.addEventListener('input', () => {
-          localStorage.setItem(key, input.value);
-          updateTotals();
-        });
-      });
-    });
-  </script>
+  <script src="assets/js/site-data.js"></script>
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script src="assets/js/pages/calculator.js"></script>
 </body>
 </html>

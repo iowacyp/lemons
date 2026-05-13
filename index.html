@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 <head>
   <!-- PWA meta -->
   <link rel="manifest" href="site.webmanifest">
@@ -11,39 +11,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Welcome to Lemonade Boss</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
 
 </head>
-<body>
+<body data-page="index">
   <div class="container">
     <div class="app-container">
-      <div id="menuButtonContainer">
-        <a href="dashboard.html" id="menuButton" aria-label="Go to Menu">☰</a>
-      </div>
-      <div style="text-align: center;">
-        <i class="fa-solid fa-lemon" style="color: #f4b400; font-size: 2rem;"></i>
-      </div>
-      <h1>Lemonade Boss</h1>
-      <p class="subtitle">Get ready to launch your very own lemonade stand adventure!</p>
+      <section class="page-hero glass-panel" data-shell-page-hero></section>
 
       <div style="margin-top: 2rem; margin-bottom: 3rem;">
-        <p>This app will guide you step-by-step to help you build your own lemonade business from scratch!</p>
+        <p>This app walks you through the parts of a small business so you can build a lemonade stand with a real plan.</p>
         <div style="text-align: left; margin-top: 1rem;">
-          <p><i class="fa-solid fa-circle-check" style="color: #f4b400;"></i> Design your lemonade stand</p>
-          <p><i class="fa-solid fa-circle-check" style="color: #f4b400;"></i> Request a startup loan</p>
-          <p><i class="fa-solid fa-circle-check" style="color: #f4b400;"></i> Set your lemonade price</p>
-          <p><i class="fa-solid fa-circle-check" style="color: #f4b400;"></i> Make flyers and a checklist</p>
-          <p><i class="fa-solid fa-circle-check" style="color: #f4b400;"></i> Earn a certificate for your hard work!</p>
+          <p><i class="fa-solid fa-circle-check"></i> Learn what an entrepreneur does</p>
+          <p><i class="fa-solid fa-circle-check"></i> Name and brand your stand</p>
+          <p><i class="fa-solid fa-circle-check"></i> Figure out cost and profit per cup</p>
+          <p><i class="fa-solid fa-circle-check"></i> Plan funding, marketing, and supplies</p>
+          <p><i class="fa-solid fa-circle-check"></i> Reflect on what you learned and print a certificate</p>
         </div>
       </div>
 
-      <div class="dashboard-buttons">
-        <a href="entrepreneur.html" class="btn"><i class="fa-solid fa-rocket" style="color: #333;"></i> Start Your Business Plan</a>
-        <a href="dashboard.html" class="btn"><i class="fa-solid fa-grid-horizontal" style="color: #333;"></i> Go to Dashboard</a>
-      </div>
+      <div class="dashboard-buttons" data-shell-home-actions></div>
 
       <p class="quote">“You don’t have to be a grown-up to do great things.”</p>
     </div>
   </div>
+  <script src="assets/js/site-data.js"></script>
+  <script src="assets/js/shell.js"></script>
 </body>
 </html>

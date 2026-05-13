@@ -1,6 +1,6 @@
 {
-    "name": "Lemons Inc. Profit Calculator",
-    "short_name": "LemonCalc",
+    "name": "Lemonade Boss",
+    "short_name": "Lemonade Boss",
     "start_url": "calculator.html",
     "display": "standalone",
     "background_color": "#ffffff",

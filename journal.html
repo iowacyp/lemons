@@ -1,105 +1,128 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta charset="UTF-8" />
   <title>Journal & Reflections</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
-<body>
+<body data-page="journal">
   <div class="container">
     <div class="app-container">
-      <div id="menuButtonContainer">
-          <a href="dashboard.html" id="menuButton" aria-label="Back to Menu">☰</a>
-        </div>
-      <div style="text-align: center;">
-        <i class="fa-solid fa-book-open" style="color: #f4b400; font-size: 2rem;"></i>
-      </div>
-      <h1>Journal & Reflection</h1>
-      <p>Think back on your lemonade stand experience.</p>
+      <section class="page-hero glass-panel" data-shell-page-hero></section>
 
-      <div id="journalContainer">
-        <div style="text-align: center;">
-          <i class="fa-solid fa-star" style="color: #f4b400;"></i>
-        </div>
-        <h2>Best Part of the Day</h2>
-        <textarea id="favoriteMoment" rows="6" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
+      <section class="dashboard-section">
+        <article class="glass-card journal-preview-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Reflection preview</p>
+              <h2>Current snapshot</h2>
+            </div>
+            <span class="badge-chip accent" id="journalStatusChip">In progress</span>
+          </div>
 
-        <div style="text-align: center;">
-          <i class="fa-solid fa-trophy" style="color: #f4b400;"></i>
-        </div>
-        <h2>What I’m Proud Of</h2>
-        <textarea id="proudMoment" rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
+          <div class="journal-preview-grid">
+            <div>
+              <span>Best part</span>
+              <strong id="favoriteMomentPreview">Nothing written yet</strong>
+            </div>
+            <div>
+              <span>What I’m proud of</span>
+              <strong id="proudMomentPreview">Nothing written yet</strong>
+            </div>
+            <div>
+              <span>Feeling</span>
+              <strong id="journalMoodPreview">Choose a mood</strong>
+            </div>
+            <div>
+              <span>Reflection progress</span>
+              <strong id="journalCountPreview">0 prompts filled</strong>
+            </div>
+          </div>
 
-        <div style="text-align: center;">
-          <i class="fa-solid fa-face-smile" style="color: #f4b400;"></i>
-        </div>
-        <h2>How do you feel?</h2>
-        <p>
-          <button>😄</button>
-          <button>🙂</button>
-          <button>😐</button>
-          <button>😕</button>
-          <button>😢</button>
-        </p>
+          <div class="note-box journal-note-box">
+            <i class="fa-solid fa-lightbulb" aria-hidden="true"></i>
+            <p>Short, honest answers work best here. Use this page to think like a business owner: what worked, what did not, and what you would change next time.</p>
+          </div>
+        </article>
+      </section>
 
-        <div style="text-align: center;">
-          <i class="fa-solid fa-pen-to-square" style="color: #f4b400;"></i>
-        </div>
-        <h2>Reflection Prompts</h2>
-        <p><strong>1.</strong> What went well?</p>
-        <textarea id="reflection1" rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
+      <section class="dashboard-section">
+        <article class="glass-card journal-form-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Feelings</p>
+              <h2>How do you feel after running the stand?</h2>
+            </div>
+          </div>
+          <div class="mood-picker" role="group" aria-label="Mood selector">
+            <button type="button" class="mood-button" data-mood="excited">😄 Excited</button>
+            <button type="button" class="mood-button" data-mood="happy">🙂 Happy</button>
+            <button type="button" class="mood-button" data-mood="neutral">😐 Neutral</button>
+            <button type="button" class="mood-button" data-mood="unsure">😕 Unsure</button>
+            <button type="button" class="mood-button" data-mood="sad">😢 Tired</button>
+          </div>
+        </article>
+      </section>
 
-        <p><strong>2.</strong> What would I change?</p>
-        <textarea id="reflection2" rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
+      <section class="dashboard-section">
+        <article class="glass-card journal-form-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Best parts</p>
+              <h2>What stood out today?</h2>
+            </div>
+          </div>
+          <label for="favoriteMoment">
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <span>Best part of the day</span>
+          </label>
+          <textarea id="favoriteMoment" rows="5" placeholder="What was the best part of the day?"></textarea>
 
-        <p><strong>3.</strong> How did I make someone smile?</p>
-        <textarea id="reflection3" rows="4" style="width: 100%; border-radius: 8px; padding: 0.5rem;"></textarea>
-        <div class="nav-bar">
-          <button onclick="window.location.href='photos.html'">←</button>
-          <button id="downloadReport" type="button">
-            <img src="download.png" alt="Download" width="24" height="24" />
-          </button>
-          <button id="nextButton" type="button">→</button>
-        </div>
-    </div> 
+          <label for="proudMoment">
+            <i class="fa-solid fa-trophy" aria-hidden="true"></i>
+            <span>What I’m proud of</span>
+          </label>
+          <textarea id="proudMoment" rows="4" placeholder="What are you proud of from today?"></textarea>
+        </article>
+      </section>
+
+      <section class="dashboard-section">
+        <article class="glass-card journal-form-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Reflection prompts</p>
+              <h2>Think it through</h2>
+            </div>
+          </div>
+
+          <label for="reflection1">
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            <span>What went well?</span>
+          </label>
+          <textarea id="reflection1" rows="4" placeholder="What went well today?"></textarea>
+
+          <label for="reflection2">
+            <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+            <span>What would I change?</span>
+          </label>
+          <textarea id="reflection2" rows="4" placeholder="What would I do differently next time?"></textarea>
+
+          <label for="reflection3">
+            <i class="fa-solid fa-face-smile" aria-hidden="true"></i>
+            <span>How did I make someone smile?</span>
+          </label>
+          <textarea id="reflection3" rows="4" placeholder="How did you make someone smile?"></textarea>
+        </article>
+      </section>
+
+      <div class="nav-bar" data-shell-nav data-download data-download-label="Print Journal"></div>
+    </div>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <script src="script.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const journalFields = ['favoriteMoment', 'proudMoment', 'reflection1', 'reflection2', 'reflection3'];
 
-      journalFields.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-          // Restore saved value
-          el.value = localStorage.getItem(id) || '';
-          // Save changes
-          el.addEventListener('input', () => {
-            localStorage.setItem(id, el.value);
-          });
-        }
-      });
-    });
-
-    document.getElementById('nextButton').addEventListener('click', () => {
-      const fields = ['favoriteMoment', 'proudMoment', 'reflection1', 'reflection2', 'reflection3'];
-      fields.forEach(id => {
-        const val = document.getElementById(id)?.value;
-        if (val !== undefined) {
-          localStorage.setItem(id, val);
-        }
-      });
-
-      const flyer = document.getElementById('flyerPreview')?.src;
-      const stand = document.getElementById('standPreview')?.src;
-      if (flyer) localStorage.setItem('flyerImage', flyer);
-      if (stand) localStorage.setItem('standImage', stand);
-
-      window.location.href = 'certificate.html';
-    });
-  </script>
+  <script src="assets/js/site-data.js"></script>
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/pages/journal.js"></script>
 </body>
 </html>

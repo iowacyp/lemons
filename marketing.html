@@ -1,145 +1,124 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Marketing Plan</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
-<body>
+<body data-page="marketing">
   <div class="container">
     <div class="app-container">
-      <div id="menuButtonContainer">
-        <a href="dashboard.html" id="menuButton" aria-label="Back to Menu">☰</a>
-      </div>
-      <div style="text-align: center; font-size: 2rem;">
-        <i class="fa-solid fa-bullhorn icon-lg"></i>
-      </div>
-      <h1 class="title">Marketing Plan</h1>
-      <p class="subtitle">Let the world know about your amazing lemonade stand!</p>
-      <form id="marketing-form">
-        <p>Choose all the ways you plan to tell people about your stand:</p>
-        <fieldset>
-          <legend>How will you spread the word?</legend>
-          <label><input type="checkbox" id="family" /> Tell my family and friends</label><br>
-          <label><input type="checkbox" id="posters" /> Make posters/signs</label><br>
-          <label><input type="checkbox" id="online" /> Ask a grown-up to post online</label><br>
-          <label><input type="checkbox" id="neighbors" /> Invite neighbors</label><br>
-          <label><input type="checkbox" id="other" /> Other: <input type="text" id="otherInput" /></label>
-        </fieldset>
+      <section class="page-hero glass-panel" data-shell-page-hero></section>
 
-        <h2 style="margin-top: 2rem;">What makes your lemonade stand out?</h2>
-        <textarea id="special" placeholder="Think flavor, fun extras, decorations, or amazing service!" rows="3"></textarea>
+      <section class="dashboard-section">
+        <article class="glass-card marketing-preview-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Plan preview</p>
+              <h2>Ready to share</h2>
+            </div>
+            <span class="badge-chip accent" id="marketingStatusChip">In progress</span>
+          </div>
 
-        <h2>Your Pitch</h2>
-        <textarea id="pitch" placeholder="Hi there! I’m running a lemonade stand today and I’d love for you to stop by!" rows="3"></textarea>
+          <div class="marketing-preview">
+            <div class="marketing-preview-header">
+              <strong id="marketingPreviewTitle">How customers will hear about the stand</strong>
+              <span id="marketingPreviewSubtitle">Choose a few simple ways to spread the word</span>
+            </div>
 
-        <p>Write a short message to put on your flyers or posters:</p>
-        <h2>Flyer Caption</h2>
-        <textarea id="caption" placeholder="Come grab a glass this Saturday—it's fresh, fun, and delicious! 🍋" rows="2"></textarea>
-        <div class="reference-sheet" style="margin-bottom: 2rem; text-align: center;">
-          <h2><i class="fa-solid fa-palette icon-lg"></i> Canva Tutorial</h2>
-          <p>Canva is a free tool that makes it easy to design posters. It’s like digital paper and crayons!</p>
-          <p><button type="button" onclick="window.open('https://drive.google.com/file/d/1jgTJEsdwF7nHDwjF8XJ8OVrqPPoW3sSa/view?usp=sharing', '_blank')" class="btn">
-            <i class="fa-solid fa-file"></i> Open Canva Reference Sheet
-          </button></p>
-        </div>
-      </form>
-      <div class="nav-bar">
-        <button onclick="window.location.href='loan.html'">←</button>
-        <button id="downloadReport" type="button">
-          <img src="download.png" alt="Download" width="24" height="24" />
-        </button>
-        <button id="nextButton" type="button">→</button>
-      </div>
+            <div class="marketing-preview-grid">
+              <div>
+                <span>How customers will hear</span>
+                <strong id="channelsPreview">Pick your channels</strong>
+              </div>
+              <div>
+                <span>What stands out</span>
+                <strong id="specialPreview">Your special selling point</strong>
+              </div>
+              <div>
+                <span>Pitch</span>
+                <strong id="pitchPreview">A short message for customers</strong>
+              </div>
+              <div>
+                <span>Flyer caption</span>
+                <strong id="captionPreview">A quick line for posters and signs</strong>
+              </div>
+            </div>
+
+            <div class="marketing-note">
+              <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+              <p>Keep the message short, clear, and easy to repeat. People usually remember one strong idea better than five small ones.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="dashboard-section">
+        <article class="glass-card form-card marketing-form-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Spread the word</p>
+              <h2>Marketing details</h2>
+            </div>
+          </div>
+          <p class="card-copy">Choose a few channels, then write the exact message you want people to hear or read. Keep it short so people remember it.</p>
+
+          <fieldset class="marketing-fieldset">
+            <legend>How will customers hear about it?</legend>
+            <div class="marketing-option-grid">
+              <label class="marketing-option"><input type="checkbox" id="family" /> Tell my family and friends</label>
+              <label class="marketing-option"><input type="checkbox" id="posters" /> Make posters or signs</label>
+              <label class="marketing-option"><input type="checkbox" id="online" /> Ask a grown-up to post online</label>
+              <label class="marketing-option"><input type="checkbox" id="neighbors" /> Invite neighbors</label>
+            </div>
+
+            <label class="marketing-option other-option" for="otherInput">
+              <span><input type="checkbox" id="other" /> Other</span>
+              <input type="text" id="otherInput" placeholder="Add another way to share the stand" />
+            </label>
+          </fieldset>
+
+          <label for="special">
+            <i class="fa-solid fa-star"></i> What makes your lemonade stand out?
+          </label>
+          <textarea id="special" placeholder="Think flavor, fun extras, decorations, or amazing service!" rows="3"></textarea>
+
+          <label for="pitch">
+            <i class="fa-solid fa-comments"></i> Your pitch
+          </label>
+          <textarea id="pitch" placeholder="Hi there! I’m running a lemonade stand today and I’d love for you to stop by!" rows="3"></textarea>
+
+          <label for="caption">
+            <i class="fa-solid fa-quote-left"></i> Flyer caption
+          </label>
+          <textarea id="caption" placeholder="Come grab a glass this Saturday—it's fresh, fun, and delicious! 🍋" rows="2"></textarea>
+        </article>
+      </section>
+
+      <section class="dashboard-section">
+        <article class="glass-card marketing-guide-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Design help</p>
+              <h2>Canva Help</h2>
+            </div>
+          </div>
+          <p class="card-copy">Canva is a free tool that makes it easy to design posters. It works like digital paper and crayons for your flyer.</p>
+          <button type="button" class="btn marketing-reference-btn" onclick="window.open('https://drive.google.com/file/d/1jgTJEsdwF7nHDwjF8XJ8OVrqPPoW3sSa/view?usp=sharing', '_blank')">
+            <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+            <span>Open reference sheet</span>
+          </button>
+        </article>
+      </section>
+
+      <div class="nav-bar" data-shell-nav data-download></div>
     </div>
   </div>
+
+  <script src="assets/js/site-data.js"></script>
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/pages/marketing.js"></script>
 </body>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const checkboxIds = ['family', 'posters', 'online', 'neighbors'];
-    const textInputs = ['otherInput', 'special', 'pitch', 'caption'];
-
-    // Restore saved values
-    checkboxIds.forEach(id => {
-      const el = document.getElementById(id);
-      if (el && localStorage.getItem(id) === 'true') {
-        el.checked = true;
-      }
-      el.addEventListener('change', () => {
-        localStorage.setItem(id, el.checked.toString());
-      });
-    });
-
-    textInputs.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.value = localStorage.getItem(id) || '';
-        el.addEventListener('input', () => {
-          localStorage.setItem(id, el.value);
-        });
-      }
-    });
-
-    // Create a full marketing summary for the report page
-    const generateMarketingSummary = () => {
-      const checked = checkboxIds.filter(id => document.getElementById(id)?.checked)
-        .map(id => document.querySelector(`label[for="${id}"]`)?.textContent || id)
-        .concat(document.getElementById('otherInput')?.value ? ['Other: ' + document.getElementById('otherInput').value] : []);
-      const highlight = document.getElementById('special')?.value || '';
-      const pitch = document.getElementById('pitch')?.value || '';
-      const caption = document.getElementById('caption')?.value || '';
-
-      const summary = `
-        Ways to spread the word: ${checked.join(', ')}.
-        What makes our lemonade special: ${highlight}
-        Our pitch: ${pitch}
-        Flyer caption: ${caption}
-      `;
-      localStorage.setItem('marketingPlan', summary.trim());
-    };
-
-    // Watch for changes to update the summary
-    document.querySelectorAll('input, textarea').forEach(el =>
-      el.addEventListener('input', generateMarketingSummary)
-    );
-  });
-
-  document.getElementById('nextButton').addEventListener('click', () => {
-    const checkboxIds = ['family', 'posters', 'online', 'neighbors'];
-    const textInputs = ['otherInput', 'special', 'pitch', 'caption'];
-
-    checkboxIds.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        localStorage.setItem(id, el.checked.toString());
-      }
-    });
-
-    textInputs.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        localStorage.setItem(id, el.value);
-      }
-    });
-
-    const checked = checkboxIds.filter(id => document.getElementById(id)?.checked)
-      .map(id => document.querySelector(`label[for="${id}"]`)?.textContent || id)
-      .concat(document.getElementById('otherInput')?.value ? ['Other: ' + document.getElementById('otherInput').value] : []);
-    const highlight = document.getElementById('special')?.value || '';
-    const pitch = document.getElementById('pitch')?.value || '';
-    const caption = document.getElementById('caption')?.value || '';
-
-    const summary = `
-      Ways to spread the word: ${checked.join(', ')}.
-      What makes our lemonade special: ${highlight}
-      Our pitch: ${pitch}
-      Flyer caption: ${caption}
-    `;
-    localStorage.setItem('marketingPlan', summary.trim());
-
-    window.location.href = 'checklist.html';
-  });
-</script>
 </html>

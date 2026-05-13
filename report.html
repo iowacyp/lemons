@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta charset="UTF-8" />
-  <title>Final Report</title>
+  <title>Business Report</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -18,264 +18,155 @@
     }
   </script>
 </head>
-<body>
+<body data-page="report">
   <div class="container">
     <div class="app-container">
-      <div id="menuButtonContainer">
-        <a href="dashboard.html" id="menuButton" aria-label="Back to Menu">☰</a>
-      </div>
-      <div style="text-align: center; font-size: 2rem;">
-        <i class="fa-solid fa-chart-line icon-accent icon-lg"></i>
-      </div>
-      <h1>Final Report</h1>
-      <p>Let’s look back at your lemonade stand success!</p>
+      <section class="page-hero glass-panel" data-shell-page-hero></section>
 
-      <div style="text-align: center;">
-        <i class="fa-solid fa-award icon-lg"></i>
-      </div>
-      <h2>Certificate Preview</h2>
-      <p>Your official Lemonade Boss certificate:</p>
-      <div style="position: relative; display: inline-block; max-width: 100%;">
-        <img src="LemonsCert.jpg" alt="Lemonade Boss Certificate" style="width: 100%; border: 2px solid #333; border-radius: 10px;" />
-        <span id="certificateName" style="
-          position: absolute;
-          top: 49%;
-          left: 52%;
-          transform: translate(-50%, -50%);
-          font-size: 1.8rem;
-          font-weight: bold;
-          color: #242754;
-          font-family: Georgia, serif;
-          white-space: nowrap;
-        "></span>
-      </div>
+      <section class="dashboard-section">
+        <article class="glass-card report-card report-summary-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">At a glance</p>
+              <h2>Business snapshot</h2>
+            </div>
+            <span class="badge-chip accent">Ready to print</span>
+          </div>
 
-      <div style="text-align: center;">
-        <i class="fa-solid fa-hand-holding-usd icon-lg"></i>
-      </div>
-      <h2>Loan Info</h2>
-      <p><strong>Loan Amount:</strong> <span id="loanAmount"></span></p>
-      <p><strong>Payback Plan:</strong> <span id="repaymentPlan"></span></p>
-      <p><strong>Repayment Deadline:</strong> <span id="deadline"></span></p>
+          <div class="report-summary-grid">
+            <div class="report-summary-stat">
+              <span>Total profit</span>
+              <strong id="finalProfit">$0.00</strong>
+            </div>
+            <div class="report-summary-stat">
+              <span>Total sales</span>
+              <strong id="totalIncome">$0.00</strong>
+            </div>
+            <div class="report-summary-stat">
+              <span>Total expenses</span>
+              <strong id="totalExpenses">$0.00</strong>
+            </div>
+            <div class="report-summary-stat">
+              <span>Price per cup</span>
+              <strong id="pricePerCup">$0.00</strong>
+            </div>
+          </div>
 
-      <div style="text-align: center;">
-        <i class="fa-solid fa-file-invoice-dollar icon-lg"></i>
-      </div>
-      <h2>Profit Summary</h2>
-      <div style="background-color: #f4c300; padding: 0.5rem; border-radius: 8px; text-align: center;">
-        <p style="margin: 0; font-weight: bold; font-size: 1.5rem; color: white;">
-          <strong>Total Profit:</strong> <span id="finalProfit"></span>
-        </p>
-      </div>
-      <p><strong>Total Sales:</strong> <span id="totalIncome"></span></p>
-      <p><strong>Total Expenses:</strong> <span id="totalExpenses"></span></p>
-      <p><strong>Cup Price:</strong> <span id="pricePerCup"></span></p>
-      <p><strong>Supply Cost:</strong> <span id="finalSuppliesCost"></span></p>
+          <div class="report-meta-row">
+            <div>
+              <span>Loan amount</span>
+              <strong id="loanAmount">$0.00</strong>
+            </div>
+            <div>
+              <span>Supply cost</span>
+              <strong id="finalSuppliesCost">$0.00</strong>
+            </div>
+            <div>
+              <span>Repayment plan</span>
+              <strong id="repaymentPlan">Not set yet</strong>
+            </div>
+            <div>
+              <span>Deadline</span>
+              <strong id="deadline">Not set yet</strong>
+            </div>
+          </div>
+        </article>
+      </section>
 
-      <div style="text-align: center;">
-        <i class="fa-solid fa-star icon-lg"></i>
-      </div>
-      <h2>Best Part</h2>
-      <p id="favoriteMoment"></p>
+      <section class="dashboard-section">
+        <article class="glass-card report-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Certificate</p>
+              <h2>Preview your certificate</h2>
+            </div>
+            <span class="badge-chip">Uses your name</span>
+          </div>
+          <p class="card-copy">Check the certificate before printing so the name is placed correctly.</p>
+          <div class="report-preview">
+            <img src="LemonsCert.jpg" alt="Lemonade Boss Certificate" class="report-certificate-image" />
+            <span id="certificateName" class="report-certificate-name"></span>
+          </div>
+          <p class="report-cert-name">Certified Lemonade Boss: <span id="studentName"></span></p>
+        </article>
+      </section>
 
-      <div style="text-align: center;">
-        <i class="fa-solid fa-trophy icon-lg"></i>
-      </div>
-      <h2>Proud Moment</h2>
-      <p id="proudMoment"></p>
+      <section class="dashboard-section dashboard-two-col">
+        <article class="glass-card report-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Marketing</p>
+              <h2>How you spread the word</h2>
+            </div>
+            <span class="badge-chip accent">Message ready</span>
+          </div>
+          <div class="report-detail-list">
+            <div class="report-detail-row">
+              <span>Channels</span>
+              <strong id="waysToSpread">Not set yet</strong>
+            </div>
+            <div class="report-detail-row">
+              <span>What stands out</span>
+              <strong id="specialHighlight">Not set yet</strong>
+            </div>
+            <div class="report-detail-row">
+              <span>Pitch</span>
+              <strong id="pitchLine">Not set yet</strong>
+            </div>
+            <div class="report-detail-row">
+              <span>Flyer caption</span>
+              <strong id="flyerCaption">Not set yet</strong>
+            </div>
+          </div>
+        </article>
 
-      <div style="text-align: center;">
-        <i class="fa-solid fa-bullhorn icon-lg"></i>
-      </div>
-      <h2>Marketing Plan</h2>
-      <p><strong>How we shared it:</strong> <span id="waysToSpread"></span></p>
-      <p><strong>What made it special:</strong> <span id="specialHighlight"></span></p>
-      <p><strong>Our pitch:</strong> <span id="pitchLine"></span></p>
-      <p><strong>Flyer caption:</strong> <span id="flyerCaption"></span></p>
+        <article class="glass-card report-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Reflection</p>
+              <h2>Best part</h2>
+            </div>
+            <span class="badge-chip">Saved from journal</span>
+          </div>
+          <p id="favoriteMoment" class="report-quote">Nothing written yet</p>
+        </article>
+      </section>
 
-      <p style="font-size: 1.5rem; font-weight: bold; text-align: center;">Certified Boss: <span id="studentName"></span></p>
+      <section class="dashboard-section dashboard-two-col">
+        <article class="glass-card report-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Reflection</p>
+              <h2>Proud moment</h2>
+            </div>
+            <span class="badge-chip">Saved from journal</span>
+          </div>
+          <p id="proudMoment" class="report-quote">Nothing written yet</p>
+        </article>
 
-      <div style="text-align: center;">
-        <i class="fa-solid fa-camera-retro icon-lg"></i>
-      </div>
-      <h2>Photo Summary</h2>
-      <p><span id="photoNote"></span></p>
-      <div id="photoGallery" style="margin-top: 1rem;"></div>
+        <article class="glass-card report-card">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Wrap-up</p>
+              <h2>What this report shows</h2>
+            </div>
+          </div>
+          <p class="card-copy">This page collects the finished numbers, your plan, and the reflections you saved along the way so you can see the full business story in one place.</p>
+          <div class="report-note">
+            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+            <p>Use the download button below to print or clear the finished report when you are ready to reset the app.</p>
+          </div>
+        </article>
+      </section>
 
-      <button id="clearCacheBtn" type="button">Clear Cache & Session Data</button>
-
-      <div class="nav-bar">
-        <button onclick="window.location.href='certificate.html'">←</button>
-        <button id="downloadReport" type="button">
-          <img src="download.png" alt="Download" width="24" height="24" />
-        </button>
-        <button onclick="window.location.href='certificate.html'">→</button>
-      </div>
+      <div class="nav-bar" data-shell-nav data-download data-clear-cache></div>
     </div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="script.js"></script>
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      const fields = ['totalExpenses', 'pricePerCup', 'totalIncome', 'finalSuppliesCost'];
-      fields.forEach(id => {
-        const el = document.getElementById(id);
-        const val = localStorage.getItem(id);
-        if (el && val !== null) {
-          el.textContent = val;
-        }
-      });
-
-      // finalProfit handled separately for styling, so set here:
-      const finalProfitEl = document.getElementById('finalProfit');
-      const finalProfitVal = localStorage.getItem('finalProfit');
-      if (finalProfitEl && finalProfitVal !== null) {
-        finalProfitEl.textContent = finalProfitVal;
-      }
-
-      const extraFields = ['favoriteMoment', 'proudMoment'];
-      extraFields.forEach(id => {
-        const el = document.getElementById(id);
-        const val = localStorage.getItem(id);
-        if (el && val !== null) {
-          el.textContent = val;
-        }
-      });
-
-      // Marketing plan parsing
-      const marketingPlanRaw = localStorage.getItem('marketingPlan');
-      if (marketingPlanRaw) {
-        let marketingData = {};
-        try {
-          marketingData = JSON.parse(marketingPlanRaw);
-        } catch {
-          // fallback: split by lines
-          const lines = marketingPlanRaw.split('\n').map(l => l.trim()).filter(l => l !== '');
-          marketingData.waysToSpread = lines[0] || '';
-          marketingData.specialHighlight = lines[1] || '';
-          marketingData.pitchLine = lines[2] || '';
-          marketingData.flyerCaption = lines[3] || '';
-        }
-        // Remove duplicate labels from stored values if present
-        document.getElementById('waysToSpread').textContent =
-          (marketingData.waysToSpread || '').replace(/^Ways to spread the word:\s*/i, '') || '';
-        document.getElementById('specialHighlight').textContent =
-          (marketingData.specialHighlight || '').replace(/^What makes our lemonade special:\s*/i, '') || '';
-        document.getElementById('pitchLine').textContent =
-          (marketingData.pitchLine || '').replace(/^Our pitch:\s*/i, '') || '';
-        document.getElementById('flyerCaption').textContent =
-          (marketingData.flyerCaption || '').replace(/^Flyer caption:\s*/i, '') || '';
-      }
-
-      const moreFields = [
-        'loanAmount',
-        'repaymentPlan',
-        'studentName',
-        'photoNote',
-        'totalExpenses',
-        'finalSuppliesCost',
-        'totalIncome'
-      ];
-      moreFields.forEach(id => {
-        const el = document.getElementById(id);
-        const val = localStorage.getItem(id);
-        // For studentName, also try to show placeholder if missing
-        if (el) {
-          if (val !== null && val !== "") {
-            el.textContent = id === "loanAmount" ? `$${val}` : val;
-          } else if (id === "studentName") {
-            el.textContent = "(Your Name Here)";
-            if (id === "studentName" && (!val || val.trim() === "")) {
-              console.warn("studentName missing or blank. Showing fallback label.");
-            }
-          }
-        }
-      });
-
-      // Format deadline date
-      const deadlineEl = document.getElementById('deadline');
-      const deadline = localStorage.getItem('deadline');
-      if (deadlineEl) {
-        if (deadline) {
-          const dateObj = new Date(deadline);
-          if (!isNaN(dateObj)) {
-            deadlineEl.textContent = dateObj.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
-          } else {
-            deadlineEl.textContent = deadline;
-          }
-        } else {
-          deadlineEl.textContent = "";
-        }
-      }
-
-      const journalFields = ['freeFormJournal', 'reflection1', 'reflection2', 'reflection3'];
-      journalFields.forEach(id => {
-        const val = localStorage.getItem(id);
-        if (val) {
-          const el = document.createElement('p');
-          const labelMap = {
-            freeFormJournal: 'Free-Form Reflection',
-            reflection1: 'What went really well today?',
-            reflection2: 'What would I do differently next time?',
-            reflection3: 'How did I make someone smile today?'
-          };
-          el.innerHTML = `<strong>${labelMap[id]}:</strong> ${val}`;
-          const container = document.querySelector('.app-container');
-          if (container) {
-            container.appendChild(el);
-          }
-        }
-      });
-
-      const gallery = document.getElementById('photoGallery');
-      const flyerImage = localStorage.getItem('flyerImage');
-      const standImage = localStorage.getItem('standImage');
-
-      if (flyerImage) {
-        const flyer = document.createElement('img');
-        flyer.src = flyerImage;
-        flyer.alt = "Flyer Photo";
-        flyer.style = "max-width: 100%; margin: 0.5rem 0; border: 1px solid #ccc; border-radius: 6px;";
-        gallery.appendChild(flyer);
-      }
-
-      if (standImage) {
-        const stand = document.createElement('img');
-        stand.src = standImage;
-        stand.alt = "Stand Photo";
-        stand.style = "max-width: 100%; margin: 0.5rem 0; border: 1px solid #ccc; border-radius: 6px;";
-        gallery.appendChild(stand);
-      }
-
-      // Overlay student name on certificate preview
-      const certName = document.getElementById('certificateName');
-      const storedName = localStorage.getItem('studentName');
-      if (certName) {
-        if (storedName && storedName.trim() !== "") {
-          certName.textContent = storedName;
-        } else {
-          certName.textContent = "(Your Name Here)";
-          console.warn("No studentName found in localStorage. Showing placeholder.");
-        }
-      }
-    });
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const clearBtn = document.getElementById('clearCacheBtn');
-      if (clearBtn) {
-        clearBtn.addEventListener('click', () => {
-          localStorage.clear();
-          caches.keys().then(keys => {
-            Promise.all(keys.map(key => caches.delete(key))).then(() => {
-              window.location.href = 'certificate.html';
-            });
-          });
-        });
-      }
-    });
-  </script>
-
-  <link rel="stylesheet" href="styles.css" />
+  <script src="assets/js/site-data.js"></script>
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script src="assets/js/pages/report.js"></script>
 </body>
 </html>

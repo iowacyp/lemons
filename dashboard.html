@@ -25,6 +25,19 @@
       <h1>Lemonade Boss Menu</h1>
       <p class="subtitle">Pick any section you'd like to work on today!</p>
 
+      <div class="dashboard-progress-frame" aria-live="polite">
+        <div class="dashboard-progress-copy">
+          <span class="dashboard-progress-label">Dashboard progress</span>
+          <strong id="dashboardCompletionPercent">0%</strong>
+        </div>
+        <div class="dashboard-progress-track" aria-hidden="true">
+          <div id="dashboardCompletionBar" class="dashboard-progress-fill"></div>
+        </div>
+        <p id="dashboardCompletionCopy" class="dashboard-progress-note">
+          Keep going to unlock more updates on the dashboard page.
+        </p>
+      </div>
+
       <div class="dashboard-buttons">
         <a href="entrepreneur.html" class="btn"><i class="fa-solid fa-lightbulb icon-visible" style="color: #333;"></i> What is an Entrepreneur?</a>
         <a href="customize.html" class="btn"><i class="fa-solid fa-pencil-alt icon-visible" style="color: #333;"></i> Create Your Stand</a>
@@ -53,5 +66,62 @@
   toggleBtn.addEventListener('click', () => {
     root.classList.toggle('dark-mode');
   });
+
+  const progressSteps = [
+    {
+      label: 'Create your stand',
+      complete: () => Boolean(localStorage.getItem('stand-name') || localStorage.getItem('standName') || localStorage.getItem('slogan') || localStorage.getItem('date'))
+    },
+    {
+      label: 'Price and profit',
+      complete: () => Boolean(localStorage.getItem('finalProfit') || localStorage.getItem('totalIncome') || localStorage.getItem('totalExpenses'))
+    },
+    {
+      label: 'Loan agreement',
+      complete: () => Boolean(localStorage.getItem('loanAmount') || localStorage.getItem('repaymentPlan') || localStorage.getItem('amount') || localStorage.getItem('plan'))
+    },
+    {
+      label: 'Marketing plan',
+      complete: () => Boolean(localStorage.getItem('marketingPlan'))
+    },
+    {
+      label: 'Opening day checklist',
+      complete: () => {
+        try {
+          return JSON.parse(localStorage.getItem('checklistItems') || '[]').length > 0;
+        } catch {
+          return false;
+        }
+      }
+    },
+    {
+      label: 'Stand photos',
+      complete: () => Boolean(localStorage.getItem('photoNote') || localStorage.getItem('flyerImage') || localStorage.getItem('standImage'))
+    },
+    {
+      label: 'Journal reflections',
+      complete: () => Boolean(localStorage.getItem('favoriteMoment') || localStorage.getItem('proudMoment') || localStorage.getItem('reflection1'))
+    },
+    {
+      label: 'Certificate',
+      complete: () => Boolean(localStorage.getItem('studentName'))
+    }
+  ];
+
+  const percentEl = document.getElementById('dashboardCompletionPercent');
+  const barEl = document.getElementById('dashboardCompletionBar');
+  const noteEl = document.getElementById('dashboardCompletionCopy');
+  const completed = progressSteps.filter((step) => step.complete()).length;
+  const total = progressSteps.length || 1;
+  const percent = Math.round((completed / total) * 100);
+  const remaining = total - completed;
+
+  if (percentEl) percentEl.textContent = `${percent}%`;
+  if (barEl) barEl.style.width = `${percent}%`;
+  if (noteEl) {
+    noteEl.textContent = remaining > 0
+      ? `Keep going to unlock ${remaining} more update${remaining === 1 ? '' : 's'} on the dashboard page.`
+      : 'You’ve finished the main journey. Check back for new dashboard updates.';
+  }
 </script>
 </html>

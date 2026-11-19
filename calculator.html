@@ -6,11 +6,27 @@
   <title>Cup Profit Calculator</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/refresh.css">
 </head>
 <body data-page="calculator">
   <div class="container">
     <div class="app-container">
       <section class="page-hero glass-panel" data-shell-page-hero></section>
+
+      <section class="glass-card pricing-inputs">
+        <h2>Build your pricing plan</h2>
+        <p>Enter what one batch costs, how many cups it makes, and what you’d charge.</p>
+        <div class="pricing-grid">
+          <label>Batch cost ($)<input id="batchCostInput" type="number" min="0" step="0.01" inputmode="decimal"></label>
+          <label>Cups made<input id="cupsMade" type="number" min="1" step="1" inputmode="numeric"></label>
+          <label>Price per cup ($)<input id="pricePerCup" type="number" min="0" step="0.01" inputmode="decimal"></label>
+        </div>
+        <p class="pricing-help">Leave batch cost blank to use the supply list below.</p>
+        <div class="pricing-example">
+          <button type="button" id="pricingExample" aria-pressed="false">Try an example</button>
+          <p id="pricingExampleNote" hidden>Example values for practice. Your own numbers are saved in this browser.</p>
+        </div>
+      </section>
 
       <section class="dashboard-section">
         <article class="glass-card calculator-summary">
@@ -24,7 +40,7 @@
 
           <div class="calculator-main-output">
             <span>Profit on each cup</span>
-            <input type="text" id="profitPerCup" placeholder="$0.00" readonly class="calculator-profit-display" />
+            <input type="text" id="profitPerCup" aria-label="Profit on each cup" placeholder="—" readonly class="calculator-profit-display" />
           </div>
 
           <div class="calculator-stat-grid">
@@ -41,12 +57,12 @@
               <strong id="totalIncomeReadout">$0.00</strong>
             </div>
             <div class="calculator-stat">
-              <span>Total profit</span>
+              <span>Estimated batch profit</span>
               <strong id="finalProfitReadout">$0.00</strong>
             </div>
           </div>
 
-          <div class="calculator-formula" id="calculatorFormula">
+          <div class="calculator-formula" id="calculatorFormula" role="status">
             Cost per cup = batch cost &divide; cups made
           </div>
         </article>
@@ -64,10 +80,6 @@
           <p class="card-copy">Count the ingredients and cups that go into one lemonade batch. That gives you the cost of making one cup before you decide what to charge.</p>
 
           <div class="calculator-batch-grid">
-            <label class="calculator-readout" for="cupsMade">
-              <span>Cups made</span>
-              <input type="number" id="cupsMade" min="1" step="1" placeholder="10">
-            </label>
             <div class="calculator-readout">
               <span>Batch cost</span>
               <strong id="batchCostReadout">$0.00</strong>
@@ -147,22 +159,18 @@
               <h2>How much will one cup sell for?</h2>
             </div>
           </div>
-          <p class="card-copy">Set the price for one cup and how many cups you expect to sell. The profit per cup and total profit update above as you type.</p>
+          <p class="card-copy">Enter the number of cups you expect to sell. If you leave it blank, the estimate assumes you sell the whole batch.</p>
 
           <div class="calculator-sales-grid">
-            <label class="calculator-readout" for="pricePerCup">
-              <span>Price per cup</span>
-              <input type="number" id="pricePerCup" min="0" step="0.01" placeholder="1.50">
-            </label>
             <label class="calculator-readout" for="cupsSold">
-              <span>Cups sold</span>
+              <span>Cups you expect to sell</span>
               <input type="number" id="cupsSold" min="0" step="1" placeholder="10">
             </label>
           </div>
 
           <div class="note-box">
             <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-            <p>Profit per cup = price per cup - cost per cup. Total profit = profit per cup × cups sold.</p>
+            <p>Profit per cup = price per cup - cost per cup. Estimated batch profit = expected sales minus the cost of making the batch.</p>
           </div>
         </article>
       </section>

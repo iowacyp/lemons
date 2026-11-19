@@ -1,25 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const normalizeNumber = (value, fallback) => {
-    const parsed = parseFloat(String(value || '').replace(/[^0-9.-]/g, ''));
-    return Number.isFinite(parsed) ? String(parsed) : fallback;
-  };
-
-  const setDefault = (id, value) => {
-    const field = document.getElementById(id);
-    if (!field) return;
-    const saved = localStorage.getItem(id);
-    if (saved !== null && saved !== '') {
-      field.value = field.type === 'number' ? normalizeNumber(saved, value) : saved;
-    } else if (!field.value) {
-      field.value = value;
-      localStorage.setItem(id, field.value);
+  const fields = ['batchCostInput', 'cupsMade', 'pricePerCup', 'cupsSold']
+    .map(id => document.getElementById(id));
+  const hasSavedPlan = localStorage.getItem('pricingPlanComplete') !== null;
+  const hasSavedCosts = Number((localStorage.getItem('totalExpenses') || '').replace(/[^0-9.]/g, '')) > 0;
+  fields.forEach(field => {
+    const saved = localStorage.getItem(field.id);
+    if (saved !== null && (hasSavedPlan || hasSavedCosts)) {
+      field.value = saved.replace(/^\$/, '');
     }
-  };
+  });
+  updateTotals({ persist: false });
 
-  setDefault('cupsMade', '10');
-  const cupsMadeField = document.getElementById('cupsMade');
-  setDefault('cupsSold', cupsMadeField?.value || '10');
-  setDefault('pricePerCup', '1.50');
-
-  updateTotals();
+  const example = document.getElementById('pricingExample');
+  const note = document.getElementById('pricingExampleNote');
+  let savedFields;
+  const supplyList = document.getElementById('supplyContainer');
+  const addSupply = document.getElementById('addItem');
+  example.addEventListener('click', () => {
+    const showingExample = Boolean(savedFields);
+    if (showingExample) {
+      fields.forEach((field, index) => { field.value = savedFields[index]; });
+      savedFields = undefined;
+    } else {
+      savedFields = fields.map(field => field.value);
+      ['6', '10', '1.50', '10'].forEach((value, index) => { fields[index].value = value; });
+    }
+    document.body.toggleAttribute('data-pricing-example', !showingExample);
+    supplyList.inert = !showingExample;
+    addSupply.disabled = !showingExample;
+    note.hidden = showingExample;
+    example.setAttribute('aria-pressed', String(!showingExample));
+    example.textContent = showingExample ? 'Try an example' : 'Back to my pricing plan';
+    updateTotals({ persist: false });
+  });
 });

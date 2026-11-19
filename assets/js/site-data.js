@@ -1,3 +1,5 @@
+const hasSavedText = (store, ...keys) => keys.some(key => Boolean(store.getItem(key)?.trim()));
+
 window.LEMONS_SITE = {
   homeActions: [
     {
@@ -21,56 +23,54 @@ window.LEMONS_SITE = {
     { href: "checklist.html", icon: "fa-solid fa-list-check", label: "Ready to Open", hint: "Pack the essentials" },
     { href: "journal.html", icon: "fa-solid fa-book", label: "What Did I Learn?", hint: "Capture lessons from the day" },
     { href: "certificate.html", icon: "fa-solid fa-certificate", label: "Finish Strong", hint: "Print your certificate" },
-    { href: "report.html", icon: "fa-solid fa-award", label: "Business Report", hint: "See the full story" }
+    { href: "report.html", icon: "fa-solid fa-award", label: "Business Report", hint: "See the full story" },
+    { href: "contact.html", icon: "fa-solid fa-envelope", label: "Contact", hint: "Sign up for virtual programming" },
+    { href: "virtual-programming.html", icon: "fa-solid fa-video", label: "Virtual Programming", hint: "Join the virtual activities list" }
   ],
   journeySteps: [
     {
       href: "entrepreneur.html",
-      label: "Learn the business mindset",
+      label: "Learn how businesses start",
       hint: "See how a small business starts with an idea",
-      complete: () => true
+      complete: store => store.getItem("businessLessonComplete") === "true"
     },
     {
       href: "customize.html",
-      label: "Build the stand brand",
-      hint: "Name it, style it, and set the opening day",
-      complete: (store) => Boolean(store.getItem("stand-name") || store.getItem("standName") || store.getItem("slogan"))
+      label: "Name your stand",
+      hint: "Give your stand a name and choose an opening day",
+      complete: (store) => hasSavedText(store, "stand-name", "standName") && hasSavedText(store, "date")
     },
     {
       href: "calculator.html",
-      label: "Plan the money side",
+      label: "Set your price",
       hint: "Work out cost per cup, price, and profit",
-      complete: (store) => Boolean(store.getItem("finalProfit") || store.getItem("totalIncome") || store.getItem("totalExpenses"))
+      complete: (store) => store.getItem("pricingPlanComplete") === "true" || (store.getItem("pricingPlanComplete") === null && Number((store.getItem("totalExpenses") || "").replace(/[^0-9.]/g, "")) > 0 && Number(store.getItem("cupsMade")) > 0 && hasSavedText(store, "pricePerCup"))
     },
     {
       href: "loan.html",
       label: "Review startup funding",
       hint: "Decide whether a loan helps you launch",
-      complete: (store) => Boolean(store.getItem("amount") || store.getItem("loanAmount") || store.getItem("repaymentPlan"))
+      complete: (store) => store.getItem("fundingSelf") === "true" || (hasSavedText(store, "amount", "loanAmount") && hasSavedText(store, "plan", "repaymentPlan"))
     },
     {
       href: "marketing.html",
       label: "Plan how to spread the word",
       hint: "Choose flyers, signs, and simple messages",
-      complete: (store) => Boolean(store.getItem("marketingPlan"))
+      complete: (store) => hasSavedText(store, "pitch", "caption") && !store.getItem("marketingPlan")?.includes("None selected")
     },
     {
       href: "checklist.html",
       label: "Pack the opening day checklist",
       hint: "Make sure the stand is ready to serve",
       complete: (store) => {
-        try {
-          return JSON.parse(store.getItem("checklistItems") || "[]").length > 0;
-        } catch {
-          return false;
-        }
+        return store.getItem("checklistComplete") === "true";
       }
     },
     {
       href: "journal.html",
       label: "Reflect on the experience",
       hint: "Write what worked, what didn’t, and what you learned",
-      complete: (store) => Boolean(store.getItem("favoriteMoment") || store.getItem("proudMoment") || store.getItem("reflection1"))
+      complete: (store) => hasSavedText(store, "favoriteMoment") && hasSavedText(store, "proudMoment")
     },
     {
       href: "certificate.html",
@@ -216,7 +216,9 @@ window.LEMONS_SITE = {
       downloadId: "downloadReport",
       clearCache: true,
       clearCacheId: "clearCacheBtn",
-      clearCacheLabel: "Clear Cache & Session Data",
+      clearCacheLabel: "Reset saved work",
+      downloadLabel: "Print or save as PDF",
+      downloadAction: "print",
       hero: {
         icon: "fa-solid fa-award",
         eyebrow: "Final step",
@@ -233,6 +235,28 @@ window.LEMONS_SITE = {
         eyebrow: "Parent view",
         title: "Parent Guide",
         subtitle: "Review the journey, check the details, and see how the app teaches business basics."
+      }
+    },
+    contact: {
+      menuHref: "dashboard.html",
+      prev: "dashboard.html",
+      next: "virtual-programming.html",
+      hero: {
+        icon: "fa-solid fa-envelope",
+        eyebrow: "Get in touch",
+        title: "Contact",
+        subtitle: "Use this page to connect with the team and sign up for virtual programming updates."
+      }
+    },
+    virtualProgramming: {
+      menuHref: "dashboard.html",
+      prev: "contact.html",
+      next: "dashboard.html",
+      hero: {
+        icon: "fa-solid fa-video",
+        eyebrow: "Virtual activities",
+        title: "Virtual Programming",
+        subtitle: "Families can join the list for virtual activities, resources, and seasonal programming."
       }
     }
   }

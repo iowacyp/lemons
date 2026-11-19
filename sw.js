@@ -1,10 +1,9 @@
-const cacheName = 'lemons-cache-v2';
+const cacheName = 'lemons-cache-v8';
 const assetsToCache = [
   '/',
   'index.html',
-  'styles.css',
-  'script.js',
   'assets/css/styles.css',
+  'assets/css/refresh.css',
   'assets/js/site-data.js',
   'assets/js/shell.js',
   'assets/js/script.js',
@@ -21,6 +20,8 @@ const assetsToCache = [
   'LemonsCert.jpg',
   'assets/images/lemonade-dashboard-bg.jpg',
   'download.png',
+  'dashboard.html',
+  'parent.html',
   'entrepreneur.html',
   'customize.html',
   'calculator.html',
@@ -75,12 +76,47 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Fetch: Serve from cache if available, except Font Awesome CSS
+function shouldUseNetworkFirst(request) {
+  if (request.mode === 'navigate') return true;
+
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return true;
+
+  return ['document', 'script', 'style'].includes(request.destination);
+}
+
+async function networkFirst(request) {
+  const cache = await caches.open(cacheName);
+
+  try {
+    const response = await fetch(request);
+    if (response.ok) {
+      await cache.put(request, response.clone());
+    }
+    return response;
+  } catch (err) {
+    const cached = await caches.match(request);
+    if (cached) return cached;
+    throw err;
+  }
+}
+
+async function cacheFirst(request) {
+  const cached = await caches.match(request);
+  if (cached) return cached;
+
+  const response = await fetch(request);
+  if (response.ok && new URL(request.url).origin === self.location.origin) {
+    const cache = await caches.open(cacheName);
+    await cache.put(request, response.clone());
+  }
+  return response;
+}
+
+// Fetch: Keep pages and code fresh while still allowing offline fallback.
 self.addEventListener('fetch', event => {
   if (event.request.url.includes('font-awesome') || event.request.url.includes('all.min.css')) {
     return fetch(event.request);
   }
-  event.respondWith(
-    caches.match(event.request).then(cached => cached || fetch(event.request))
-  );
+  event.respondWith(shouldUseNetworkFirst(event.request) ? networkFirst(event.request) : cacheFirst(event.request));
 });

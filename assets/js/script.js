@@ -1,17 +1,10 @@
 function formatMoney(value) {
   const amount = Number(value) || 0;
-  return `$${amount.toFixed(2)}`;
+  return `${amount < 0 ? "-" : ""}$${Math.abs(amount).toFixed(2)}`;
 }
 
 function parseMoney(value) {
   return parseFloat(String(value || '').replace(/[^0-9.-]/g, '')) || 0;
-}
-
-function readNumber(id, fallback = 0) {
-  const field = document.getElementById(id);
-  const raw = field?.value ?? localStorage.getItem(id) ?? '';
-  const value = parseFloat(String(raw).replace(/[^0-9.-]/g, ''));
-  return Number.isFinite(value) ? value : fallback;
 }
 
 function setOutputValue(id, value) {
@@ -75,7 +68,7 @@ function buildSupplyRowHTML() {
   `;
 }
 
-function updateTotals() {
+function updateTotals({ persist = true } = {}) {
   const itemRows = document.querySelectorAll('.item-row');
   let batchCost = 0;
 
@@ -90,40 +83,58 @@ function updateTotals() {
     batchCost += total;
   });
 
-  const cupsMade = Math.max(readNumber('cupsMade', 1), 1);
-  const pricePerCup = Math.max(readNumber('pricePerCup', 0), 0);
-  const cupsSold = Math.max(readNumber('cupsSold', 0), 0);
-  const costPerCup = batchCost / cupsMade;
+  const fields = Object.fromEntries(['batchCostInput', 'cupsMade', 'pricePerCup', 'cupsSold']
+    .map(id => [id, document.getElementById(id)]));
+  if (!fields.batchCostInput) return;
+  const hasValue = field => field.value !== '' && field.validity.valid;
+  const hasSupplyCost = Array.from(itemRows).some(row =>
+    /^\$?\d*\.?\d+$/.test(row.querySelector('.cost-each')?.value.trim() || ''));
+  const hasBatchCost = hasValue(fields.batchCostInput) || (fields.batchCostInput.validity.valid && !fields.batchCostInput.value && hasSupplyCost);
+  if (hasValue(fields.batchCostInput)) batchCost = Number(fields.batchCostInput.value);
+  const ready = hasBatchCost && hasValue(fields.cupsMade) && hasValue(fields.pricePerCup);
+  const cupsMade = Number(fields.cupsMade.value);
+  const pricePerCup = Number(fields.pricePerCup.value);
+  const cupsSold = fields.cupsSold.value === '' ? cupsMade : Number(fields.cupsSold.value);
+  const validSales = ready && fields.cupsSold.validity.valid && cupsSold <= cupsMade;
+  const costPerCup = ready ? batchCost / cupsMade : 0;
   const profitPerCup = pricePerCup - costPerCup;
   const totalIncome = pricePerCup * cupsSold;
-  const totalProfit = profitPerCup * cupsSold;
+  const totalProfit = totalIncome - batchCost;
+  const show = (value, available) => available ? formatMoney(value) : '—';
 
-  setOutputValue('batchCostReadout', formatMoney(batchCost));
-  setOutputValue('costPerCupReadout', formatMoney(costPerCup));
-  setOutputValue('pricePerCupReadout', formatMoney(pricePerCup));
-  setOutputValue('totalIncomeReadout', formatMoney(totalIncome));
-  setOutputValue('finalProfitReadout', formatMoney(totalProfit));
-  setOutputValue('profitPerCup', formatMoney(profitPerCup));
-  setOutputValue('finalProfit', formatMoney(totalProfit));
-  setOutputValue('totalIncome', formatMoney(totalIncome));
-  setOutputValue('totalExpenses', formatMoney(batchCost));
-  setOutputValue('finalSuppliesCost', formatMoney(batchCost));
+  setOutputValue('batchCostReadout', show(batchCost, hasBatchCost));
+  setOutputValue('costPerCupReadout', show(costPerCup, ready));
+  setOutputValue('pricePerCupReadout', show(pricePerCup, hasValue(fields.pricePerCup)));
+  setOutputValue('totalIncomeReadout', show(totalIncome, validSales));
+  setOutputValue('finalProfitReadout', show(totalProfit, validSales));
+  setOutputValue('profitPerCup', show(profitPerCup, ready));
 
   const formulaField = document.getElementById('calculatorFormula');
   if (formulaField) {
-    formulaField.innerHTML = `Cost per cup = <strong>${formatMoney(batchCost)}</strong> batch cost &divide; <strong>${cupsMade} cups made</strong><br>Profit per cup = <strong>${formatMoney(pricePerCup)}</strong> price - <strong>${formatMoney(costPerCup)}</strong> cost = <strong>${formatMoney(profitPerCup)}</strong>`;
+    const outcome = profitPerCup < 0 ? 'lose' : 'earn';
+    formulaField.textContent = ready
+      ? `You spend ${formatMoney(costPerCup)} to make a cup. At ${formatMoney(pricePerCup)}, you ${outcome} ${formatMoney(Math.abs(profitPerCup))} per cup.`
+      : 'Enter your batch cost, cups made, and price per cup to see what each cup earns.';
+    if (ready && !validSales) {
+      formulaField.textContent += ' Enter a whole number of expected sales up to the number of cups made.';
+    }
   }
 
-  localStorage.setItem('batchCost', formatMoney(batchCost));
-  localStorage.setItem('costPerCup', formatMoney(costPerCup));
-  localStorage.setItem('profitPerCup', formatMoney(profitPerCup));
-  localStorage.setItem('totalExpenses', formatMoney(batchCost));
-  localStorage.setItem('finalSuppliesCost', formatMoney(batchCost));
-  localStorage.setItem('cupsMade', String(cupsMade));
-  localStorage.setItem('cupsSold', String(cupsSold));
-  localStorage.setItem('pricePerCup', String(document.getElementById('pricePerCup')?.value || ''));
-  localStorage.setItem('totalIncome', formatMoney(totalIncome));
-  localStorage.setItem('finalProfit', formatMoney(totalProfit));
+  if (!persist || document.body.hasAttribute('data-pricing-example')) return;
+  Object.entries(fields).forEach(([id, field]) => localStorage.setItem(id, field.value));
+  localStorage.setItem('pricingPlanComplete', String(validSales));
+  const totals = {
+    batchCost: [batchCost, hasBatchCost],
+    costPerCup: [costPerCup, ready],
+    profitPerCup: [profitPerCup, ready],
+    totalExpenses: [batchCost, hasBatchCost],
+    finalSuppliesCost: [batchCost, hasBatchCost],
+    totalIncome: [totalIncome, validSales],
+    finalProfit: [totalProfit, validSales]
+  };
+  Object.entries(totals).forEach(([id, [value, available]]) => {
+    localStorage.setItem(id, available ? formatMoney(value) : '');
+  });
 
   const supplyData = [];
   itemRows.forEach((row) => {
@@ -140,6 +151,9 @@ function updateTotals() {
 
 document.addEventListener("DOMContentLoaded", () => {
   const supplyContainer = document.getElementById('supplyContainer');
+
+  const batchCostInput = document.getElementById('batchCostInput');
+  batchCostInput?.addEventListener('input', updateTotals);
 
   const addItemBtn = document.getElementById('addItem');
   if (addItemBtn) {
@@ -192,17 +206,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  let restored = false;
-  ['cupsMade', 'cupsSold', 'pricePerCup', 'totalExpenses', 'totalIncome', 'finalProfit', 'finalSuppliesCost'].forEach(id => {
-    const field = document.getElementById(id);
-    const saved = localStorage.getItem(id);
-    if (field && saved !== null) {
-      field.value = saved;
-      restored = true;
-    }
-  });
-
-  const savedRows = JSON.parse(localStorage.getItem('supplyRows') || '[]');
+  if (!supplyContainer) return;
+  let savedRows = [];
+  try {
+    const rows = JSON.parse(localStorage.getItem('supplyRows') || '[]');
+    if (Array.isArray(rows)) savedRows = rows.filter(Boolean);
+  } catch {
+    // An unreadable supply list should not block the calculator.
+  }
   savedRows.filter(data =>
     data.item || data.customItem || data.quantity || data.costEach
   ).forEach(data => {
@@ -219,18 +230,8 @@ document.addEventListener("DOMContentLoaded", () => {
     container.querySelector('.total-cost').value = data.totalCost;
   });
 
-  if (restored) updateTotals();
 
-  // Keep one starter row visible; only clear empty restored rows when there is more than one
-  const renderedRows = Array.from(document.querySelectorAll('.item-row'));
-  if (renderedRows.length > 1) {
-    renderedRows.forEach(row => {
-      const costEach = parseFloat(row.querySelector('.cost-each')?.value.replace(/[^0-9.]/g, '')) || 0;
-      if (costEach === 0) {
-        row.remove();
-      }
-    });
-  }
+  if (supplyContainer.children.length > 1) supplyContainer.firstElementChild.remove();
 });
 
 // 1. Generate PDF from visible content (requires html2pdf library)
@@ -365,7 +366,7 @@ function downloadReport() {
   const batchCost = document.getElementById('batchCostReadout')?.textContent || '';
   const costPerCup = document.getElementById('costPerCupReadout')?.textContent || '';
   const pricePerCup = document.getElementById('pricePerCup')?.value || '';
-  const cupsSold = document.getElementById('cupsSold')?.value || '';
+  const cupsSold = document.getElementById('cupsSold')?.value || document.getElementById('cupsMade')?.value || '';
   const cupsMade = document.getElementById('cupsMade')?.value || '';
   const totalIncome = document.getElementById('totalIncomeReadout')?.textContent || '';
   const profitPerCup = document.getElementById('profitPerCup')?.value || '';

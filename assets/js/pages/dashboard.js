@@ -44,60 +44,41 @@ function buildJourneyState(steps) {
   };
 }
 
-function renderCompletionFrame(state) {
-  const percentEl = document.getElementById('dashboardCompletionPercent');
-  const barEl = document.getElementById('dashboardCompletionBar');
-  const copyEl = document.getElementById('dashboardCompletionCopy');
-  if (!percentEl || !barEl || !copyEl) return;
-
-  const total = state.evaluated.length || 1;
-  const percent = Math.round((state.completedCount / total) * 100);
-  const remaining = Math.max(0, total - state.completedCount);
-
-  percentEl.textContent = `${percent}%`;
-  barEl.style.setProperty('--completion', `${percent}%`);
-  copyEl.textContent = remaining > 0
-    ? `Keep going to unlock ${remaining} more update${remaining === 1 ? '' : 's'} on this dashboard.`
-    : 'You’ve finished the main journey. Check back here for the full dashboard story.';
-}
-
 function renderJourney(steps) {
   const list = document.getElementById('journeySteps');
   const action = document.getElementById('journeyAction');
   const copy = document.getElementById('journeyCopy');
-  const progress = document.getElementById('journeyProgress');
   const count = document.getElementById('journeyStepCount');
-  if (!list || !action || !copy || !progress || !count) return;
+  const { evaluated, nextStep, completedCount } = buildJourneyState(steps);
 
-  const state = buildJourneyState(steps);
-  const total = state.evaluated.length;
-  const completed = state.completedCount;
-  const nextStep = state.nextStep || state.evaluated[0];
+  count.textContent = `${completedCount} of ${evaluated.length} complete`;
+  action.href = nextStep?.href || 'report.html';
+  action.querySelector('span').textContent = nextStep?.label || 'Open your business report';
+  copy.textContent = nextStep?.hint || 'You finished all eight activities. Take a copy of your work with you.';
 
-  progress.textContent = `Step ${Math.min(completed + 1, total)} of ${total}`;
-  count.textContent = `${completed} of ${total} complete`;
+  const groups = [
+    ['Plan your stand', evaluated.slice(0, 4)],
+    ['Get ready to sell', evaluated.slice(4, 6)],
+    ['Wrap up', evaluated.slice(6)]
+  ];
 
-  if (state.nextStep) {
-    action.href = state.nextStep.href;
-    action.querySelector('span').textContent = 'Continue';
-    copy.textContent = `Next up: ${state.nextStep.label}. ${state.nextStep.hint}`;
-  } else {
-    action.href = 'dashboard.html';
-    action.querySelector('span').textContent = 'Review the dashboard';
-    copy.textContent = 'You’ve completed the guided setup. Review the dashboard cards to see how the business story comes together.';
-  }
-
-  list.innerHTML = '';
-  state.evaluated.forEach(step => {
-    const item = document.createElement('a');
-    item.className = `journey-step${step.complete ? ' complete' : ''}${nextStep && nextStep.href === step.href ? ' current' : ''}`;
-    item.href = step.href;
-    item.innerHTML = `
-      <span class="journey-step-status">${step.complete ? 'Done' : 'Next'}</span>
-      <strong>${step.label}</strong>
-      <span>${step.hint}</span>
-    `;
-    list.appendChild(item);
+  groups.forEach(([label, activities]) => {
+    const group = document.createElement('section');
+    const heading = document.createElement('h3');
+    heading.textContent = label;
+    group.append(heading);
+    activities.forEach(step => {
+      const item = document.createElement('a');
+      item.className = 'journey-step';
+      item.href = step.href;
+      const title = document.createElement('strong');
+      title.textContent = step.label;
+      const status = document.createElement('span');
+      status.textContent = step.complete ? 'Complete' : step === nextStep ? 'Up next' : 'To do';
+      item.append(title, status);
+      group.append(item);
+    });
+    list.append(group);
   });
 }
 
@@ -243,7 +224,6 @@ function renderChart(data) {
 document.addEventListener('DOMContentLoaded', () => {
   const site = window.LEMONS_SITE || {};
   const journeySteps = Array.isArray(site.journeySteps) ? site.journeySteps : [];
-  const journeyState = buildJourneyState(journeySteps);
   const standName = localStorage.getItem('stand-name') || localStorage.getItem('standName') || 'My Lemonade Stand';
   const slogan = localStorage.getItem('slogan') || 'Fresh lemonade, bright ideas, and simple money skills.';
   const studentName = localStorage.getItem('studentName') || 'Ready to start';
@@ -261,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setText('dashboardStandName', standName);
   setText('dashboardSlogan', slogan);
   setText('dashboardStudent', studentName);
-  setText('dashboardDate', openingDate ? new Date(openingDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : 'Not set yet');
+  setText('dashboardDate', openingDate ? new Date(openingDate + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : 'Not set yet');
   setText('dashboardBrand', brandColors.length ? 'Custom colors' : 'Sunny and smart');
   setText('metricSales', formatMoney(totalIncome));
   setText('metricProfit', formatMoney(profit));
@@ -280,7 +260,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const checklistItems = parseMaybeJSON('checklistItems', []);
   const supplyRows = parseMaybeJSON('supplyRows', []);
-  renderCompletionFrame(journeyState);
   renderJourney(journeySteps);
   renderInventory(supplyRows);
   renderReviews();

@@ -60,7 +60,9 @@
     icon.setAttribute("aria-hidden", "true");
     iconWrap.appendChild(icon);
 
-    link.appendChild(iconWrap);
+    const label = document.createElement("span");
+    label.textContent = item.label;
+    link.append(iconWrap, label);
     return link;
   }
 
@@ -73,8 +75,14 @@
 
   function renderRailList(selector, items) {
     document.querySelectorAll(selector).forEach((container) => {
-      container.innerHTML = "";
-      items.forEach((item) => container.appendChild(createRailLink(item)));
+      const menu = document.createElement("details");
+      const toggle = document.createElement("summary");
+      toggle.textContent = "Lemonade Boss menu";
+      const links = document.createElement("div");
+      links.className = "rail-links";
+      items.forEach(item => links.append(createRailLink(item)));
+      menu.append(toggle, links);
+      container.replaceChildren(menu);
     });
   }
 
@@ -102,7 +110,7 @@
 
     let rail = document.querySelector("[data-shell-global-rail]");
     if (!rail) {
-      rail = document.createElement("aside");
+      rail = document.createElement("nav");
       rail.className = "dashboard-rail glass-panel";
       rail.setAttribute("aria-label", "Main navigation");
       rail.dataset.shellGlobalRail = "";

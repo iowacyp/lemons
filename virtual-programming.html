@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Virtual Programming</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/refresh.css">
+</head>
+<body data-page="virtualProgramming">
+  <div class="container">
+    <div class="app-container">
+      <section class="page-hero glass-panel" data-shell-page-hero></section>
+
+      <section class="dashboard-section signup-section">
+        <div class="signup-section-intro">
+          <div class="card-title-row">
+            <div>
+              <p class="section-kicker">Already interested</p>
+              <h2>Virtual Programming Sign-Up</h2>
+            </div>
+            <span class="badge-chip accent">Interest defaults to Yes</span>
+          </div>
+          <p class="card-copy">
+            Families on this page are already looking for virtual activities, so the form starts with Virtual Programming set to Yes.
+          </p>
+        </div>
+        <virtual-programming-signup-form default-virtual-programming-interest="Yes"></virtual-programming-signup-form>
+      </section>
+
+      <div class="nav-bar" data-shell-nav></div>
+    </div>
+  </div>
+
+  <script src="assets/js/site-data.js"></script>
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/components/virtual-programming-signup-form.js"></script>
+</body>
+</html>

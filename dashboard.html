@@ -14,12 +14,21 @@
     <nav class="dashboard-rail glass-panel" data-shell-dashboard-rail aria-label="Main navigation"></nav>
     <main class="dashboard-shell">
       <section class="glass-card journey-card">
-        <div class="card-title-row">
+        <div class="journey-intro">
+          <p class="journey-brand">Lemonade Boss</p>
           <h1>Your lemonade business</h1>
-          <span id="journeyStepCount" class="badge-chip">0 of 8 complete</span>
+          <p id="journeyCopy" class="card-copy"></p>
+          <a id="journeyAction" class="journey-cta" href="entrepreneur.html"><span>Start the business lesson</span></a>
         </div>
-        <p id="journeyCopy" class="card-copy"></p>
-        <a id="journeyAction" class="journey-cta" href="entrepreneur.html"><span>Start the business lesson</span></a>
+        <div class="journey-art" aria-hidden="true">
+          <span class="lemon-leaf"></span>
+          <span class="lemon-slice"></span>
+          <span class="lemon-slice lemon-slice-small"></span>
+        </div>
+        <div class="journey-progress">
+          <progress id="journeyMeter" value="0" max="8" aria-label="Activity progress"></progress>
+          <span id="journeyStepCount">0 of 8 complete</span>
+        </div>
       </section>
       <section class="dashboard-section" aria-labelledby="activities-title">
         <h2 id="activities-title">Your activities</h2>

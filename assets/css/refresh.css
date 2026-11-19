@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,650..850&family=DM+Sans:wght@400;500;600;700;800&display=swap');
+
 html, html.dark-mode, body[data-page] {
   background: #fff9eb;
   color: #202c24;
@@ -155,4 +157,167 @@ body[data-page] .calculator-main-output { background: #fff1ae; }
   body[data-page] .nav-bar,
   .pricing-example { display: none; }
   body[data-page] .container { width: 100%; padding: 0; }
+}
+
+body[data-page] {
+  --stand-ink: #193a30;
+  --stand-green: #164438;
+  --stand-paper: #fffbef;
+  --stand-yellow: #fedc50;
+  --stand-title: 'Bricolage Grotesque', system-ui, sans-serif;
+  background: var(--stand-paper);
+  color: var(--stand-ink);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-weight: 500;
+}
+
+body[data-page] :is(h1, h2, h3, .preview-name) {
+  font-family: var(--stand-title);
+  font-weight: 800;
+  letter-spacing: -.035em;
+}
+
+body[data-page] .dashboard-rail {
+  border-color: #d8d6c6;
+  background: #fff;
+}
+
+body[data-page] .journey-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(12rem, .5fr);
+  gap: 2rem;
+  overflow: hidden;
+  isolation: isolate;
+  padding: clamp(1.5rem, 5vw, 3.8rem);
+  border: 0;
+  background: var(--stand-green);
+  color: white;
+  border-radius: 1.6rem;
+}
+
+.journey-intro { z-index: 1; }
+.journey-brand {
+  margin: 0 0 1rem;
+  color: #ffe886;
+  font-size: .86rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+body[data-page] .journey-card h1 {
+  max-width: 12ch;
+  color: white;
+  font-size: clamp(2.6rem, 6.9vw, 5.5rem);
+  line-height: .92;
+}
+body[data-page] .journey-card .card-copy {
+  color: #e2efe7;
+  margin: 1.1rem 0 1.5rem;
+  font-size: 1.12rem;
+  font-weight: 500;
+}
+body[data-page] .journey-cta {
+  justify-content: center;
+  width: fit-content;
+  max-width: 100%;
+  background: var(--stand-yellow);
+  color: var(--stand-ink);
+  padding: .85rem 1.15rem;
+  border: 1px solid #ffe889;
+  border-radius: .75rem;
+}
+body[data-page] .journey-cta:hover { background: #ffe785; }
+body[data-page] .journey-cta:focus-visible { outline-color: white; }
+
+.journey-art { position: relative; align-self: center; height: clamp(11rem, 24vw, 18rem); }
+.lemon-slice {
+  position: absolute;
+  right: 6%;
+  bottom: 2%;
+  width: min(96%, 15rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: .5rem solid #ffd744;
+  box-shadow: inset 0 0 0 .45rem #fff2ad, .55rem .65rem 0 #10372d;
+  background: repeating-conic-gradient(from 6deg, #fff2ad 0deg 4deg, #ffc842 4deg 44deg, #fff2ad 44deg 45deg);
+}
+.lemon-slice-small { width: min(47%, 7.1rem); right: 61%; bottom: 0; transform: rotate(-21deg); }
+.lemon-leaf {
+  position: absolute;
+  right: 3%;
+  top: 1%;
+  width: min(43%, 6.5rem);
+  aspect-ratio: 1.9;
+  border-radius: 100% 0;
+  transform: rotate(-18deg);
+  background: #9dd078;
+}
+.journey-progress {
+  display: flex;
+  grid-column: 1 / -1;
+  gap: .8rem;
+  align-items: center;
+  color: #e2efe7;
+  font-size: .86rem;
+  font-weight: 700;
+}
+.journey-progress progress {
+  width: min(35%, 10rem);
+  height: .45rem;
+  border: 0;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #386254;
+}
+.journey-progress progress::-webkit-progress-bar { background: #386254; }
+.journey-progress progress::-webkit-progress-value { background: var(--stand-yellow); }
+.journey-progress progress::-moz-progress-bar { background: var(--stand-yellow); }
+
+.activity-group {
+  align-self: start;
+  padding: .85rem;
+  border: 1px solid #e5d6a1;
+  border-radius: 1rem;
+  background: #fff3c8;
+}
+.activity-group[data-stage="2"] { background: #e5efde; border-color: #cbdcc4; }
+.activity-group[data-stage="3"] { background: #fae9df; border-color: #ecd3c6; }
+.journey-step-list .activity-group h3 { margin: .15rem .2rem .8rem; font-size: 1.14rem; }
+body[data-page] .journey-step { border-color: transparent; box-shadow: none; }
+body[data-page] .journey-step:last-child { margin-bottom: 0; }
+body[data-page] .journey-step[data-state="next"] { border-color: #80651a; }
+.journey-step[data-state="complete"] span { color: #235c42; }
+
+body[data-page] .page-hero {
+  border-left: .5rem solid var(--stand-yellow);
+  background: #f0f4e7;
+}
+body[data-page] .preview-card {
+  background: #fff4bd;
+  border: 1px solid #dec25c;
+  border-top: 0;
+  overflow: hidden;
+}
+.preview-card::before {
+  content: '';
+  display: block;
+  height: .75rem;
+  margin: -1rem -1rem 1rem;
+  background: repeating-linear-gradient(90deg, #f0bc32 0 2rem, #fff6d3 2rem 4rem);
+}
+body[data-page] .preview-card .preview-name { color: var(--stand-green); font-size: clamp(2rem, 4vw, 3.3rem); }
+body[data-page] .calculator-main-output { background: #164438; color: white; }
+body[data-page] .calculator-main-output :is(span, input) { color: white; }
+
+@media (max-width: 650px) {
+  body[data-page] .journey-card { grid-template-columns: minmax(0, 1fr); gap: 1.3rem; }
+  .journey-art { height: 5.6rem; width: 9rem; justify-self: end; }
+  .lemon-slice { width: 5rem; }
+  .lemon-slice-small { width: 2.7rem; right: 47%; }
+  .lemon-leaf { width: 2rem; }
+}
+@media print {
+  body[data-page] .calculator-main-output { background: white; }
+  body[data-page] .calculator-main-output :is(span, input) { color: black; }
 }

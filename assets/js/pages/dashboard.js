@@ -51,6 +51,9 @@ function renderJourney(steps) {
   const count = document.getElementById('journeyStepCount');
   const { evaluated, nextStep, completedCount } = buildJourneyState(steps);
 
+  const meter = document.getElementById('journeyMeter');
+  meter.max = evaluated.length;
+  meter.value = completedCount;
   count.textContent = `${completedCount} of ${evaluated.length} complete`;
   action.href = nextStep?.href || 'report.html';
   action.querySelector('span').textContent = nextStep?.label || 'Open your business report';
@@ -62,8 +65,10 @@ function renderJourney(steps) {
     ['Wrap up', evaluated.slice(6)]
   ];
 
-  groups.forEach(([label, activities]) => {
+  groups.forEach(([label, activities], index) => {
     const group = document.createElement('section');
+    group.className = 'activity-group';
+    group.dataset.stage = index + 1;
     const heading = document.createElement('h3');
     heading.textContent = label;
     group.append(heading);
@@ -71,6 +76,7 @@ function renderJourney(steps) {
       const item = document.createElement('a');
       item.className = 'journey-step';
       item.href = step.href;
+      item.dataset.state = step.complete ? 'complete' : step === nextStep ? 'next' : 'todo';
       const title = document.createElement('strong');
       title.textContent = step.label;
       const status = document.createElement('span');
@@ -91,7 +97,10 @@ function renderInventory(rows) {
   const usableRows = rows.filter(row => row.item || row.customItem || row.quantity || row.costEach);
 
   if (count) {
-    count.textContent = `${usableRows.length} item${usableRows.length === 1 ? '' : 's'}`;
+    const meter = document.getElementById('journeyMeter');
+  meter.max = evaluated.length;
+  meter.value = completedCount;
+  count.textContent = `${usableRows.length} item${usableRows.length === 1 ? '' : 's'}`;
   }
 
   if (!usableRows.length) {
@@ -168,7 +177,10 @@ function renderAchievements(data) {
   ].filter(Boolean);
 
   if (count) {
-    count.textContent = `${achievements.length} unlocked`;
+    const meter = document.getElementById('journeyMeter');
+  meter.max = evaluated.length;
+  meter.value = completedCount;
+  count.textContent = `${achievements.length} unlocked`;
   }
 
   list.innerHTML = '';

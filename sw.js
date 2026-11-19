@@ -1,4 +1,4 @@
-const cacheName = 'lemons-cache-v8';
+const cacheName = 'lemons-cache-v9';
 const assetsToCache = [
   '/',
   'index.html',

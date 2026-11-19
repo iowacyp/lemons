@@ -24,8 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const example = document.getElementById('pricingExample');
   const note = document.getElementById('pricingExampleNote');
   let savedFields;
-  const supplyList = document.getElementById('supplyContainer');
-  const addSupply = document.getElementById('addItem');
+  const builder = document.getElementById('batchBuilderControls');
   example.addEventListener('click', () => {
     const showingExample = Boolean(savedFields);
     if (showingExample) {
@@ -36,8 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ['6', '10', '1.50', '10'].forEach((value, index) => { fields[index].value = value; });
     }
     document.body.toggleAttribute('data-pricing-example', !showingExample);
-    supplyList.inert = !showingExample;
-    addSupply.disabled = !showingExample;
+    builder.inert = !showingExample;
     note.hidden = showingExample;
     example.setAttribute('aria-pressed', String(!showingExample));
     example.textContent = showingExample ? 'Try an example' : 'Back to my pricing plan';

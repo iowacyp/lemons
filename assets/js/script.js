@@ -31,7 +31,6 @@ const SUPPLY_ITEM_OPTIONS = [
 ];
 
 function buildSupplyRowHTML() {
-  const quantityOptions = [...Array(21).keys()].slice(1).map((n) => `<option value="${n}">${n}</option>`).join('');
   const itemOptions = SUPPLY_ITEM_OPTIONS.map(([value, label]) => `<option value="${value}">${label}</option>`).join('');
 
   return `
@@ -42,20 +41,18 @@ function buildSupplyRowHTML() {
       </select>
     </label>
 
-    <label>
-      Custom Item
-      <input type="text" class="custom-item hidden" placeholder="Custom Item">
+    <label hidden>
+      Item name
+      <input type="text" class="custom-item" placeholder="e.g. Strawberries">
     </label>
 
     <label>
       Quantity used
-      <select class="quantity">
-        ${quantityOptions}
-      </select>
+      <input class="quantity" type="number" min="1" step="1" inputmode="numeric" value="1">
     </label>
 
     <label>
-      Cost each
+      Cost each ($)
       <input type="text" class="cost-each" inputmode="decimal" placeholder="0.00">
     </label>
 
@@ -68,29 +65,83 @@ function buildSupplyRowHTML() {
   `;
 }
 
-function updateTotals({ persist = true } = {}) {
-  const itemRows = document.querySelectorAll('.item-row');
-  let batchCost = 0;
+function addSupplyRow(container, data = {}) {
+  const row = document.createElement('div');
+  row.className = 'item-row';
+  row.innerHTML = buildSupplyRowHTML();
+  const select = row.querySelector('.item-select');
+  const item = data.item || 'Other';
+  if (!Array.from(select.options).some(option => option.value === item)) {
+    select.add(new Option(item, item));
+  }
+  select.value = item;
+  const customItem = row.querySelector('.custom-item');
+  customItem.value = data.customItem || '';
+  customItem.closest('label').hidden = item !== 'Other';
+  row.querySelector('.quantity').value = data.quantity || '1';
+  row.querySelector('.cost-each').value = data.costEach || '';
+  container.append(row);
+  attachListeners(row);
+  return row;
+}
 
-  itemRows.forEach((row) => {
-    const qty = parseFloat(row.querySelector('.quantity')?.value) || 0;
-    const costEach = Math.max(0, parseMoney(row.querySelector('.cost-each')?.value));
-    const total = qty * costEach;
-    const totalField = row.querySelector('.total-cost');
-    if (totalField) {
-      totalField.value = formatMoney(total);
-    }
-    batchCost += total;
+function renderBatchBreakdown(entries, total) {
+  const bar = document.getElementById('batchShareBar');
+  const legend = document.getElementById('batchShareLegend');
+  const empty = document.getElementById('batchBreakdownEmpty');
+  if (!bar || !legend || !empty) return;
+  const visible = total > 0;
+  bar.hidden = !visible;
+  legend.hidden = !visible;
+  empty.hidden = visible;
+  bar.replaceChildren();
+  legend.replaceChildren();
+  entries.filter(entry => entry.amount > 0).forEach(({ name, amount }, index) => {
+    const segment = document.createElement('span');
+    segment.style.flexBasis = `${100 * amount / total}%`;
+    const item = document.createElement('li');
+    const swatch = document.createElement('span');
+    swatch.setAttribute('aria-hidden', 'true');
+    const color = ['#287452', '#f0bd37', '#b75841', '#426c99', '#8a67a8', '#46787c'][index % 6];
+    segment.style.backgroundColor = color;
+    swatch.style.backgroundColor = color;
+    const label = document.createElement('span');
+    label.textContent = name;
+    const value = document.createElement('strong');
+    value.textContent = formatMoney(amount);
+    item.append(swatch, label, value);
+    legend.append(item);
+    bar.append(segment);
   });
+  setOutputValue('ingredientTotal', formatMoney(total));
+}
+
+function updateTotals({ persist = true } = {}) {
+  const itemRows = Array.from(document.querySelectorAll('.item-row'));
+  const entries = itemRows.map(row => {
+    const quantity = row.querySelector('.quantity');
+    const cost = row.querySelector('.cost-each').value.trim();
+    const hasCost = /^\$?\d*\.?\d+$/.test(cost) && Number.isFinite(parseFloat(cost.replace('$', '')));
+    const hasAmount = quantity.validity.valid && Number(quantity.value) > 0 && hasCost;
+    const amount = hasAmount ? Math.round(Number(quantity.value) * parseMoney(cost) * 100) / 100 : 0;
+    const item = row.querySelector('.item-select').value;
+    const name = item === 'Other' ? row.querySelector('.custom-item').value.trim() || 'Other' : item;
+    row.querySelector('.total-cost').value = hasAmount ? formatMoney(amount) : '—';
+    return { name, amount, hasAmount };
+  });
+  let batchCost = entries.reduce((sum, entry) => sum + entry.amount, 0);
 
   const fields = Object.fromEntries(['batchCostInput', 'cupsMade', 'pricePerCup', 'cupsSold']
     .map(id => [id, document.getElementById(id)]));
   if (!fields.batchCostInput) return;
   const hasValue = field => field.value !== '' && field.validity.valid;
-  const hasSupplyCost = Array.from(itemRows).some(row =>
-    /^\$?\d*\.?\d+$/.test(row.querySelector('.cost-each')?.value.trim() || ''));
-  const hasBatchCost = hasValue(fields.batchCostInput) || (fields.batchCostInput.validity.valid && !fields.batchCostInput.value && hasSupplyCost);
-  if (hasValue(fields.batchCostInput)) batchCost = Number(fields.batchCostInput.value);
+  const hasSupplyCost = entries.some(entry => entry.hasAmount);
+  const hasManualCost = hasValue(fields.batchCostInput);
+  const hasBatchCost = hasManualCost || (fields.batchCostInput.validity.valid && !fields.batchCostInput.value && hasSupplyCost);
+  renderBatchBreakdown(entries, batchCost);
+  const override = document.getElementById('batchOverride');
+  if (override) override.hidden = !hasManualCost || !hasSupplyCost || document.body.hasAttribute('data-pricing-example');
+  if (hasManualCost) batchCost = Number(fields.batchCostInput.value);
   const ready = hasBatchCost && hasValue(fields.cupsMade) && hasValue(fields.pricePerCup);
   const cupsMade = Number(fields.cupsMade.value);
   const pricePerCup = Number(fields.pricePerCup.value);
@@ -188,16 +239,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const batchCostInput = document.getElementById('batchCostInput');
   batchCostInput?.addEventListener('input', updateTotals);
 
-  const addItemBtn = document.getElementById('addItem');
-  if (addItemBtn) {
-    addItemBtn.addEventListener('click', () => {
-      const container = document.createElement('div');
-      container.className = 'item-row';
-      container.innerHTML = buildSupplyRowHTML();
-      document.getElementById('supplyContainer').appendChild(container);
-      attachListeners(container);
+  document.querySelectorAll('[data-supply], #addItem').forEach(button => {
+    button.addEventListener('click', () => {
+      const item = button.dataset.supply || 'Other';
+      const existing = item === 'Other' ? null : Array.from(supplyContainer.children)
+        .find(row => row.querySelector('.item-select').value === item);
+      const row = existing || addSupplyRow(supplyContainer, { item });
+      row.querySelector(item === 'Other' ? '.custom-item' : '.cost-each').focus();
+      updateTotals();
     });
-  }
+  });
+  document.getElementById('useIngredientTotal')?.addEventListener('click', () => {
+    batchCostInput.value = '';
+    updateTotals();
+    document.getElementById('pricingTitle').scrollIntoView({ block: 'start' });
+    batchCostInput.focus({ preventScroll: true });
+  });
 
   const cupsMadeField = document.getElementById('cupsMade');
   if (cupsMadeField) {
@@ -216,14 +273,6 @@ document.addEventListener("DOMContentLoaded", () => {
     pricePerCupField.addEventListener('input', updateTotals);
     pricePerCupField.addEventListener('change', updateTotals);
   }
-
-  // Attach listeners to initial rows
-  document.querySelectorAll('.item-row').forEach(attachListeners);
-  
-  document.querySelectorAll('.quantity, .cost-each').forEach(el => {
-    el.addEventListener('input', updateTotals);
-    el.addEventListener('change', updateTotals);
-  });
 
   const downloadButton = document.getElementById('downloadReport');
   if (downloadButton) {
@@ -247,24 +296,8 @@ document.addEventListener("DOMContentLoaded", () => {
   } catch {
     // An unreadable supply list should not block the calculator.
   }
-  savedRows.filter(data =>
-    data.item || data.customItem || data.quantity || data.costEach
-  ).forEach(data => {
-    const container = document.createElement('div');
-    container.className = 'item-row';
-    container.innerHTML = buildSupplyRowHTML();
-    supplyContainer.appendChild(container);
-    attachListeners(container);
-    container.querySelector('.item-select').value = data.item;
-    container.querySelector('.custom-item').value = data.customItem;
-    container.querySelector('.custom-item').classList.toggle('hidden', data.item !== 'Other');
-    container.querySelector('.quantity').value = data.quantity;
-    container.querySelector('.cost-each').value = data.costEach;
-    container.querySelector('.total-cost').value = data.totalCost;
-  });
-
-
-  if (supplyContainer.children.length > 1) supplyContainer.firstElementChild.remove();
+  savedRows.filter(data => data.item || data.customItem || data.quantity || data.costEach)
+    .forEach(data => addSupplyRow(supplyContainer, data));
 });
 
 // 1. Generate PDF from visible content (requires html2pdf library)
@@ -358,45 +391,27 @@ function generateCertificate() {
 }
 
 function attachListeners(row) {
-  row.querySelector('.quantity').addEventListener('change', updateTotals);
+  row.querySelector('.quantity').addEventListener('input', updateTotals);
   row.querySelector('.cost-each').addEventListener('input', updateTotals);
-
-  const removeBtn = row.querySelector('.remove-row-btn');
-  if (removeBtn) {
-    removeBtn.addEventListener('click', () => {
-      const rows = document.querySelectorAll('.item-row');
-      if (rows.length > 1) {
-        row.remove();
-        updateTotals();
-      } else {
-        row.querySelector('.item-select').value = 'Lemons';
-        row.querySelector('.custom-item').value = '';
-        row.querySelector('.custom-item').classList.add('hidden');
-        row.querySelector('.quantity').value = '1';
-        row.querySelector('.cost-each').value = '';
-        row.querySelector('.total-cost').value = '$0.00';
-        updateTotals();
-      }
-    });
-  }
-
   const select = row.querySelector('.item-select');
   const customInput = row.querySelector('.custom-item');
-
-  if (select && customInput) {
-    select.addEventListener('change', () => {
-      if (select.value === 'Other') {
-        customInput.classList.remove('hidden');
-      } else {
-        customInput.classList.add('hidden');
-        customInput.value = '';
-      }
-    });
-  }
+  customInput.addEventListener('input', updateTotals);
+  select.addEventListener('change', () => {
+    customInput.closest('label').hidden = select.value !== 'Other';
+    updateTotals();
+  });
+  row.querySelector('.remove-row-btn').addEventListener('click', () => {
+    const next = row.nextElementSibling || row.previousElementSibling;
+    row.remove();
+    (next?.querySelector('.remove-row-btn') || document.getElementById('addItem')).focus();
+    updateTotals();
+  });
 }
 
 function downloadReport() {
-  const batchCost = document.getElementById('batchCostReadout')?.textContent || '';
+  const batchCost = document.getElementById('batchCostInput')?.value
+    ? document.getElementById('batchCostReadout').textContent
+    : document.getElementById('ingredientTotal')?.textContent || '';
   const costPerCup = document.getElementById('pricingCostLabel')?.textContent || '';
   const pricePerCup = document.getElementById('pricePerCup')?.value || '';
   const cupsSold = document.getElementById('cupsSold')?.value || document.getElementById('cupsMade')?.value || '';

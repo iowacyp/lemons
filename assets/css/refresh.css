@@ -417,3 +417,34 @@ body[data-page] .pricing-workspace {
 @media (max-width: 380px) {
   .pricing-editor .pricing-grid { grid-template-columns: 1fr; }
 }
+
+.batch-presets { display: flex; flex-wrap: wrap; gap: .55rem; margin: 1rem 0; }
+body[data-page] .batch-presets button {
+  display: inline-flex;
+  width: auto;
+  margin: 0;
+  gap: .55rem;
+  align-items: center;
+  padding: .65rem .8rem;
+  background: #fff2bd;
+  color: var(--stand-green);
+  border: 1px solid #e6cb65;
+  box-shadow: none;
+}
+body[data-page] .batch-presets button:hover { background: #ffdf62; }
+.batch-presets i { width: 1rem; text-align: center; }
+.batch-breakdown {
+  margin: 1rem 0 0;
+  padding: 1rem;
+  background: #edf2e7;
+  border-radius: 1rem;
+}
+.batch-breakdown figcaption { font: 800 1.25rem var(--stand-title); }
+.batch-breakdown ul { list-style: none; margin: .7rem 0; padding: 0; }
+.batch-breakdown li { display: grid; grid-template-columns: .8rem 1fr auto; gap: .5rem; align-items: center; }
+.batch-breakdown li span:first-child { width: .75rem; height: .75rem; border-radius: .2rem; }
+.batch-breakdown li span:nth-child(2) { overflow-wrap: anywhere; }
+.batch-share-bar { display: flex; height: 1.2rem; overflow: hidden; border-radius: .35rem; margin-top: .65rem; }
+.batch-share-bar[hidden], #batchOverride[hidden], .item-row label[hidden] { display: none; }
+#batchBuilderTotal { margin: .65rem 0 0; }
+#batchOverride { margin-bottom: 0; }

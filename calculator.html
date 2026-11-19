@@ -43,6 +43,28 @@
             <input type="text" id="profitPerCup" aria-label="Profit on each cup" placeholder="—" readonly class="calculator-profit-display" />
           </div>
 
+          <figure id="pricingChart" class="pricing-chart" hidden>
+            <figcaption>Where each cup’s money goes</figcaption>
+            <p id="pricingChartExplanation"></p>
+            <div class="pricing-bars" aria-hidden="true">
+              <div>
+                <span>Cost to make it</span>
+                <div class="pricing-bar-track"><span id="pricingCostBar"></span></div>
+                <strong id="pricingCostLabel"></strong>
+              </div>
+              <div>
+                <span>Price you charge</span>
+                <div class="pricing-bar-track"><span id="pricingCoveredBar"></span><span id="pricingProfitBar"></span></div>
+                <strong id="pricingPriceLabel"></strong>
+              </div>
+            </div>
+            <div class="pricing-scenarios">
+              <button type="button" id="pricingLower">Try 25¢ less</button>
+              <button type="button" id="pricingRaise">Try 25¢ more</button>
+            </div>
+            <p class="pricing-chart-note">This comparison assumes you sell the same number of cups. A different price could change how many people buy.</p>
+          </figure>
+
           <div class="calculator-stat-grid">
             <div class="calculator-stat">
               <span>Cost per cup</span>

@@ -74,7 +74,7 @@ function updateTotals({ persist = true } = {}) {
 
   itemRows.forEach((row) => {
     const qty = parseFloat(row.querySelector('.quantity')?.value) || 0;
-    const costEach = parseMoney(row.querySelector('.cost-each')?.value);
+    const costEach = Math.max(0, parseMoney(row.querySelector('.cost-each')?.value));
     const total = qty * costEach;
     const totalField = row.querySelector('.total-cost');
     if (totalField) {
@@ -117,6 +117,29 @@ function updateTotals({ persist = true } = {}) {
       : 'Enter your batch cost, cups made, and price per cup to see what each cup earns.';
     if (ready && !validSales) {
       formulaField.textContent += ' Enter a whole number of expected sales up to the number of cups made.';
+    }
+  }
+
+  const chart = document.getElementById('pricingChart');
+  if (chart) {
+    chart.hidden = !ready;
+    if (ready) {
+      const scale = Math.max(costPerCup, pricePerCup, 0.01);
+      const setBar = (id, amount) => {
+        document.getElementById(id).style.width = `${100 * amount / scale}%`;
+      };
+      setBar('pricingCostBar', costPerCup);
+      setBar('pricingCoveredBar', Math.min(costPerCup, pricePerCup));
+      setBar('pricingProfitBar', Math.max(0, profitPerCup));
+      setOutputValue('pricingCostLabel', formatMoney(costPerCup));
+      setOutputValue('pricingPriceLabel', formatMoney(pricePerCup));
+      const breakEven = formatMoney(Math.ceil((costPerCup - 1e-10) * 100) / 100);
+      const outcome = profitPerCup >= 0
+        ? `The green part shows the ${formatMoney(profitPerCup)} you keep per cup.`
+        : `The price falls short by ${formatMoney(-profitPerCup)} per cup.`;
+      setOutputValue('pricingChartExplanation', `Each cup costs ${formatMoney(costPerCup)} to make and sells for ${formatMoney(pricePerCup)}. ${outcome} Charge at least ${breakEven} to cover the cost of one cup.`);
+      const lower = document.getElementById('pricingLower');
+      lower.setAttribute('aria-disabled', String(pricePerCup < 0.25));
     }
   }
 

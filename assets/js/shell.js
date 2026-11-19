@@ -75,14 +75,41 @@
 
   function renderRailList(selector, items) {
     document.querySelectorAll(selector).forEach((container) => {
+      const header = document.createElement("div");
+      header.className = "boss-nav-header";
+      const home = document.createElement("a");
+      home.className = "boss-nav-brand";
+      home.href = "dashboard.html";
+      home.textContent = "Lemonade Boss";
       const menu = document.createElement("details");
       const toggle = document.createElement("summary");
-      toggle.textContent = "Lemonade Boss menu";
+      toggle.textContent = "Activities & resources";
       const links = document.createElement("div");
       links.className = "rail-links";
-      items.forEach(item => links.append(createRailLink(item)));
+      const byPage = new Map(items.map(item => [item.href, item]));
+      const groups = [
+        ["Plan your stand", ["entrepreneur.html", "customize.html", "calculator.html", "loan.html"]],
+        ["Get ready to sell", ["marketing.html", "checklist.html"]],
+        ["Wrap up", ["journal.html", "certificate.html", "report.html"]],
+        ["For families", ["contact.html", "virtual-programming.html"]]
+      ];
+      groups.forEach(([title, pages]) => {
+        const group = document.createElement("section");
+        const heading = document.createElement("h2");
+        heading.textContent = title;
+        group.append(heading);
+        pages.map(page => byPage.get(page)).filter(Boolean).forEach(item => group.append(createRailLink(item)));
+        links.append(group);
+      });
       menu.append(toggle, links);
-      container.replaceChildren(menu);
+      header.append(home, menu);
+      container.replaceChildren(header);
+      menu.addEventListener("keydown", event => {
+        if (event.key === "Escape" && menu.open) {
+          menu.open = false;
+          toggle.focus();
+        }
+      });
     });
   }
 

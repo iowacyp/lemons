@@ -321,3 +321,77 @@ body[data-page] .calculator-main-output :is(span, input) { color: white; }
   body[data-page] .calculator-main-output { background: white; }
   body[data-page] .calculator-main-output :is(span, input) { color: black; }
 }
+
+.boss-nav-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: .4rem;
+  padding: .45rem;
+  position: relative;
+}
+.boss-nav-brand {
+  font-family: var(--stand-title);
+  font-size: 1.2rem;
+  font-weight: 850;
+  color: var(--stand-green);
+  padding: .65rem .7rem;
+  text-decoration: none;
+}
+.boss-nav-header details { margin-left: auto; }
+.boss-nav-header summary {
+  background: #ffe984;
+  color: var(--stand-ink);
+  border-radius: .65rem;
+  white-space: nowrap;
+}
+.boss-nav-header .rail-links {
+  position: absolute;
+  inset: calc(100% + .4rem) 0 auto;
+  z-index: 2;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: .8rem;
+  gap: .45rem;
+  background: #fffdf5;
+  border: 1px solid #d8d6c6;
+  border-radius: 1rem;
+  box-shadow: 0 14px 32px #163b3026;
+}
+.boss-nav-header .rail-links section { background: #f2f0e5; border-radius: .7rem; padding: .45rem; }
+.boss-nav-header .rail-links h2 { margin: .2rem .3rem; font-size: 1.02rem; text-align: left; }
+
+.pricing-chart {
+  margin: 1rem 0;
+  padding: clamp(.8rem, 3vw, 1.5rem);
+  background: #edf2e7;
+  border: 1px solid #cbdcc4;
+  border-radius: 1rem;
+}
+.pricing-chart figcaption { font: 800 1.3rem var(--stand-title); }
+.pricing-chart p { margin: .5rem 0 1rem; color: #234c3e; text-align: left; }
+.pricing-bars { display: grid; gap: .65rem; }
+.pricing-bars > div {
+  display: grid;
+  grid-template-columns: 8rem minmax(2rem, 1fr) 4.2rem;
+  gap: .45rem;
+  align-items: center;
+}
+.pricing-bars strong { text-align: right; }
+.pricing-bar-track { display: flex; height: 1.2rem; border-radius: .3rem; overflow: hidden; background: #dce7d8; }
+.pricing-bar-track > span { background: #ddae35; }
+#pricingProfitBar { background: #287452; }
+.pricing-scenarios { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: .45rem; }
+.pricing-chart .pricing-scenarios button { background: #ffe984; color: #193a30; box-shadow: none; }
+.pricing-chart .pricing-scenarios button[aria-disabled="true"] { opacity: .65; cursor: default; }
+.pricing-chart .pricing-chart-note { font-size: .9rem; margin-bottom: 0; }
+@media (max-width: 700px) {
+  .boss-nav-header .rail-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 430px) {
+  .boss-nav-brand { font-size: 1rem; padding-inline: .3rem; }
+  .boss-nav-header summary { padding-inline: .5rem; font-size: .88rem; }
+  .boss-nav-header .rail-links { max-height: 69vh; overflow: auto; }
+  .boss-nav-header .glass-rail-action { padding-inline: .3rem; gap: .15rem; }
+  .boss-nav-header .rail-action-icon { display: none; }
+  .pricing-bars > div { grid-template-columns: 6.2rem minmax(1.5rem, 1fr) 3.2rem; font-size: .85rem; }
+}

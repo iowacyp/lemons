@@ -11,6 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   updateTotals({ persist: false });
 
+  const price = document.getElementById('pricePerCup');
+  [['pricingLower', -25], ['pricingRaise', 25]].forEach(([id, change]) => {
+    const button = document.getElementById(id);
+    button.addEventListener('click', () => {
+      if (button.getAttribute('aria-disabled') === 'true') return;
+      price.value = ((Math.round(Number(price.value) * 100) + change) / 100).toFixed(2);
+      updateTotals();
+    });
+  });
+
   const example = document.getElementById('pricingExample');
   const note = document.getElementById('pricingExampleNote');
   let savedFields;

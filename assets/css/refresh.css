@@ -395,3 +395,25 @@ body[data-page] .calculator-main-output :is(span, input) { color: white; }
   .boss-nav-header .rail-action-icon { display: none; }
   .pricing-bars > div { grid-template-columns: 6.2rem minmax(1.5rem, 1fr) 3.2rem; font-size: .85rem; }
 }
+
+body[data-page] .pricing-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  padding: clamp(1rem, 4vw, 2rem);
+}
+.pricing-editor h2 { margin: 0 0 1rem; text-align: left; }
+.pricing-editor .pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.pricing-editor .pricing-grid label { display: flex; flex-direction: column; justify-content: end; }
+.pricing-results .pricing-chart { margin: 0 0 .65rem; }
+.pricing-results .pricing-bars { margin-top: .65rem; }
+.pricing-results .pricing-chart p:last-child { margin-bottom: 0; }
+.pricing-feedback { font-size: .9rem; text-align: left; }
+#batchSalesBar { background: #287452; }
+
+@media (max-width: 760px) {
+  body[data-page] .pricing-workspace { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 380px) {
+  .pricing-editor .pricing-grid { grid-template-columns: 1fr; }
+}

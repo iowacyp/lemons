@@ -103,11 +103,10 @@ function updateTotals({ persist = true } = {}) {
   const show = (value, available) => available ? formatMoney(value) : '—';
 
   setOutputValue('batchCostReadout', show(batchCost, hasBatchCost));
-  setOutputValue('costPerCupReadout', show(costPerCup, ready));
-  setOutputValue('pricePerCupReadout', show(pricePerCup, hasValue(fields.pricePerCup)));
+  setOutputValue('pricingCostLabel', show(costPerCup, ready));
   setOutputValue('totalIncomeReadout', show(totalIncome, validSales));
   setOutputValue('finalProfitReadout', show(totalProfit, validSales));
-  setOutputValue('profitPerCup', show(profitPerCup, ready));
+  setOutputValue('pricingProfitLabel', show(profitPerCup, ready));
 
   const formulaField = document.getElementById('calculatorFormula');
   if (formulaField) {
@@ -122,7 +121,8 @@ function updateTotals({ persist = true } = {}) {
 
   const chart = document.getElementById('pricingChart');
   if (chart) {
-    chart.hidden = !ready;
+    document.getElementById('pricingChartDetails').hidden = !ready;
+    setOutputValue('pricingChartExplanation', 'Enter your numbers or try the example to see what each cup earns.');
     if (ready) {
       const scale = Math.max(costPerCup, pricePerCup, 0.01);
       const setBar = (id, amount) => {
@@ -131,7 +131,6 @@ function updateTotals({ persist = true } = {}) {
       setBar('pricingCostBar', costPerCup);
       setBar('pricingCoveredBar', Math.min(costPerCup, pricePerCup));
       setBar('pricingProfitBar', Math.max(0, profitPerCup));
-      setOutputValue('pricingCostLabel', formatMoney(costPerCup));
       setOutputValue('pricingPriceLabel', formatMoney(pricePerCup));
       const breakEven = formatMoney(Math.ceil((costPerCup - 1e-10) * 100) / 100);
       const outcome = profitPerCup >= 0
@@ -140,6 +139,17 @@ function updateTotals({ persist = true } = {}) {
       setOutputValue('pricingChartExplanation', `Each cup costs ${formatMoney(costPerCup)} to make and sells for ${formatMoney(pricePerCup)}. ${outcome} Charge at least ${breakEven} to cover the cost of one cup.`);
       const lower = document.getElementById('pricingLower');
       lower.setAttribute('aria-disabled', String(pricePerCup < 0.25));
+    }
+  }
+
+  const batchChart = document.getElementById('batchChart');
+  if (batchChart) {
+    batchChart.hidden = !validSales;
+    if (validSales) {
+      const scale = Math.max(batchCost, totalIncome, 0.01);
+      document.getElementById('batchCostBar').style.width = `${100 * batchCost / scale}%`;
+      document.getElementById('batchSalesBar').style.width = `${100 * totalIncome / scale}%`;
+      setOutputValue('batchCostLabel', formatMoney(batchCost));
     }
   }
 
@@ -387,12 +397,12 @@ function attachListeners(row) {
 
 function downloadReport() {
   const batchCost = document.getElementById('batchCostReadout')?.textContent || '';
-  const costPerCup = document.getElementById('costPerCupReadout')?.textContent || '';
+  const costPerCup = document.getElementById('pricingCostLabel')?.textContent || '';
   const pricePerCup = document.getElementById('pricePerCup')?.value || '';
   const cupsSold = document.getElementById('cupsSold')?.value || document.getElementById('cupsMade')?.value || '';
   const cupsMade = document.getElementById('cupsMade')?.value || '';
   const totalIncome = document.getElementById('totalIncomeReadout')?.textContent || '';
-  const profitPerCup = document.getElementById('profitPerCup')?.value || '';
+  const profitPerCup = document.getElementById('pricingProfitLabel')?.textContent || '';
   const finalProfit = document.getElementById('finalProfitReadout')?.textContent || '';
 
   let content = `🍋 Lemonade Cup Profit Summary 🍋\n\n`;

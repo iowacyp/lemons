@@ -7,11 +7,24 @@
   <title>Lemonade Boss Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/refresh.css">
 </head>
 <body data-page="dashboard">
   <div class="container dashboard-page">
-    <aside class="dashboard-rail glass-panel" data-shell-dashboard-rail aria-label="Dashboard navigation"></aside>
+    <nav class="dashboard-rail glass-panel" data-shell-dashboard-rail aria-label="Main navigation"></nav>
     <main class="dashboard-shell">
+      <section class="glass-card journey-card">
+        <div class="card-title-row">
+          <h1>Your lemonade business</h1>
+          <span id="journeyStepCount" class="badge-chip">0 of 8 complete</span>
+        </div>
+        <p id="journeyCopy" class="card-copy"></p>
+        <a id="journeyAction" class="journey-cta" href="entrepreneur.html"><span>Start the business lesson</span></a>
+      </section>
+      <section class="dashboard-section" aria-labelledby="activities-title">
+        <h2 id="activities-title">Your activities</h2>
+        <div id="journeySteps" class="journey-step-list"></div>
+      </section>
       <section class="dashboard-hero glass-panel">
         <div class="dashboard-topbar">
           <div class="dashboard-mark">
@@ -25,22 +38,9 @@
           </div>
         </div>
 
-        <div class="dashboard-completion-frame" aria-live="polite">
-          <div class="completion-copy">
-            <span class="completion-label">Dashboard progress</span>
-            <strong id="dashboardCompletionPercent">0%</strong>
-          </div>
-          <div class="completion-track" aria-hidden="true">
-            <div id="dashboardCompletionBar" class="completion-fill"></div>
-          </div>
-          <p id="dashboardCompletionCopy" class="completion-note">
-            Keep going to unlock more updates on this dashboard.
-          </p>
-        </div>
-
         <div class="dashboard-hero-copy">
           <p class="eyebrow">Build. Price. Sell. Learn.</p>
-          <h1 id="dashboardStandName">My Lemonade Stand</h1>
+          <h2 id="dashboardStandName">My Lemonade Stand</h2>
           <p id="dashboardSlogan" class="hero-line">Fresh lemonade, smart prices, and simple money skills for a real business.</p>
         </div>
 
@@ -58,27 +58,6 @@
             <strong id="dashboardBrand">Sunny and smart</strong>
           </div>
         </div>
-      </section>
-
-      <section class="dashboard-section">
-        <article class="glass-card journey-card">
-          <div class="card-title-row">
-            <div>
-              <p class="section-kicker">Guided flow</p>
-              <h2>Continue your journey</h2>
-            </div>
-            <span class="badge-chip accent" id="journeyProgress">Step 1</span>
-          </div>
-          <p id="journeyCopy" class="card-copy">Follow the next step to keep your business setup moving from idea to opening day.</p>
-          <div class="journey-action">
-            <a id="journeyAction" class="journey-cta" href="entrepreneur.html">
-              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-              <span>Start here</span>
-            </a>
-            <span id="journeyStepCount" class="badge-chip">0 of 0 complete</span>
-          </div>
-          <div id="journeySteps" class="journey-step-list"></div>
-        </article>
       </section>
 
       <section class="dashboard-section">

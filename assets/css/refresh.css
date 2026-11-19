@@ -1,0 +1,158 @@
+html, html.dark-mode, body[data-page] {
+  background: #fff9eb;
+  color: #202c24;
+}
+
+body[data-page] {
+  display: block;
+}
+
+body[data-page]::before { display: none; }
+
+body[data-page] .container,
+body.has-global-rail .container {
+  width: min(100%, 74rem);
+  margin-inline: auto;
+  padding: 1rem clamp(1rem, 4vw, 3rem) 3rem;
+}
+
+body[data-page] .app-container,
+html.dark-mode body[data-page] .app-container {
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+body[data-page] :is(.glass-panel, .glass-card) {
+  background: #fffefa;
+  border: 1px solid #e2dccb;
+  border-radius: 1.15rem;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+body[data-page] .dashboard-hero {
+  min-height: 0;
+  overflow: visible;
+}
+
+.dashboard-hero::before, .dashboard-hero::after { display: none; }
+.dashboard-hero-copy h2 { font-size: clamp(1.6rem, 4vw, 2.5rem); }
+
+body[data-page] .dashboard-rail {
+  position: relative;
+  inset: auto;
+  transform: none;
+  display: block;
+  width: min(100% - 2rem, 68rem);
+  margin: 1rem auto 0;
+  padding: 0;
+  z-index: 2;
+}
+
+body[data-page] .dashboard-page .dashboard-rail {
+  width: 100%;
+  margin: 0 0 1rem;
+}
+
+.dashboard-rail summary {
+  padding: .75rem 1rem;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.rail-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  padding: .25rem .65rem .65rem;
+  gap: .35rem;
+}
+
+body[data-page] .glass-rail-action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: .4rem;
+  width: auto;
+  height: auto;
+  min-height: 2.75rem;
+  padding: .3rem .65rem;
+  background: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+  transform: none;
+  font-size: .95rem;
+  text-align: left;
+}
+
+body[data-page] .glass-rail-action::after { display: none; }
+body[data-page] .glass-rail-action:hover,
+body[data-page] .glass-rail-action[aria-current="page"] { background: #ffec9c; }
+
+body[data-page] :focus-visible { outline: 3px solid #267150; outline-offset: 3px; }
+
+body[data-page] .journey-card {
+  background: #e8f1df;
+  border-color: #cadac0;
+  padding: clamp(1rem, 4vw, 2rem);
+}
+
+.journey-card h1 { margin: 0; text-align: left; font-size: clamp(1.75rem, 4vw, 2.8rem); }
+body[data-page] .journey-cta { display: inline-flex; background: #ffdc54; box-shadow: none; }
+body[data-page] .journey-step-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.journey-step-list section h3 { font-size: 1rem; margin: .35rem 0 .65rem; }
+body[data-page] .journey-step {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  margin-bottom: .45rem;
+  background: #fffefa;
+  border: 1px solid #e2dccb;
+  text-align: left;
+}
+.journey-step span { white-space: nowrap; }
+
+.stand-builder-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 1rem; }
+body[data-page] .preview-card {
+  background: #fff1ae;
+  border: 1px solid #cfaa31;
+  border-top: .55rem solid #f1c539;
+  text-align: center;
+}
+.preview-card .card-title-row { justify-content: center; }
+.preview-card .preview-name { overflow-wrap: anywhere; }
+
+.pricing-inputs h2 { margin-top: 0; }
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .8rem;
+}
+.pricing-grid input { display: block; width: 100%; box-sizing: border-box; margin-top: .3rem; }
+.pricing-example button { background: #ffdc54; color: #202c24; box-shadow: none; }
+body[data-page] .calculator-main-output { background: #fff1ae; }
+.funding-choice { background: #e8f1df; padding: 1rem; border-radius: .8rem; }
+.funding-choice input, #businessLessonComplete { width: 1.1rem; height: 1.1rem; vertical-align: middle; }
+
+@media (max-width: 760px) {
+  body[data-page] .journey-step-list, .stand-builder-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .pricing-grid { grid-template-columns: 1fr; }
+  .journey-card .card-title-row { align-items: flex-start; flex-direction: column; }
+}
+
+@media print {
+  body[data-page] { background: white; }
+  body[data-page] .dashboard-rail,
+  body[data-page] .nav-bar,
+  .pricing-example { display: none; }
+  body[data-page] .container { width: 100%; padding: 0; }
+}

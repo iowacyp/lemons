@@ -6,56 +6,56 @@
   <title>Customize Your Stand</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/refresh.css">
 </head>
 <body data-page="customize">
   <div class="container">
     <div class="app-container">
       <section class="page-hero glass-panel" data-shell-page-hero></section>
 
-      <section class="dashboard-section">
-        <article class="glass-card preview-card">
-          <div class="card-title-row">
-            <div>
-              <p class="section-kicker">Live preview</p>
-              <h2>How your stand will read</h2>
-            </div>
-            <span class="badge-chip accent">Updates as you type</span>
-          </div>
-          <p id="standPreviewName" class="preview-name">Sunny Sips</p>
-          <p id="standPreviewSlogan" class="preview-slogan">Cold drinks, warm smiles.</p>
-          <div class="preview-grid">
-            <div>
-              <span>Date</span>
-              <strong id="standPreviewDate">Not set yet</strong>
-            </div>
-            <div>
-              <span>Time</span>
-              <strong id="standPreviewTime">Not set yet</strong>
-            </div>
-          </div>
-        </article>
-      </section>
-
       <section class="page-stack">
-        <article class="glass-card form-card">
-          <div class="card-title-row">
-            <div>
-              <p class="section-kicker">Brand basics</p>
-              <h2>Name and slogan</h2>
+        <div class="stand-builder-grid">
+          <article class="glass-card form-card">
+            <div class="card-title-row">
+              <div>
+                <p class="section-kicker">Brand basics</p>
+                <h2>Name and slogan</h2>
+              </div>
             </div>
-          </div>
-          <p class="card-copy">Pick something clear and easy to remember. Short names work best on signs and flyers.</p>
+            <p class="card-copy">Pick something clear and easy to remember. Short names work best on signs and flyers.</p>
 
-          <label for="stand-name">
-            <i class="fa-solid fa-sign-hanging"></i> Stand name
-          </label>
-          <input type="text" id="stand-name" placeholder="Example: Sunny Sips" />
+            <label for="stand-name">
+              <i class="fa-solid fa-sign-hanging"></i> Stand name
+            </label>
+            <input type="text" id="stand-name" placeholder="Example: Sunny Sips" />
 
-          <label for="slogan">
-            <i class="fa-solid fa-comment-dots"></i> Slogan
-          </label>
-          <input type="text" id="slogan" placeholder="Example: Cold drinks, warm smiles" />
-        </article>
+            <label for="slogan">
+              <i class="fa-solid fa-comment-dots"></i> Slogan
+            </label>
+            <input type="text" id="slogan" placeholder="Example: Cold drinks, warm smiles" />
+          </article>
+          <article class="glass-card preview-card">
+            <div class="card-title-row">
+              <div>
+                <p class="section-kicker">Live preview</p>
+                <h2>Your stand sign</h2>
+              </div>
+
+            </div>
+            <p id="standPreviewName" class="preview-name">Sunny Sips</p>
+            <p id="standPreviewSlogan" class="preview-slogan">Cold drinks, warm smiles.</p>
+            <div class="preview-grid">
+              <div>
+                <span>Date</span>
+                <strong id="standPreviewDate">Not set yet</strong>
+              </div>
+              <div>
+                <span>Time</span>
+                <strong id="standPreviewTime">Not set yet</strong>
+              </div>
+            </div>
+          </article>
+        </div>
 
         <article class="glass-card form-card">
           <div class="card-title-row">

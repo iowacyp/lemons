@@ -6,6 +6,7 @@
   <title>Business Mindset</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/refresh.css">
 </head>
 <body data-page="entrepreneur">
   <div class="container">
@@ -27,12 +28,17 @@
         <p><i class="fa-solid fa-check"></i> Creativity</p>
         <p><i class="fa-solid fa-check"></i> Real-life skills like planning, budgeting, and leadership</p>
 
-        <p>Ready to build your first business? Let’s go!</p>
+        <p><label><input id="businessLessonComplete" type="checkbox"> I finished the business lesson.</label></p>
       </div>
       <div class="nav-bar" data-shell-nav></div>
     </div>
   </div>
   <script src="assets/js/site-data.js"></script>
   <script src="assets/js/shell.js"></script>
+  <script>
+    const lesson = document.getElementById('businessLessonComplete');
+    lesson.checked = localStorage.getItem(lesson.id) === 'true';
+    lesson.addEventListener('change', () => localStorage.setItem(lesson.id, String(lesson.checked)));
+  </script>
 </body>
 </html>

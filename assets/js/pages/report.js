@@ -49,7 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
     try {
       marketingData = JSON.parse(marketingPlanRaw);
     } catch {
-      const lines = marketingPlanRaw.split('\n').map((line) => line.trim()).filter(Boolean);
+      const lines = marketingPlanRaw.split(/\n|\s+(?=What makes our lemonade special:|Our pitch:|Flyer caption:)/).map(line => line.trim()).filter(Boolean);
       marketingData = {
         waysToSpread: lines[0] || '',
         specialHighlight: lines[1] || '',

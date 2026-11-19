@@ -6,12 +6,14 @@
   <title>Startup Funding</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/refresh.css">
 </head>
 <body data-page="loan">
   <div class="container">
     <div class="app-container">
       <section class="page-hero glass-panel" data-shell-page-hero></section>
 
+      <p class="funding-choice"><label><input id="fundingSelf" type="checkbox"> I can start without borrowing money.</label></p>
       <section class="dashboard-section">
         <article class="glass-card agreement-preview-card">
           <div class="card-title-row">
@@ -126,5 +128,10 @@
   <script src="assets/js/site-data.js"></script>
   <script src="assets/js/shell.js"></script>
   <script src="assets/js/pages/loan.js"></script>
+  <script>
+    const selfFunding = document.getElementById('fundingSelf');
+    selfFunding.checked = localStorage.getItem(selfFunding.id) === 'true';
+    selfFunding.addEventListener('change', () => localStorage.setItem(selfFunding.id, String(selfFunding.checked)));
+  </script>
 </body>
 </html>

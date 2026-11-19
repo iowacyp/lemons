@@ -142,19 +142,36 @@ function updateTotals({ persist = true } = {}) {
   const override = document.getElementById('batchOverride');
   if (override) override.hidden = !hasManualCost || !hasSupplyCost || document.body.hasAttribute('data-pricing-example');
   if (hasManualCost) batchCost = Number(fields.batchCostInput.value);
-  const ready = hasBatchCost && hasValue(fields.cupsMade) && hasValue(fields.pricePerCup);
+  const sourceText = hasManualCost
+    ? `Using ${formatMoney(batchCost)} from the amount you entered above.`
+    : hasBatchCost
+      ? `Using ${formatMoney(batchCost)} from your ingredient list below.`
+      : 'Add ingredients below or enter a batch cost above.';
+  setOutputValue('batchPricingSource', sourceText);
+  const flowText = hasManualCost
+    ? 'Pricing is using the amount entered above.'
+    : hasBatchCost
+      ? `${formatMoney(batchCost)} is used as the batch cost in the pricing calculator above.`
+      : 'Add ingredient costs here to calculate the batch cost for pricing above.';
+  setOutputValue('batchFlow', flowText);
+  const knowsServingCost = hasBatchCost && hasValue(fields.cupsMade);
+  const ready = knowsServingCost && hasValue(fields.pricePerCup);
   const cupsMade = Number(fields.cupsMade.value);
   const pricePerCup = Number(fields.pricePerCup.value);
   const cupsSold = fields.cupsSold.value === '' ? cupsMade : Number(fields.cupsSold.value);
   const validSales = ready && fields.cupsSold.validity.valid && cupsSold <= cupsMade;
-  const costPerCup = ready ? batchCost / cupsMade : 0;
+  const costPerCup = knowsServingCost ? batchCost / cupsMade : 0;
+  const servingMath = knowsServingCost
+    ? `${formatMoney(batchCost)} batch cost ÷ ${cupsMade} ${cupsMade === 1 ? "serving" : "servings"} = ${formatMoney(costPerCup)} per serving.`
+    : "Batch cost ÷ servings per batch = cost per serving.";
+  setOutputValue('batchServingMath', servingMath);
   const profitPerCup = pricePerCup - costPerCup;
   const totalIncome = pricePerCup * cupsSold;
   const totalProfit = totalIncome - batchCost;
   const show = (value, available) => available ? formatMoney(value) : '—';
 
   setOutputValue('batchCostReadout', show(batchCost, hasBatchCost));
-  setOutputValue('pricingCostLabel', show(costPerCup, ready));
+  setOutputValue('pricingCostLabel', show(costPerCup, knowsServingCost));
   setOutputValue('totalIncomeReadout', show(totalIncome, validSales));
   setOutputValue('finalProfitReadout', show(totalProfit, validSales));
   setOutputValue('pricingProfitLabel', show(profitPerCup, ready));
@@ -165,6 +182,7 @@ function updateTotals({ persist = true } = {}) {
     formulaField.textContent = ready
       ? `You spend ${formatMoney(costPerCup)} to make a cup. At ${formatMoney(pricePerCup)}, you ${outcome} ${formatMoney(Math.abs(profitPerCup))} per cup.`
       : 'Enter your batch cost, cups made, and price per cup to see what each cup earns.';
+    if (knowsServingCost && !ready) formulaField.textContent = servingMath + ' Add a selling price to see your profit.';
     if (ready && !validSales) {
       formulaField.textContent += ' Enter a whole number of expected sales up to the number of cups made.';
     }
@@ -209,7 +227,7 @@ function updateTotals({ persist = true } = {}) {
   localStorage.setItem('pricingPlanComplete', String(validSales));
   const totals = {
     batchCost: [batchCost, hasBatchCost],
-    costPerCup: [costPerCup, ready],
+    costPerCup: [costPerCup, knowsServingCost],
     profitPerCup: [profitPerCup, ready],
     totalExpenses: [batchCost, hasBatchCost],
     finalSuppliesCost: [batchCost, hasBatchCost],

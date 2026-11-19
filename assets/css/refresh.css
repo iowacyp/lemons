@@ -448,3 +448,21 @@ body[data-page] .batch-presets button:hover { background: #ffdf62; }
 .batch-share-bar[hidden], #batchOverride[hidden], .item-row label[hidden] { display: none; }
 #batchBuilderTotal { margin: .65rem 0 0; }
 #batchOverride { margin-bottom: 0; }
+
+.batch-serving-summary {
+  margin-top: .8rem;
+  border-top: 1px solid #cbdcc4;
+  padding-top: .65rem;
+}
+.batch-serving-summary p { margin: 0 0 .3rem; font-weight: 800; }
+.batch-serving-summary a { color: #205642; text-decoration: underline; }
+#cupsMade { scroll-margin-top: 1.5rem; }
+
+.batch-source {
+  padding: .75rem;
+  margin: .65rem 0;
+  background: #edf2e7;
+  border-radius: .65rem;
+}
+.batch-source p { margin: 0 0 .3rem; font-weight: 800; }
+.batch-source a { color: #205642; text-decoration: underline; }

@@ -17,12 +17,16 @@
         <div class="pricing-editor">
           <h2 id="pricingTitle">Build your pricing plan</h2>
           <div class="pricing-grid">
-            <label>Batch cost ($)<input id="batchCostInput" type="number" min="0" step="0.01" inputmode="decimal"></label>
-            <label>Cups made<input id="cupsMade" type="number" min="1" step="1" inputmode="numeric"></label>
+            <label>Enter batch cost ($)<input aria-describedby="batchPricingSource" id="batchCostInput" type="number" min="0" step="0.01" inputmode="decimal"></label>
+            <label>Servings per batch<input aria-describedby="batchServingHelp" id="cupsMade" type="number" min="1" step="1" inputmode="numeric"></label>
             <label>Price per cup ($)<input id="pricePerCup" type="number" min="0" step="0.01" inputmode="decimal"></label>
             <label>Cups you expect to sell<input id="cupsSold" type="number" min="0" step="1" inputmode="numeric" placeholder="All cups made"></label>
           </div>
-          <p class="pricing-help">Leave batch cost blank to use the ingredient total below.</p>
+          <p class="pricing-help" id="batchServingHelp">Count one serving for each cup your recipe fills. This is how many you make, before any are sold.</p>
+          <div class="batch-source">
+            <p id="batchPricingSource" role="status">Add ingredients below or enter a batch cost above.</p>
+            <a href="#batchBuilder">Build batch cost from ingredients</a>
+          </div>
           <div class="pricing-example">
             <button type="button" id="pricingExample" aria-pressed="false">Try an example</button>
             <p id="pricingExampleNote" hidden>Practice mode. Changes here won’t overwrite your plan.</p>
@@ -67,14 +71,14 @@
       </section>
 
       <section class="dashboard-section">
-        <article class="glass-card calculator-workbench">
+        <article class="glass-card calculator-workbench" id="batchBuilder">
           <div class="card-title-row">
             <div>
               <p class="section-kicker">Batch cost</p>
               <h2>How much does one batch cost?</h2>
             </div>
           </div>
-          <p class="card-copy">Choose what goes into one batch. Enter the cost of what you use, even if you bought a bigger bag or pack.</p>
+          <p class="card-copy">Add the ingredients and supplies you use for one batch. The Cups preset is for the cost of the empty cups. Set how many servings the recipe makes separately.</p>
           <div id="batchBuilderControls">
             <div class="batch-presets" aria-label="Add a batch ingredient">
               <button type="button" data-supply="Lemons"><i class="fa-solid fa-lemon" aria-hidden="true"></i> Lemons</button>
@@ -92,7 +96,12 @@
             <p id="batchBreakdownEmpty">Add an ingredient and its cost to build the chart.</p>
             <div class="batch-share-bar" id="batchShareBar" aria-hidden="true" hidden></div>
             <ul id="batchShareLegend" hidden></ul>
-            <p id="batchBuilderTotal" role="status">Ingredient total <strong id="ingredientTotal">$0.00</strong></p>
+            <p id="batchBuilderTotal">Ingredient and supply total <strong id="ingredientTotal">$0.00</strong></p>
+            <div class="batch-serving-summary">
+              <p id="batchFlow">Add ingredient costs here to calculate the batch cost for pricing above.</p>
+              <p id="batchServingMath" role="status">Batch cost ÷ servings per batch = cost per serving.</p>
+              <a href="#cupsMade">Set servings per batch</a>
+            </div>
           </figure>
           <p id="batchOverride" hidden>A manual batch cost of <strong id="batchCostReadout"></strong> is currently used for pricing.
             <button type="button" id="useIngredientTotal">Use ingredient total</button>
